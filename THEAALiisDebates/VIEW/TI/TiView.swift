@@ -152,4 +152,6 @@ struct TiView: View {
 
 #Preview {
     TiView(ti: nil, showTiView: .constant(true))
+    
+//    TIView()
 }
