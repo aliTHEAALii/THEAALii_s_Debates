@@ -42,7 +42,7 @@ struct TiCard: View {
                             
                         }
                     }
-                    .padding(.bottom, ti.tiType == .d2 ? width * 0.17 : width * 0.085)
+                    .padding(.bottom, ti.tiType == .d2 ? width * 0.14 : width * 0.085)
                     
                     if ti.tiType == .d2 {
                         D2IconBarNew(ti: ti)

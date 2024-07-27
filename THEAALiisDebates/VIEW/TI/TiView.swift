@@ -28,23 +28,19 @@ struct TiView: View {
         
         VStack(spacing: 0) {
             
-            //            if let ti = ti {
             FSCHeaderSV(showFSC: $showTiView, text: ti?.title ?? "Couldn't get Ti")
-            //            }
             
-            //            Divider()
             // - Video
             if tiPost != nil {
                 
-                VideoSV(urlString: tiPost!.videoURL ?? "")
+//                VideoSV(urlString: tiPost!.videoURL ?? "")
+                TiPostContentView(post: $tiPost)
                 
             } else {    //No Video Show text
                 ZStack {
                     Rectangle()
                         .foregroundColor(.gray.opacity(0.2))
                         .frame(width: width, height: width * 0.5625)
-                    //                    LoadingView(color: .gray)
-                    //                        .frame(width: width, height: width * 0.5625)
                     
                     if let ti = ti {
                         Text(ti.description)

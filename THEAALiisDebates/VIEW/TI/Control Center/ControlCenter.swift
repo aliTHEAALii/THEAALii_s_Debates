@@ -10,14 +10,14 @@ import SwiftUI
 //MARK: - Ti Control Center Light
 struct ControlCenter: View {
     
-    @AppStorage("current_user_uid") var currentUserUID: String = ""
+    @AppStorage("current_user_uid") var currentUserUID: String = "ooo"
     
     @Binding var ti: TI?
     @Binding var tiChain: [String]
     
     @Binding var selectedChainLink: Int
     
-    @State private var expandTiControls: Bool = true
+    @State private var expandTiControls: Bool = false
     
     var body: some View {
         
@@ -31,8 +31,7 @@ struct ControlCenter: View {
                          tiChain: $tiChain,
                          selectedChainLink: $selectedChainLink,
                          expandTiControls: $expandTiControls)
-                
-                
+                                
                 // - Expanded Controls - \\
                 if expandTiControls {
                     

@@ -94,9 +94,6 @@ struct TIVideoPlayerViewOld: View {
                         thumbnailPressed()
                     } label: {
                         ZStack {
-                            //BackGround
-                            Rectangle()
-                                .fill(Color.black)
                             
                             AsyncImage(url: thumbnailURL) { image in
                                 image.resizable()
@@ -111,6 +108,7 @@ struct TIVideoPlayerViewOld: View {
                                 .frame(width: width * sf, height: width * 0.5625 * sf)
                             }
                         }
+                        .background(Color.black)
                     }
                 }
             } else {

@@ -7,31 +7,6 @@
 
 import Foundation
 
-//MARK: - Logic
-
-//ti Title                          //
-//ti thumbbnail                     //
-//intro paragraph                   //
-//ti Admins UIDs                    //
-
-///if d1
-//ti d1                             //
-//
-
-///else if d2
-// ti d2
-// left  User
-// Right User
-
-
-
-
-///ti  creator
-//add to created TIs
-//add Observing TIs
-
-
-
 @MainActor
 final class CreateTIVM: ObservableObject {
     
@@ -108,7 +83,7 @@ final class CreateTIVM: ObservableObject {
 }
 
 
-//@MainActor
+//MARK: - Here -
 final class CreateTiVM {
     
     //MARK: - Create D1 Ti
@@ -161,6 +136,8 @@ final class CreateTiVM {
                 }
                 
                 try await PostManager.shared.createPost(tiID: id, post: introPost)
+                
+                try await UserManager.shared.addTiToCreated(tiID: id, currentUserUID: creatorUID)
                 
                 print("✅🔥🥬🔼 Success: uploaded [ introPost ] 🔼🥬🔥✅")
                 completion(true)
@@ -245,6 +222,8 @@ final class CreateTiVM {
                 //post
                 try await PostManager.shared.createPost(tiID: id, post: introPost)
                 
+                try await UserManager.shared.addTiToCreated(tiID: id, currentUserUID: creatorUID)
+                
                 print("✅🔥🥬🔼 Success: uploaded [ introPost ] 🔼🥬🔥✅")
                 completion(true)
                 return true
@@ -323,6 +302,9 @@ final class CreateTiVM {
                 
                 //post
                 try await PostManager.shared.createPost(tiID: id, post: introPost)
+                
+                try await UserManager.shared.addTiToCreated(tiID: id, currentUserUID: creatorUID)
+
                 
                 print("✅🔥🥬🔼 Success: uploaded [ introPost ] 🔼🥬🔥✅")
                 completion(nil)

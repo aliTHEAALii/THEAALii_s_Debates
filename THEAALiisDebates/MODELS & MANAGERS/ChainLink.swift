@@ -19,7 +19,7 @@ struct ChainLink: Identifiable, Codable {
     var addedFromVerticalList: Bool
     //Vertical list info
     var verticalList : [String] = []
-    var listAccess   :  String?
+    var listAccess   :  VerticalListAccess?
     var listTitle    :  String?
     
     ///Create ChainLink
@@ -30,7 +30,7 @@ struct ChainLink: Identifiable, Codable {
         self.addedFromVerticalList = addedFromVerticalListed
     }
     ///Read ChainLink
-    init(id: String, title: String, thumbnailURL: String?, addedFromVerticalList: Bool, verticalList: [String], listAccess: String?, listTitle: String?) {
+    init(id: String, title: String, thumbnailURL: String?, addedFromVerticalList: Bool, verticalList: [String], listAccess: VerticalListAccess?, listTitle: String?) {
         self.id           = id
         self.title        = title
         self.thumbnailURL = thumbnailURL
@@ -79,7 +79,7 @@ struct ChainLink: Identifiable, Codable {
         self.addedFromVerticalList = try container.decodeIfPresent(Bool.self, forKey: .addedFromVerticalList) ?? false
         //Vertical List
         self.verticalList = try container.decode([String].self,        forKey: .verticalList)
-        self.listAccess   = try container.decodeIfPresent(String.self, forKey: .listAccess  )
+        self.listAccess   = try container.decodeIfPresent(VerticalListAccess.self, forKey: .listAccess  ) ?? .open
         self.listTitle    = try container.decodeIfPresent(String.self, forKey: .ListTitle   )
     }
 }
@@ -195,5 +195,8 @@ final class ChainLinkManager {
         }
     }
     
+    func updateVerticalListAccess(tiID: String, chainLinkID: String, access: VerticalListAccess) async throws {
+        try await chainDocument(tiID: tiID, chainID: chainLinkID).updateData([ChainLink.CodingKeys.listAccess.rawValue : access.rawValue ])
+    }
     //4. Delete
 }

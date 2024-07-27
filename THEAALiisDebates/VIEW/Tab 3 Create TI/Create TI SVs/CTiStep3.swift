@@ -56,7 +56,9 @@ struct ChooseVerticalListAccess: View {
     @State private var showSheet: Bool = false
     
     var body: some View {
+        
         HStack(spacing: width * 0.1) {
+            
             Text("Vertical List Access")
                 .foregroundStyle(.white)
             

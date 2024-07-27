@@ -10,6 +10,9 @@ import SwiftUI
 
 struct TiVerticalListView: View {
     
+    @AppStorage("current_user_uid") var currentUserUID: String = "ooo"
+
+    
     @Binding var ti: TI?
     @Binding var tiChain: [String]
     @Binding var tiChainLink: ChainLink?
@@ -22,34 +25,13 @@ struct TiVerticalListView: View {
     var vlVM = VerticalListVM()
     
     var body: some View {
+        
         VStack(spacing: 0) {
             
             Divider()
             
-            HStack(spacing: 0) {
-                
-                Spacer()
-                
-                Text("Vertical")
-                    .foregroundColor(.secondary)
-                    .frame(width: width * 0.3)
-                
-                Spacer()
-                
-                //MARK: Add Video to list
-                CCAddToChainButton(rightOrLeft: nil, ti: $ti, tiChainLink: $tiChainLink, tiChain: $tiChain)
-                
-                Spacer()
-                
-                Text("List")
-                    .foregroundColor(.secondary)
-                    .frame(width: width * 0.3)
-                
-                
-                Spacer()
-                
-            }
-            .padding(.vertical)
+            //VL Header
+            VerticalListControlBar(ti: $ti, tiChain: $tiChain, tiChainLink: $tiChainLink)
             
 
             if tiChainLink != nil {

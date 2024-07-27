@@ -140,10 +140,17 @@ final class UserManager {
     }
     
     //2. - Read
+    //2. - Read
     func getUser(userId: String) async throws -> UserModel? {
+        guard !userId.isEmpty else { return nil }
         do {
-            return try await userDocument(userUID: userId).getDocument(as: UserModel.self)
+
+            let user = try await userDocument(userUID: userId).getDocument(as: UserModel.self)
+            print("🟢😀 Got User")
+            return user
+            
         } catch {
+            print("🆘⏬😔 Error Getting User: \(error.localizedDescription)🆘")
             return nil
         }
     }
@@ -152,11 +159,33 @@ final class UserManager {
     //3. - Update
     func updateSavedUsers(currentUserId: String, userIdForArray: String, addOrRemove: AddOrRemove) async throws {
         if addOrRemove == .add {
-            try await userDocument(userUID: currentUserId).updateData([UserModel.CodingKeys.savedUsersUIDs.rawValue : FieldValue.arrayUnion([userIdForArray] as! [Any])] )
+            try await userDocument(userUID: currentUserId).updateData([UserModel.CodingKeys.savedUsersUIDs.rawValue : FieldValue.arrayUnion([userIdForArray])] )
         } else {
-            try await userDocument(userUID: currentUserId).updateData([UserModel.CodingKeys.savedUsersUIDs.rawValue : FieldValue.arrayRemove([userIdForArray] as! [Any])])
+            try await userDocument(userUID: currentUserId).updateData([UserModel.CodingKeys.savedUsersUIDs.rawValue : FieldValue.arrayRemove([userIdForArray])])
 
         }
+    }
+    
+    func updateObservingTIs(tiUID: String, currentUserUID: String, addOrRemove: AddOrRemove) async throws {
+        if addOrRemove == .add {
+            try await userDocument(userUID: currentUserUID).updateData([UserModel.CodingKeys.observingTIsIDs.rawValue : FieldValue.arrayUnion([tiUID])])
+        } else {
+            try await userDocument(userUID: currentUserUID).updateData([UserModel.CodingKeys.observingTIsIDs.rawValue : FieldValue.arrayRemove([tiUID])])
+        }
+    }
+    
+    func addTiToCreated(tiID: String, currentUserUID: String) async throws {
+        Task {
+            do {
+                try await userDocument(userUID: currentUserUID).updateData([UserModel.CodingKeys.createdTIsIDs.rawValue : FieldValue.arrayUnion([tiID])])
+                print("🟢 Ti added to user's created Tis IDs")
+
+            } catch {
+                print("🆘 Error ti not added to user's created Tis IDs \(error.localizedDescription) ❌")
+                throw error
+            }
+        }
+
     }
     
     //4. - Delete

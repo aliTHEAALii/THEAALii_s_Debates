@@ -130,6 +130,9 @@
 		2F6CA3F62C271BD0003EF603 /* CCMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6CA3F52C271BD0003EF603 /* CCMap.swift */; };
 		2F6CA3F92C2D1824003EF603 /* VerticalListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6CA3F82C2D1824003EF603 /* VerticalListVM.swift */; };
 		2F6CA3FB2C2D9882003EF603 /* TiVerticalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6CA3FA2C2D9882003EF603 /* TiVerticalListView.swift */; };
+		2FA063532C5333E100DCE5CC /* FollowTiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA063522C5333E100DCE5CC /* FollowTiButton.swift */; };
+		2FA063552C5430FF00DCE5CC /* VerticalListControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA063542C5430FF00DCE5CC /* VerticalListControlBar.swift */; };
+		2FA063572C54957600DCE5CC /* TiPostContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA063562C54957600DCE5CC /* TiPostContentView.swift */; };
 		2FBA0CD92C42AA8D00BA4907 /* VotingButtonsSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBA0CD82C42AA8D00BA4907 /* VotingButtonsSV.swift */; };
 		2FBA0CDB2C42AE8F00BA4907 /* IconDoubleTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBA0CDA2C42AE8F00BA4907 /* IconDoubleTriangle.swift */; };
 		2FBA0CDD2C42C5B400BA4907 /* CCBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBA0CDC2C42C5B400BA4907 /* CCBottomBar.swift */; };
@@ -258,6 +261,9 @@
 		2F6CA3F52C271BD0003EF603 /* CCMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCMap.swift; sourceTree = "<group>"; };
 		2F6CA3F82C2D1824003EF603 /* VerticalListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListVM.swift; sourceTree = "<group>"; };
 		2F6CA3FA2C2D9882003EF603 /* TiVerticalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiVerticalListView.swift; sourceTree = "<group>"; };
+		2FA063522C5333E100DCE5CC /* FollowTiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowTiButton.swift; sourceTree = "<group>"; };
+		2FA063542C5430FF00DCE5CC /* VerticalListControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListControlBar.swift; sourceTree = "<group>"; };
+		2FA063562C54957600DCE5CC /* TiPostContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiPostContentView.swift; sourceTree = "<group>"; };
 		2FBA0CD82C42AA8D00BA4907 /* VotingButtonsSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingButtonsSV.swift; sourceTree = "<group>"; };
 		2FBA0CDA2C42AE8F00BA4907 /* IconDoubleTriangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconDoubleTriangle.swift; sourceTree = "<group>"; };
 		2FBA0CDC2C42C5B400BA4907 /* CCBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCBottomBar.swift; sourceTree = "<group>"; };
@@ -502,6 +508,7 @@
 			children = (
 				2F690CBC2BC18EA200A31760 /* TIViewOld.swift */,
 				2F12323A2C075045009481D8 /* TiView.swift */,
+				2FA063562C54957600DCE5CC /* TiPostContentView.swift */,
 				2F6CA3EF2C22BEE4003EF603 /* TiVM.swift */,
 				2F6CA3D62C1A9ABF003EF603 /* Control Center */,
 				2F6CA3F72C2D17DF003EF603 /* Ti Vertical List */,
@@ -680,6 +687,7 @@
 			children = (
 				2F6CA3F82C2D1824003EF603 /* VerticalListVM.swift */,
 				2F6CA3FA2C2D9882003EF603 /* TiVerticalListView.swift */,
+				2FA063542C5430FF00DCE5CC /* VerticalListControlBar.swift */,
 				2F4F87892C31A55E0018D2A5 /* VotingPostCard.swift */,
 				2F4F878D2C35D6C80018D2A5 /* Voting Post Card SVs */,
 				2F4F878B2C3253D60018D2A5 /* VotingPostCardContent.swift */,
@@ -699,6 +707,7 @@
 			isa = PBXGroup;
 			children = (
 				2FBA0CE02C45B58200BA4907 /* PickIntroVideoButton.swift */,
+				2FA063522C5333E100DCE5CC /* FollowTiButton.swift */,
 			);
 			path = "ii Components";
 			sourceTree = "<group>";
@@ -798,6 +807,7 @@
 				2F690C9A2BC17E1500A31760 /* EditUserInfoViewModel.swift in Sources */,
 				2F35340E2BDFF6DD00DE5E7A /* UserVM.swift in Sources */,
 				2F4F878F2C35D71F0018D2A5 /* VotingPostCardSideSheet.swift in Sources */,
+				2FA063532C5333E100DCE5CC /* FollowTiButton.swift in Sources */,
 				2F690C982BC17DF800A31760 /* EditUserInfoFSC.swift in Sources */,
 				2F690C4A2BC09BFE00A31760 /* LogInButton.swift in Sources */,
 				2F690C742BC1775000A31760 /* TestingComponentsManager.swift in Sources */,
@@ -823,6 +833,7 @@
 				2F690CD22BC190C900A31760 /* CreateDebateFSC.swift in Sources */,
 				2F690CC62BC18F5500A31760 /* ControlCenterVM.swift in Sources */,
 				2F6CA3EC2C22BA5D003EF603 /* iiButton.swift in Sources */,
+				2FA063552C5430FF00DCE5CC /* VerticalListControlBar.swift in Sources */,
 				2F690CF02BC1937300A31760 /* TabsBarCustomized.swift in Sources */,
 				2F690D232BCB000200A31760 /* NewUserButton.swift in Sources */,
 				2F6CA3E52C227B99003EF603 /* EnterDescriptionButton.swift in Sources */,
@@ -902,6 +913,7 @@
 				2F690C9E2BC17E7C00A31760 /* UserFSC.swift in Sources */,
 				2F690C9C2BC17E6700A31760 /* UserButton.swift in Sources */,
 				2F6CA3E92C22B885003EF603 /* ControlCenter.swift in Sources */,
+				2FA063572C54957600DCE5CC /* TiPostContentView.swift in Sources */,
 				2F690C862BC1799D00A31760 /* CommentsButton.swift in Sources */,
 				2F690D0A2BC194E700A31760 /* VotingCell.swift in Sources */,
 				2F690D292BD47E0E00A31760 /* EditTIAdminsSV.swift in Sources */,

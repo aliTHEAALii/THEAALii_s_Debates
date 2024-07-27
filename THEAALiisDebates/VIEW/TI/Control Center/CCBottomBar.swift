@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CCBottomBar: View {
     
+    @AppStorage("current_user_uid") var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
+    
     @Binding var ti: TI?
     @Binding var tiChain: [String]
     
@@ -22,27 +24,40 @@ struct CCBottomBar: View {
                 UserButton()
                     .frame(width: width * 0.2)      //u
                 
-                //                            AddButtonSV()   //width * 0.15
+                //AddButtonSV()   //width * 0.15
                 if ti != nil {
-                    CCAddToChainButton(rightOrLeft: .left, ti: $ti, tiChainLink: .constant(nil), tiChain: $tiChain)
+                    if hasAdminAccess {
+                        CCAddToChainButton(rightOrLeft: .left, ti: $ti, tiChainLink: .constant(nil), tiChain: $tiChain)
+                    } else {
+                        
+                        FollowTiButton(ti: $ti)
+                        
+                    }
                 } else {
                     Rectangle()
                         .foregroundStyle(.clear)
                         .frame(width: width * 0.15)
                 }
             } else if ti?.tiType == .d1 {
-                Rectangle()
-                    .foregroundStyle(.clear)
-                    .frame(width: width * 0.3)
+//                Rectangle()
+//                    .foregroundStyle(.clear)
+//                    .frame(width: width * 0.3)
+                Spacer()
             }
             
             
             //( Interaction Info ) Button
             iiButton(ti: $ti)
             
-            //                            AddButtonSV()   //width * 0.15
+            //Right Side                                        //width * 0.15
             if ti != nil {
-                CCAddToChainButton(rightOrLeft: .right, ti: $ti, tiChainLink: .constant(nil), tiChain: $tiChain)
+                if hasAdminAccess {
+                    CCAddToChainButton(rightOrLeft: .right, ti: $ti, tiChainLink: .constant(nil), tiChain: $tiChain)
+                } else {
+                    
+                    FollowTiButton(ti: $ti)
+                    
+                }
             } else {
                 Rectangle()
                     .foregroundStyle(.clear)
@@ -54,6 +69,48 @@ struct CCBottomBar: View {
         }
         .frame(width: width, height: width * 0.25)
     }
+    
+    
+    private var hasAdminAccess: Bool {
+        guard let ti else { return false }
+        //ti
+        if ti.creatorUID == currentUserUID { return true }
+        if ti.tiAdminsUIDs.contains(currentUserUID) { return true }
+        //Left & Right
+        if ti.lsUserUID == currentUserUID || ti.rsUserUID == currentUserUID { return true }
+        //Teams
+        if ((ti.lsLevel1UsersUIDs?.contains(currentUserUID)) != nil) { return true }
+        if ((ti.rsLevel1UsersUIDs?.contains(currentUserUID)) != nil) { return true }
+        
+        return false
+    }
+    
+//    func followTi(ti: TI?, userUID: String, addOrRemove: AddOrRemove) async throws {
+//        guard let ti else { return }
+//        
+//        Task {
+//            if addOrRemove == .add {
+//                do {
+//                    try await UserManager.shared.updateObservingTIs(tiUID: ti.id, currentUserUID: currentUserUID, addOrRemove: .add)
+//                    try await TIManager.shared.updateObserversUIDs(tiUID: ti.id, currentUserUID: currentUserUID, addOrRemove: .add)
+//                    print("🟢success Observing Ti")
+//                } catch {
+//                    print("🔴Error Observing Ti: \(error.localizedDescription)🔴")
+//                    return
+//                }
+//                
+//            } else { //remove
+//                do {
+//                    try await UserManager.shared.updateObservingTIs(tiUID: ti.id, currentUserUID: currentUserUID, addOrRemove: .remove)
+//                    try await TIManager.shared.updateObserversUIDs(tiUID: ti.id, currentUserUID: currentUserUID, addOrRemove: .remove)
+//                    print("🟢success removing Observing Ti")
+//                } catch {
+//                    print("🔴Error removing Observing Ti: \(error.localizedDescription)🔴")
+//                    return
+//                }
+//            }
+//        }
+//    }
 }
 
 #Preview {

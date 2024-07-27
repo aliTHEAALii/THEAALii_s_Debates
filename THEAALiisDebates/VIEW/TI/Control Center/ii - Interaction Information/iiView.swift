@@ -20,22 +20,25 @@ struct iiView: View {
             
             // 1. Top
             //if ti != nil {
-            if ti?.tiType == .d2 {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(lineWidth: 0.5)
-                        .foregroundColor(.gray)
-                        .frame(width: width * 0.9, height: width * 0.08)
-                    
-                    HStack {
-                        UserButton(userUID: nil)
-                        Spacer()
-                        TIIcon()
-                        Spacer()
-                        UserButton(userUID: nil)
-                    }
-                }
-                .frame(height: width * 0.25)
+//            if ti?.tiType == .d2 {
+//                ZStack {
+//                    RoundedRectangle(cornerRadius: 8)
+//                        .stroke(lineWidth: 0.5)
+//                        .foregroundColor(.gray)
+//                        .frame(width: width * 0.9, height: width * 0.08)
+//                    
+//                    HStack {
+//                        UserButton(userUID: nil)
+//                        Spacer()
+//                        TIIcon()
+//                        Spacer()
+//                        UserButton(userUID: nil)
+//                    }
+//                }
+//                .frame(height: width * 0.25)
+//            }
+            if let ti {
+                D2IconBarNew(ti: ti)
             }
             //}
             
@@ -55,7 +58,7 @@ struct iiView: View {
             //5. Votes (Up - Total - Down)
             
             //6. Description
-            Text(ti?.description ?? "")
+            Text(ti?.description ?? "No Description")
                 .multilineTextAlignment(.center)
                 .padding()
             
@@ -77,7 +80,13 @@ struct iiView: View {
             }
             
             
-            CCBottomBar(ti: $ti, tiChain: .constant([]))
+            HStack {
+                
+                Spacer()
+                
+                FollowTiButton(ti: $ti)
+                    .padding(.trailing, width * 0.001)
+            }
             
             Spacer()
         }
@@ -87,6 +96,8 @@ struct iiView: View {
 
 #Preview {
     iiView(ti: .constant(TiViewModel().ti))
+//    TestingModels().tiFromDBID2
+//    TiViewModel().ti
 }
 
 
@@ -106,9 +117,12 @@ struct iiEditTiAdminsSV: View {
         
         HStack(spacing: 0) {
             
+            
             if ti != nil {
                 HStack(spacing: 0) {
                     
+                    Text("Admins: ")
+
                     //Admins
                     ForEach(ti!.tiAdminsUIDs, id: \.self) { adminUID in
                         
@@ -119,7 +133,7 @@ struct iiEditTiAdminsSV: View {
                 .frame(width: width * 0.85, alignment: .leading)
             }
             
-            //Edit Button
+            //MARK: Edit Button
             Button {
                 showEditAdmins.toggle()
             } label: {

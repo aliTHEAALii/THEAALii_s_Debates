@@ -482,5 +482,12 @@ final class TIManager {
         try await TIDocument(tiID: tiID).updateData(adminsData)
     }
     
+    func updateObserversUIDs(tiUID: String, currentUserUID: String, addOrRemove: AddOrRemove) async throws {
+        if addOrRemove == .add {
+            try await TIDocument(tiID: tiUID).updateData([TI.CodingKeys.tiObserversUIDs.rawValue : FieldValue.arrayUnion([currentUserUID])])
+        } else {
+            try await TIDocument(tiID: tiUID).updateData([TI.CodingKeys.tiObserversUIDs.rawValue : FieldValue.arrayRemove([currentUserUID])])
+        }
+    }
     
 }
