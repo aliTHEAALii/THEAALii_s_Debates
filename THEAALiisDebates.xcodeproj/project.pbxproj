@@ -22,6 +22,7 @@
 		2F4F878C2C3253D70018D2A5 /* VotingPostCardContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F878B2C3253D60018D2A5 /* VotingPostCardContent.swift */; };
 		2F4F878F2C35D71F0018D2A5 /* VotingPostCardSideSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F878E2C35D71F0018D2A5 /* VotingPostCardSideSheet.swift */; };
 		2F4F87912C3AE4B50018D2A5 /* TiCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F87902C3AE4B50018D2A5 /* TiCard.swift */; };
+		2F5684972C5A5AC800071CAE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F5684962C5A5AC800071CAE /* GoogleService-Info.plist */; };
 		2F690C132BC095BF00A31760 /* THEAALiisDebatesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C122BC095BF00A31760 /* THEAALiisDebatesApp.swift */; };
 		2F690C152BC095BF00A31760 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C142BC095BF00A31760 /* ContentView.swift */; };
 		2F690C172BC095C000A31760 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F690C162BC095C000A31760 /* Assets.xcassets */; };
@@ -34,7 +35,6 @@
 		2F690C2E2BC096DD00A31760 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 2F690C2D2BC096DD00A31760 /* GoogleSignIn */; };
 		2F690C302BC096DD00A31760 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2F690C2F2BC096DD00A31760 /* GoogleSignInSwift */; };
 		2F690C322BC0974200A31760 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C312BC0974200A31760 /* RootView.swift */; };
-		2F690C3E2BC09A5D00A31760 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F690C3D2BC09A5D00A31760 /* GoogleService-Info.plist */; };
 		2F690C412BC09B4000A31760 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C402BC09B4000A31760 /* AuthenticationManager.swift */; };
 		2F690C442BC09B9700A31760 /* LoginScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C432BC09B9700A31760 /* LoginScreenViewModel.swift */; };
 		2F690C462BC09BBB00A31760 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C452BC09BBB00A31760 /* Utilities.swift */; };
@@ -157,6 +157,7 @@
 		2F4F878B2C3253D60018D2A5 /* VotingPostCardContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingPostCardContent.swift; sourceTree = "<group>"; };
 		2F4F878E2C35D71F0018D2A5 /* VotingPostCardSideSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingPostCardSideSheet.swift; sourceTree = "<group>"; };
 		2F4F87902C3AE4B50018D2A5 /* TiCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiCard.swift; sourceTree = "<group>"; };
+		2F5684962C5A5AC800071CAE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2F690C0F2BC095BF00A31760 /* THEAALiisDebates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = THEAALiisDebates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F690C122BC095BF00A31760 /* THEAALiisDebatesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THEAALiisDebatesApp.swift; sourceTree = "<group>"; };
 		2F690C142BC095BF00A31760 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -164,7 +165,6 @@
 		2F690C182BC095C000A31760 /* THEAALiisDebates.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = THEAALiisDebates.entitlements; sourceTree = "<group>"; };
 		2F690C1A2BC095C000A31760 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2F690C312BC0974200A31760 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		2F690C3D2BC09A5D00A31760 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2F690C402BC09B4000A31760 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		2F690C432BC09B9700A31760 /* LoginScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewModel.swift; sourceTree = "<group>"; };
 		2F690C452BC09BBB00A31760 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -339,7 +339,7 @@
 				2F690C162BC095C000A31760 /* Assets.xcassets */,
 				2F690C182BC095C000A31760 /* THEAALiisDebates.entitlements */,
 				2F690C5F2BC0A04B00A31760 /* Info.plist */,
-				2F690C3D2BC09A5D00A31760 /* GoogleService-Info.plist */,
+				2F5684962C5A5AC800071CAE /* GoogleService-Info.plist */,
 				2F690C192BC095C000A31760 /* Preview Content */,
 			);
 			path = THEAALiisDebates;
@@ -784,8 +784,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F690C1B2BC095C000A31760 /* Preview Assets.xcassets in Resources */,
+				2F5684972C5A5AC800071CAE /* GoogleService-Info.plist in Resources */,
 				2F690C172BC095C000A31760 /* Assets.xcassets in Resources */,
-				2F690C3E2BC09A5D00A31760 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
