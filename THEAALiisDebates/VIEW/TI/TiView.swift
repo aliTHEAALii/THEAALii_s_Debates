@@ -86,22 +86,22 @@ struct TiView: View {
         getChainLink()
         fetchTiPost()
         
-#if DEBUG
-        TIManager.shared.getTi(tiID: TestingModels().tiFromDBID2) { result in
-            switch result {
-            case .success(let gottenTi):
-                ti = gottenTi
-                tiChain = vmCC.tiChain(ti: ti)
-                selectedChainLinkIndex = vmCC.introPostIndex(ti: ti)
-                getChainLink()
-                fetchTiPost()
-                
-            case .failure(_):
-                ti = nil
-                tiPost = nil
-            }
-        }
-#endif
+//#if DEBUG
+//        TIManager.shared.getTi(tiID: TestingModels().tiFromDBID2) { result in
+//            switch result {
+//            case .success(let gottenTi):
+//                ti = gottenTi
+//                tiChain = vmCC.tiChain(ti: ti)
+//                selectedChainLinkIndex = vmCC.introPostIndex(ti: ti)
+//                getChainLink()
+//                fetchTiPost()
+//                
+//            case .failure(_):
+//                ti = nil
+//                tiPost = nil
+//            }
+//        }
+//#endif
         
         
     }
