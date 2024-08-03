@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct TIIcon: View {
+//MARK: - TiIcon
+struct TiCircleIcon: View {
     
     var scale: CGFloat = 1
     var tiType: TIType = .d2
@@ -78,7 +79,7 @@ struct TiIconForMap: View {
 
 struct TIIcon_Previews: PreviewProvider {
     static var previews: some View {
-        TIIcon()
+        TiCircleIcon()
 //        TIIconD1()
 //        TIIconD2()
 //        CreateTI(showFSC: .constant(true), selectedTabIndex: .constant(2), indexStep: 1)
@@ -113,10 +114,10 @@ struct TIIconD1: View {
 //                    .offset(x: width * -0.1 * scale)
 //            }
             
-            if showTiIcon {
-                TIIcon(scale: 0.7, rotationDegree: rotationDegree, timeLapseWeight: timeLapseWeight, triangleWeight: triangleWeight)
-                    .offset(x: width * -0.07 * scale, y: 0)
-            }
+//            if showTiIcon {
+//                TIIcon(scale: 0.7, rotationDegree: rotationDegree, timeLapseWeight: timeLapseWeight, triangleWeight: triangleWeight)
+//                    .offset(x: width * -0.07 * scale, y: 0)
+//            }
         }
     }
 }
@@ -143,7 +144,7 @@ struct TIIconD2: View {
                 .frame(width: width * 0.7 * scale, height: width * 0.15 * scale)
                 .foregroundColor(.primary)
             
-            TIIcon(scale: scale, rotationDegree: rotationDegree, timeLapseWeight: timeLapseWeight, triangleWeight: triangleWeight)
+            TiCircleIcon(scale: scale, rotationDegree: rotationDegree, timeLapseWeight: timeLapseWeight, triangleWeight: triangleWeight)
             
             //MARK: - Left & Right Users
             if showTwoSides {
