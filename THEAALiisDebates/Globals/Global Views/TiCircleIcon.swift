@@ -77,11 +77,12 @@ struct TiIconForMap: View {
     }
 }
 
+//MARK: - Preview
 struct TIIcon_Previews: PreviewProvider {
     static var previews: some View {
-        TiCircleIcon()
+//        TiCircleIcon()
 //        TIIconD1()
-//        TIIconD2()
+        TIIconD2()
 //        CreateTI(showFSC: .constant(true), selectedTabIndex: .constant(2), indexStep: 1)
 
     }

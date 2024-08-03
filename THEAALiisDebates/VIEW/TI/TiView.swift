@@ -12,7 +12,7 @@ struct TiView: View {
     
     @AppStorage("current_user_uid") var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
     
-    @State var ti: TI? //FIXME: could be nil
+    @State var ti: TI?
     @State private var tiChain: [String] = []
     @State private var selectedChainLinkIndex: Int = 0
     @State private var tiChainLink: ChainLink? = nil
@@ -86,22 +86,22 @@ struct TiView: View {
         getChainLink()
         fetchTiPost()
         
-//#if DEBUG
-//        TIManager.shared.getTi(tiID: TestingModels().tiFromDBID2) { result in
-//            switch result {
-//            case .success(let gottenTi):
-//                ti = gottenTi
-//                tiChain = vmCC.tiChain(ti: ti)
-//                selectedChainLinkIndex = vmCC.introPostIndex(ti: ti)
-//                getChainLink()
-//                fetchTiPost()
-//                
-//            case .failure(_):
-//                ti = nil
-//                tiPost = nil
-//            }
-//        }
-//#endif
+#if DEBUG
+        TIManager.shared.getTi(tiID: TestingModels().tiFromDBID2) { result in
+            switch result {
+            case .success(let gottenTi):
+                ti = gottenTi
+                tiChain = vmCC.tiChain(ti: ti)
+                selectedChainLinkIndex = vmCC.introPostIndex(ti: ti)
+                getChainLink()
+                fetchTiPost()
+                
+            case .failure(_):
+                ti = nil
+                tiPost = nil
+            }
+        }
+#endif
         
         
     }
@@ -155,6 +155,3 @@ struct TiView: View {
     
 //    TIView()
 }
-
-
-//NEw Line

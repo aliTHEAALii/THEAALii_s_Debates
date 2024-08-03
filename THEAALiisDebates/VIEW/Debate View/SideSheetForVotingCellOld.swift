@@ -12,7 +12,6 @@ struct SideSheetForVotingCellOld: View {
     let isAdmin: Bool
     
     
-    
     @ObservedObject var cardVM = VotingCardViewModel()
     @Binding var showSideSheet: Bool
     

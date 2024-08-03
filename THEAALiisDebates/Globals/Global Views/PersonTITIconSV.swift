@@ -58,6 +58,10 @@ struct PersonIcon: View {
                     .stroke()
                     .foregroundColor(circleColor)
                     .frame(width: width * 0.6 * scale, height: width * 0.6 * scale)
+                
+                Circle()
+                    .foregroundColor(.black)
+                    .frame(width: width * 0.6 * scale, height: width * 0.6 * scale)
             }
             
             VStack() {

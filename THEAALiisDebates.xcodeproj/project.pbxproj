@@ -23,6 +23,7 @@
 		2F4F878F2C35D71F0018D2A5 /* VotingPostCardSideSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F878E2C35D71F0018D2A5 /* VotingPostCardSideSheet.swift */; };
 		2F4F87912C3AE4B50018D2A5 /* TiCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4F87902C3AE4B50018D2A5 /* TiCard.swift */; };
 		2F5684972C5A5AC800071CAE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F5684962C5A5AC800071CAE /* GoogleService-Info.plist */; };
+		2F56849A2C5EDEDB00071CAE /* iiEditTiAdminsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5684992C5EDEDB00071CAE /* iiEditTiAdminsBar.swift */; };
 		2F690C132BC095BF00A31760 /* THEAALiisDebatesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C122BC095BF00A31760 /* THEAALiisDebatesApp.swift */; };
 		2F690C152BC095BF00A31760 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C142BC095BF00A31760 /* ContentView.swift */; };
 		2F690C172BC095C000A31760 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F690C162BC095C000A31760 /* Assets.xcassets */; };
@@ -57,7 +58,7 @@
 		2F690C722BC0BE5E00A31760 /* TITViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C712BC0BE5E00A31760 /* TITViewModel.swift */; };
 		2F690C742BC1775000A31760 /* TestingComponentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C732BC1775000A31760 /* TestingComponentsManager.swift */; };
 		2F690C772BC177C600A31760 /* TI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C762BC177C600A31760 /* TI.swift */; };
-		2F690C7A2BC1781000A31760 /* TIIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C792BC1781000A31760 /* TIIcon.swift */; };
+		2F690C7A2BC1781000A31760 /* TiCircleIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C792BC1781000A31760 /* TiCircleIcon.swift */; };
 		2F690C7C2BC1784D00A31760 /* FutureFeatureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C7B2BC1784D00A31760 /* FutureFeatureButton.swift */; };
 		2F690C7E2BC1787800A31760 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C7D2BC1787800A31760 /* LoadingView.swift */; };
 		2F690C802BC1789200A31760 /* DescriptionSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C7F2BC1789200A31760 /* DescriptionSV.swift */; };
@@ -81,12 +82,7 @@
 		2F690CB92BC18E1100A31760 /* AdminResponseSideSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CB82BC18E1100A31760 /* AdminResponseSideSheet.swift */; };
 		2F690CBB2BC18E2300A31760 /* VotingSVOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CBA2BC18E2300A31760 /* VotingSVOld.swift */; };
 		2F690CBD2BC18EA200A31760 /* TIViewOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CBC2BC18EA200A31760 /* TIViewOld.swift */; };
-		2F690CC02BC18EF000A31760 /* TIControlsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CBF2BC18EF000A31760 /* TIControlsVM.swift */; };
-		2F690CC22BC18F0800A31760 /* TIControlsSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CC12BC18F0800A31760 /* TIControlsSV.swift */; };
-		2F690CC42BC18F2E00A31760 /* UploadToTIChainFSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CC32BC18F2E00A31760 /* UploadToTIChainFSC.swift */; };
 		2F690CC62BC18F5500A31760 /* ControlCenterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CC52BC18F5500A31760 /* ControlCenterVM.swift */; };
-		2F690CC92BC18FC000A31760 /* TIInfoFSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CC82BC18FC000A31760 /* TIInfoFSC.swift */; };
-		2F690CCB2BC18FE600A31760 /* TIAdminsListSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CCA2BC18FE600A31760 /* TIAdminsListSV.swift */; };
 		2F690CCD2BC1905500A31760 /* AddTIVideoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CCC2BC1905500A31760 /* AddTIVideoButton.swift */; };
 		2F690CCF2BC1906E00A31760 /* AddVideoFSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CCE2BC1906E00A31760 /* AddVideoFSC.swift */; };
 		2F690CD22BC190C900A31760 /* CreateDebateFSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CD12BC190C900A31760 /* CreateDebateFSC.swift */; };
@@ -158,6 +154,7 @@
 		2F4F878E2C35D71F0018D2A5 /* VotingPostCardSideSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingPostCardSideSheet.swift; sourceTree = "<group>"; };
 		2F4F87902C3AE4B50018D2A5 /* TiCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiCard.swift; sourceTree = "<group>"; };
 		2F5684962C5A5AC800071CAE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2F5684992C5EDEDB00071CAE /* iiEditTiAdminsBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iiEditTiAdminsBar.swift; sourceTree = "<group>"; };
 		2F690C0F2BC095BF00A31760 /* THEAALiisDebates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = THEAALiisDebates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F690C122BC095BF00A31760 /* THEAALiisDebatesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THEAALiisDebatesApp.swift; sourceTree = "<group>"; };
 		2F690C142BC095BF00A31760 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -188,7 +185,7 @@
 		2F690C712BC0BE5E00A31760 /* TITViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TITViewModel.swift; sourceTree = "<group>"; };
 		2F690C732BC1775000A31760 /* TestingComponentsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingComponentsManager.swift; sourceTree = "<group>"; };
 		2F690C762BC177C600A31760 /* TI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TI.swift; sourceTree = "<group>"; };
-		2F690C792BC1781000A31760 /* TIIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIIcon.swift; sourceTree = "<group>"; };
+		2F690C792BC1781000A31760 /* TiCircleIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiCircleIcon.swift; sourceTree = "<group>"; };
 		2F690C7B2BC1784D00A31760 /* FutureFeatureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureFeatureButton.swift; sourceTree = "<group>"; };
 		2F690C7D2BC1787800A31760 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		2F690C7F2BC1789200A31760 /* DescriptionSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionSV.swift; sourceTree = "<group>"; };
@@ -212,12 +209,7 @@
 		2F690CB82BC18E1100A31760 /* AdminResponseSideSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminResponseSideSheet.swift; sourceTree = "<group>"; };
 		2F690CBA2BC18E2300A31760 /* VotingSVOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingSVOld.swift; sourceTree = "<group>"; };
 		2F690CBC2BC18EA200A31760 /* TIViewOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIViewOld.swift; sourceTree = "<group>"; };
-		2F690CBF2BC18EF000A31760 /* TIControlsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIControlsVM.swift; sourceTree = "<group>"; };
-		2F690CC12BC18F0800A31760 /* TIControlsSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIControlsSV.swift; sourceTree = "<group>"; };
-		2F690CC32BC18F2E00A31760 /* UploadToTIChainFSC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadToTIChainFSC.swift; sourceTree = "<group>"; };
 		2F690CC52BC18F5500A31760 /* ControlCenterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlCenterVM.swift; sourceTree = "<group>"; };
-		2F690CC82BC18FC000A31760 /* TIInfoFSC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIInfoFSC.swift; sourceTree = "<group>"; };
-		2F690CCA2BC18FE600A31760 /* TIAdminsListSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIAdminsListSV.swift; sourceTree = "<group>"; };
 		2F690CCC2BC1905500A31760 /* AddTIVideoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTIVideoButton.swift; sourceTree = "<group>"; };
 		2F690CCE2BC1906E00A31760 /* AddVideoFSC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVideoFSC.swift; sourceTree = "<group>"; };
 		2F690CD12BC190C900A31760 /* CreateDebateFSC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDebateFSC.swift; sourceTree = "<group>"; };
@@ -307,6 +299,13 @@
 				2FBA0CD82C42AA8D00BA4907 /* VotingButtonsSV.swift */,
 			);
 			path = "Voting Post Card SVs";
+			sourceTree = "<group>";
+		};
+		2F5684982C5A5BBF00071CAE /* Tab 2 Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Tab 2 Search";
 			sourceTree = "<group>";
 		};
 		2F690C062BC095BF00A31760 = {
@@ -434,7 +433,7 @@
 		2F690C782BC177E200A31760 /* Global Views */ = {
 			isa = PBXGroup;
 			children = (
-				2F690C792BC1781000A31760 /* TIIcon.swift */,
+				2F690C792BC1781000A31760 /* TiCircleIcon.swift */,
 				2FBA0CDA2C42AE8F00BA4907 /* IconDoubleTriangle.swift */,
 				2F690D172BC6738E00A31760 /* D1Icon.swift */,
 				2F690C7B2BC1784D00A31760 /* FutureFeatureButton.swift */,
@@ -461,7 +460,7 @@
 				2F690CF12BC1938B00A31760 /* TabsBar.swift */,
 				2F690CF32BC1939B00A31760 /* MiniPlayer.swift */,
 				2F690CE02BC1918A00A31760 /* Tab 1 Feed */,
-				2F690CE12BC1919900A31760 /* Tab 2 Search */,
+				2F5684982C5A5BBF00071CAE /* Tab 2 Search */,
 				2F690D0D2BC1D26100A31760 /* Tab 3 Create TI */,
 				2F690CD02BC190A500A31760 /* Tab 3 Start Debate */,
 				2F690CE22BC191B700A31760 /* Tab 4  */,
@@ -514,7 +513,6 @@
 				2F6CA3F72C2D17DF003EF603 /* Ti Vertical List */,
 				2F1232442C111E88009481D8 /* PickThumbnailButton.swift */,
 				2F1232402C10D773009481D8 /* TiPostInfo.swift */,
-				2F690CBE2BC18EB900A31760 /* TI Control Center */,
 				2F690CCC2BC1905500A31760 /* AddTIVideoButton.swift */,
 				2F690CCE2BC1906E00A31760 /* AddVideoFSC.swift */,
 				2F690CB12BC1883100A31760 /* Response List */,
@@ -533,26 +531,6 @@
 				2F690CBA2BC18E2300A31760 /* VotingSVOld.swift */,
 			);
 			path = "Response List";
-			sourceTree = "<group>";
-		};
-		2F690CBE2BC18EB900A31760 /* TI Control Center */ = {
-			isa = PBXGroup;
-			children = (
-				2F690CBF2BC18EF000A31760 /* TIControlsVM.swift */,
-				2F690CC12BC18F0800A31760 /* TIControlsSV.swift */,
-				2F690CC32BC18F2E00A31760 /* UploadToTIChainFSC.swift */,
-				2F690CC72BC18F8500A31760 /* TI Info FSC */,
-			);
-			path = "TI Control Center";
-			sourceTree = "<group>";
-		};
-		2F690CC72BC18F8500A31760 /* TI Info FSC */ = {
-			isa = PBXGroup;
-			children = (
-				2F690CC82BC18FC000A31760 /* TIInfoFSC.swift */,
-				2F690CCA2BC18FE600A31760 /* TIAdminsListSV.swift */,
-			);
-			path = "TI Info FSC";
 			sourceTree = "<group>";
 		};
 		2F690CD02BC190A500A31760 /* Tab 3 Start Debate */ = {
@@ -575,13 +553,6 @@
 				2F690CED2BC192CE00A31760 /* VideoCard.swift */,
 			);
 			path = "Tab 1 Feed";
-			sourceTree = "<group>";
-		};
-		2F690CE12BC1919900A31760 /* Tab 2 Search */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Tab 2 Search";
 			sourceTree = "<group>";
 		};
 		2F690CE22BC191B700A31760 /* Tab 4  */ = {
@@ -707,6 +678,7 @@
 			isa = PBXGroup;
 			children = (
 				2FBA0CE02C45B58200BA4907 /* PickIntroVideoButton.swift */,
+				2F5684992C5EDEDB00071CAE /* iiEditTiAdminsBar.swift */,
 				2FA063522C5333E100DCE5CC /* FollowTiButton.swift */,
 			);
 			path = "ii Components";
@@ -823,7 +795,6 @@
 				2F690C6D2BC0BDAF00A31760 /* DebateModel.swift in Sources */,
 				2F690C152BC095BF00A31760 /* ContentView.swift in Sources */,
 				2F690C4D2BC09C2600A31760 /* AppleLoginButton.swift in Sources */,
-				2F690CC92BC18FC000A31760 /* TIInfoFSC.swift in Sources */,
 				2F690C802BC1789200A31760 /* DescriptionSV.swift in Sources */,
 				2F690C412BC09B4000A31760 /* AuthenticationManager.swift in Sources */,
 				2F690CD42BC190E000A31760 /* CreateDebateButton.swift in Sources */,
@@ -870,7 +841,6 @@
 				2FBA0CE12C45B58200BA4907 /* PickIntroVideoButton.swift in Sources */,
 				2F690C772BC177C600A31760 /* TI.swift in Sources */,
 				2F690D062BC194BC00A31760 /* SideSheet.swift in Sources */,
-				2F690CC02BC18EF000A31760 /* TIControlsVM.swift in Sources */,
 				2F690D082BC194D500A31760 /* SideOptionsSheet.swift in Sources */,
 				2F690C542BC09CB100A31760 /* SignInWithGoogleHelper.swift in Sources */,
 				2F690C572BC09D0A00A31760 /* User.swift in Sources */,
@@ -881,7 +851,6 @@
 				2F1232412C10D773009481D8 /* TiPostInfo.swift in Sources */,
 				2F690CF22BC1938B00A31760 /* TabsBar.swift in Sources */,
 				2F1232452C111E88009481D8 /* PickThumbnailButton.swift in Sources */,
-				2F690CCB2BC18FE600A31760 /* TIAdminsListSV.swift in Sources */,
 				2F690C4F2BC09C4A00A31760 /* SignInAppleHelper.swift in Sources */,
 				2F6CA3F02C22BEE4003EF603 /* TiVM.swift in Sources */,
 				2F690D042BC194A800A31760 /* ResponseArrayTopBarSV.swift in Sources */,
@@ -891,8 +860,9 @@
 				2F690D112BC1D9EA00A31760 /* CreateTI.swift in Sources */,
 				2F690CAF2BC1874500A31760 /* VideoSV.swift in Sources */,
 				2F690CF72BC193DE00A31760 /* TITView.swift in Sources */,
+				2F56849A2C5EDEDB00071CAE /* iiEditTiAdminsBar.swift in Sources */,
 				2FD5F5482C00CC5E00488621 /* RoundedTriangle.swift in Sources */,
-				2F690C7A2BC1781000A31760 /* TIIcon.swift in Sources */,
+				2F690C7A2BC1781000A31760 /* TiCircleIcon.swift in Sources */,
 				2F690CEE2BC192CE00A31760 /* VideoCard.swift in Sources */,
 				2F690C322BC0974200A31760 /* RootView.swift in Sources */,
 				2FBA0CE32C46CCBF00BA4907 /* SideSheetRectangle.swift in Sources */,
@@ -906,9 +876,7 @@
 				2F690C7C2BC1784D00A31760 /* FutureFeatureButton.swift in Sources */,
 				2F6CA3DD2C1E36BE003EF603 /* CCAddToChain.swift in Sources */,
 				2F35340C2BDB3AD700DE5E7A /* CTiStep3.swift in Sources */,
-				2F690CC22BC18F0800A31760 /* TIControlsSV.swift in Sources */,
 				2F690CEC2BC192B200A31760 /* FeedTabView.swift in Sources */,
-				2F690CC42BC18F2E00A31760 /* UploadToTIChainFSC.swift in Sources */,
 				2F690CBD2BC18EA200A31760 /* TIViewOld.swift in Sources */,
 				2F690C9E2BC17E7C00A31760 /* UserFSC.swift in Sources */,
 				2F690C9C2BC17E6700A31760 /* UserButton.swift in Sources */,

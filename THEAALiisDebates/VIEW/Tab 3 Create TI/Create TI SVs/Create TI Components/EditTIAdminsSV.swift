@@ -90,13 +90,12 @@ struct EditTIAdminsSV: View {
                     .font(.title)
 
                 //AddOrRemove Saved Users
-                if let currentUser = currentUser {
-                    ForEach(currentUser.savedUsersUIDs, id: \.self) { savedUserUID in
+                if currentUser != nil {
+                    ForEach(currentUser!.savedUsersUIDs, id: \.self) { savedUserUID in
                         HStack {
                             
-
                             AddRemoveCTiAdminCell(
-                                currentUser: .constant(currentUser),
+                                currentUser: .constant(currentUser!),
                                 tiAdminsUIDs: $tiAdminsUIDs,
                                 userUID: savedUserUID
                             )

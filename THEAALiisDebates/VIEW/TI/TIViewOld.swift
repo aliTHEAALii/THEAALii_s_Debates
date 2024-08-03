@@ -35,6 +35,7 @@ struct TIViewOld: View {
                 
                 CloseButton(showFSC: $showTIFSC)
             }
+            
             // - Video
             if tiVideo != nil {
                 
@@ -53,7 +54,7 @@ struct TIViewOld: View {
             ScrollView(showsIndicators: false) {
                 LazyVStack(spacing: 0){
                     
-                    TIControlsSV(ti: $ti, currentIndex: $currentIndex, isAdmin: isAdmin)
+//                    TIControlsSV(ti: $ti, currentIndex: $currentIndex, isAdmin: isAdmin)
                     
                     // - TIT Video Info
                     VideoInfoSV(tit: ti, tiVideo: tiVideo )
@@ -87,8 +88,8 @@ struct TIViewOld: View {
                 }
             }
         }// - VStack - //
-        .onAppear{ Task { try await onAppearFetch() } }
-        .onChange(of: currentIndex) { _, _ in Task { try await onChangeOfIndex() } }
+//        .onAppear{ Task { try await onAppearFetch() } }
+//        .onChange(of: currentIndex) { _, _ in Task { try await onChangeOfIndex() } }
     }
     
     //MARK: - Functions

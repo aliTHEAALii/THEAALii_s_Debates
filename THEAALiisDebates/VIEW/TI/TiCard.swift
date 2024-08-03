@@ -134,7 +134,7 @@ struct D2IconBarOld: View {
                         
                 }
                 
-                TIIcon()
+                TiCircleIcon()
             }
             
             
@@ -167,9 +167,7 @@ struct D2IconBarNew: View {
     //TODO: Pass this to the tiView since the fetch is already done here, don't fetch L & R users again in TiView
     @State var leftUser: UserModel? = nil
     @State var rightUser: UserModel? = nil
-    
-//    var showNames = true
-    
+        
     var body: some View {
         
         ZStack {
@@ -274,7 +272,7 @@ struct D2IconBarNew: View {
                 
                 //MARK: - Icon
                 Spacer()
-                TIIcon()
+                TiCircleIcon()
                 Spacer()
                 
                 

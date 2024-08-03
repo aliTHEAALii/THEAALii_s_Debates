@@ -36,7 +36,7 @@ struct FeedTab_Previews: PreviewProvider {
     }
 }
 
-//MARK: - FeedCard
+//MARK: - Feed Card
 struct FeedCard: View {
     
     let tit: TIModel

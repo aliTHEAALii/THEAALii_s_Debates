@@ -14,6 +14,7 @@ struct CTiStep1: View {
     var body: some View {
         VStack(spacing: width * 0.1) {
             
+            //MARK: 1 - Select D1
             Button {
                 tiInteractionType = .d1
             } label: {
@@ -44,17 +45,20 @@ struct CTiStep1: View {
 
             }
             
-            
+            //MARK: 2 -  Select D2
             Button {
                 tiInteractionType = .d2
             } label: {
                 ZStack {
+                    
                     VStack {
                         D2Icon(sf: 0.6)
                                                 
                         Text("Bi Directional (D-2)")
                             .foregroundStyle(tiInteractionType == .d2 ? Color.ADColors.green : .primary)
                     }
+                    
+                    //if selected : border & highlight
                     if tiInteractionType == .d2 {
                         //border
                         RoundedRectangle(cornerRadius: 25)

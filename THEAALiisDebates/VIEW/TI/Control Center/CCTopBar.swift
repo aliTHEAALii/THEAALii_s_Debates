@@ -116,7 +116,7 @@ struct CCIndicatorCircles: View {
                     
                     if i == introPostIndex {
                         ZStack {
-                            TIIcon(scale: 0.4, tiType: ti!.tiType,
+                            TiCircleIcon(scale: 0.4, tiType: ti!.tiType,
                                    showTriangle: selectedChainLink == i ? true : false )
                             .id(i)
                         }

@@ -457,7 +457,22 @@ final class TIManager {
     
     //FIXME: - This is all wrong (Edit Admins) Obsolete
     //MARK: Edit Admins
-    func editAdmins(tiID: String, userUID: String, chainDirection: LeftOrRight , addOrRemove: AddOrRemove) async throws {
+    func editAdmins(tiID: String, userUID: String, addOrRemove: AddOrRemove) async throws {
+        
+        if addOrRemove == .add {
+            try await TIDocument(tiID: tiID).updateData([ TI.CodingKeys.tiAdminsUIDs.rawValue : FieldValue.arrayUnion([userUID]) ])
+            
+        } else {
+            try await TIDocument(tiID: tiID).updateData([ TI.CodingKeys.tiAdminsUIDs.rawValue : FieldValue.arrayRemove([userUID]) ])
+        }
+    }
+    
+    func newAdmins(tiID: String, adminsUIDsArray: [String]) async throws {
+        try await TIDocument(tiID: tiID).updateData([ TI.CodingKeys.tiAdminsUIDs.rawValue : adminsUIDsArray ])
+    }
+
+    
+    func editLv1Teams(tiID: String, userUID: String, chainDirection: LeftOrRight , addOrRemove: AddOrRemove) async throws {
         
         var adminsData = [String: Any]()
         

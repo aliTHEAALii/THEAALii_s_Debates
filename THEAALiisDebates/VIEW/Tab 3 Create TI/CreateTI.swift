@@ -10,9 +10,10 @@ import SwiftUI
 struct CreateTI: View {
     
     @AppStorage("current_user_uid") var currentUserUID: String = ""
-    var currentUser: UserModel? {
-        return UserVM().getUser(userUID: currentUserUID)
-    }
+//    var currentUser: UserModel? {
+//        return UserVM().getUser(userUID: currentUserUID)
+//    }
+    @State var currentUser: UserModel? = nil
     
     // - //
     var vm = CreateTiVM()
@@ -157,11 +158,8 @@ struct CreateTI: View {
             }
             .padding(.vertical, width * 0.1)
         }
-        .overlay {
-            if isLoading {
-                LoadingView()
-            }
-        }
+        .overlay { if isLoading { LoadingView() } }
+        .onAppear{ Task { currentUser = try await UserManager.shared.getUser(userId: currentUserUID) } }
     }
     
     //MARK: - Functions

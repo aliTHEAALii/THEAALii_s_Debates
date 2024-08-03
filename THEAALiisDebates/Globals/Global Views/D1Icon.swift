@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: - D1 Icon
 struct D1Icon: View {
     
     var sf: CGFloat = 1
@@ -56,8 +57,8 @@ struct D1Icon: View {
     D2Icon()
 }
 
-
-struct D2Icon: View {
+//MARK: - D2 Icon Old
+struct D2IconOld: View {
     
     var sf: CGFloat = 1
     var showPersonIcon = true
@@ -109,5 +110,59 @@ struct D2Icon: View {
         }
         .frame(width: width * sf, height: width * 0.7 * sf)
 
+    }
+}
+
+
+//MARK: - D2 Icon
+struct D2Icon: View {
+    
+    var sf: CGFloat = 1
+    
+    var body: some View {
+        
+        
+        ZStack(alignment: .bottom) {
+            
+            //Thumbnail
+            VStack(spacing: 0) {
+                
+                RoundedRectangle(cornerRadius: 8 * sf)
+                    .stroke(lineWidth: 1 * sf)
+                    .foregroundStyle(.white, .white)
+                    .frame(width: width * sf, height: width * 0.5625 * sf)
+                
+                Spacer()
+            } // --- //
+            
+            
+            
+            //TIIconD2(scale: 1 * sf, showTwoSides: false)
+
+            
+            
+            //Left & Right User Icons
+            ZStack {
+                
+                RoundedRectangle(cornerRadius: 16 * sf)
+                    .stroke(lineWidth: 1 * sf)
+                    .foregroundStyle(.gray)
+                    .frame(width: width * 0.9 * sf, height: width * 0.08 * sf)
+                
+                HStack {
+                    PersonIcon(circle: true, scale: 0.2 * sf)
+                        .padding(.leading, width * 0.01 * sf)
+                    
+                    Spacer()
+                    TiCircleIcon(scale: sf)
+                    Spacer()
+                    
+                    PersonIcon(circle: true, scale: 0.2 * sf)
+                        .padding(.trailing, width * 0.01 * sf)
+                }
+            }
+        }
+        .frame(width: width * sf, height: width * 0.7 * sf)
+        
     }
 }

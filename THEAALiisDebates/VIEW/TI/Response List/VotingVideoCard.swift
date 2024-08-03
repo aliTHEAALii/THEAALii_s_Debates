@@ -30,7 +30,7 @@ struct VotingVideoCard: View {
             ZStack {
                 HStack(spacing: 0) {
                     
-                    //MARK: Video
+                    //Video
                     ZStack(alignment: .topLeading) {
                         if tiVideo != nil {
                             TIVideoPlayerViewOld(tiVideo: $tiVideo, urlString: "", sf: 0.85)
@@ -44,76 +44,34 @@ struct VotingVideoCard: View {
                     
                     Divider()
                     
-                    //MARK: - Voting
+                    //Voting
                     if tiVideo != nil {
                         VotingSVOld(tiId: tiID, tiVideo: $tiVideo, showSideOptions: $showSideOptions)
                     } else {
                         ProgressView()
                             .frame(width: width * 0.15, height: width * 0.45)
                     }
-
-//                    VStack(spacing: 0) {
-//
-//                        Button {
-//
-//                        } label: {
-//                            Image(systemName: "chevron.up")
-//                                .foregroundColor(.secondary)
-//                                .font(.title)
-//                                .frame(width: width * 0.15, height: width * 0.15)
-//                        }
-//
-//                        Button {
-//                            withAnimation(.spring()) {
-//                                showSideOptions.toggle()
-//                            }
-//                        } label: {
-//                            ZStack {
-//                                RoundedRectangle(cornerRadius: 8)
-//                                    .strokeBorder(lineWidth: 0.5)
-//                                    .frame(width: width * 0.13, height: width * 0.1)
-//
-//                                //                                Text("4.6K")
-//
-//                                if let tiVideo = tiVideo {
-//                                    Text( String(tiVideo.upVotes - tiVideo.downVotes) )
-//                                        .fontWeight(.light)
-//                                }
-//                            }
-//                            .foregroundColor(.primary)
-//                            .frame(width: width * 0.15, height: width * 0.15)
-//                        }
-//
-//
-//                        Button {
-//
-//                        } label: {
-//                            Image(systemName: "chevron.down")
-//                                .foregroundColor(.secondary)
-//                                .font(.title)
-//                                .frame(width: width * 0.15, height: width * 0.15)
-//                        }
-//
-//                    }
-//                    votingSV()
                 }
                 .frame(width: width, alignment: .leading)
                 
                 
-                //MARK: Side Options                SideOptionsSheet(showSideSheet: $showSideOptions)
+                //MARK: Side Options
                 if isAdmin && tiVideo != nil {
+                    
                     AdminResponseSideSheet(tiId: tiID, tiChainLId: tiChainLId, tiVideo: tiVideo!,
                                            isAdmin: isAdmin,
-                                           showSideSheet: $showSideOptions)
-                        .offset(x: showSideOptions ? width * 0.275 : width * 0.777)
-                } else {
+                                           showSideSheet: $showSideOptions
+                    )
+                    .offset(x: showSideOptions ? width * 0.275 : width * 0.777)
+                    
+                } else if tiVideo != nil {
                     SideSheetForVotingCellOld(isAdmin: isAdmin, showSideSheet: $showSideOptions)
                         .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
                 }
             }
             .frame(height: width * 0.5625 * 0.85)
             
-            //MARK: Vidoe Name
+            //Video Name
             Text(tiVideo?.name ?? "No Name detected for TI Video")
                 .foregroundColor(tiVideo?.name != nil ? .primary : .secondary)
                 .frame(width: width * 0.95, height: width * 0.15)
@@ -134,59 +92,14 @@ struct VotingVideoCard: View {
             
         }
     }
-    
-//    @ViewBuilder
-//    func votingSV() -> some View {
-//        //MARK: - Voting
-//        VStack(spacing: 0) {
-//
-//            Button {
-//
-//            } label: {
-//                Image(systemName: "chevron.up")
-//                    .foregroundColor(.secondary)
-//                    .font(.title)
-//                    .frame(width: width * 0.15, height: width * 0.15)
-//            }
-//
-//            Button {
-//                withAnimation(.spring()) {
-//                    showSideOptions.toggle()
-//                }
-//            } label: {
-//                ZStack {
-//                    RoundedRectangle(cornerRadius: 8)
-//                        .strokeBorder(lineWidth: 0.5)
-//                        .frame(width: width * 0.13, height: width * 0.1)
-//
-//                    //                                Text("4.6K")
-//
-//                    if let tiVideo = tiVideo {
-//                        Text( String(tiVideo.upVotes - tiVideo.downVotes) )
-//                            .fontWeight(.light)
-//                    }
-//                }
-//                .foregroundColor(.primary)
-//                .frame(width: width * 0.15, height: width * 0.15)
-//            }
-//
-//
-//            Button {
-//
-//            } label: {
-//                Image(systemName: "chevron.down")
-//                    .foregroundColor(.secondary)
-//                    .font(.title)
-//                    .frame(width: width * 0.15, height: width * 0.15)
-//            }
-//
-//        }
-//    }
 }
 
 struct VotingVideoCard_Previews: PreviewProvider {
     static var previews: some View {
-        VotingVideoCard(tiID: TestingModels().testingTIModel.id, tiChainLId: "cId", tiVideoID: "256", order: 2, isAdmin: false)
+//        VotingVideoCard(tiID: TestingModels().testingTIModel.id, tiChainLId: "cId", tiVideoID: "256", order: 2, isAdmin: false)
+        
+        TiView(ti: nil, showTiView: .constant(true))
+
     }
 }
 
@@ -214,10 +127,6 @@ final class VotingCardViewModel: ObservableObject {
         
         
         do {
-//            guard tiVideo != nil else {
-//                print("❌🧬 Error: tiVideo == nil : addTiVideoToTiChain() 🧬❌")
-//                return
-//            }
             
             //1. create tiChain using Video
             let tiChainId = UUID().uuidString //FIXME: ChainID == VideoID
@@ -236,33 +145,6 @@ final class VotingCardViewModel: ObservableObject {
             print("❌⬆️🧬🔗 Error: cound't Create & add tiChain to TIT ❌")
         }
     }
-    
-    
-    //-- add tiVideo from response List to TiChain
-//    func addTiVideoToTiChain(tiId: String, tiVideoId: String) async throws {
-//
-//        let tiChainId = UUID().uuidString
-//
-//        do {
-//
-//            guard tiVideo != nil else { print("❌🧬 Error: tiVideo == nil 🧬❌");   return }
-//
-//            //1. create tiChain using Video
-//            let tiChain = TITChainLModel(id: tiChainId, videoId: tiVideoId, videoTitle: tiVideo!.name, videoThumbnail: tiVideo!.thumbnail, responseList: [])
-//
-//            //2. [saving it in chain collection]
-//            try await TITChainLManager.shared.createCLink(titId: tiId, titCL: tiChain)
-//
-//            //3. add tiChain to TIModel interactionList
-//            try await TITManager.shared.addToChain(titId: tiId, chainId: tiChainId)
-//
-//            try await TITVideoManager.shared.addedToChain(tiId: tiId, tiVideoId: tiVideoId)
-//
-//            print("✅⬆️🧬🔗 Error: cound't Create & add tiChain to TIT ✅")
-//        } catch {
-//            print("❌⬆️🧬🔗 Error: cound't Create & add tiChain to TIT ❌")
-//        }
-//    }
     
     //MARK: - Voting Functions
     func upVote(tiId: String, tiVideo: TIVideoModel) {
