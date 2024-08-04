@@ -109,13 +109,31 @@ extension AuthenticationManager {
         try await user.updatePassword(to: password)
     }
     
+//    func updateEmail(email: String) async throws {
+//        guard let user = Auth.auth().currentUser else {
+//            throw URLError(.badServerResponse)
+//        }
+//        
+//        try await user.updateEmail(to: email) //FIXME: -- Deprecated
+//    }
+    //FIXME: this new update email is not fully implemented! (got it from chatGPT
     func updateEmail(email: String) async throws {
         guard let user = Auth.auth().currentUser else {
             throw URLError(.badServerResponse)
         }
         
-        try await user.updateEmail(to: email) //FIXME: -- Deprecated
+        // Reauthenticate the user
+        guard let currentEmail = user.email else {
+            throw URLError(.userAuthenticationRequired)
+        }
+        let credential = EmailAuthProvider.credential(withEmail: currentEmail, password: "current_password") // You need to get the current password from the user
+        try await user.reauthenticate(with: credential)
+        
+        // Send email verification before updating the email
+        try await user.sendEmailVerification(beforeUpdatingEmail: email)
     }
+
+
 
 }
 
