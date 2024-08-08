@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: - Library Tab View
 struct LibraryTabView: View {
     
     ///@Binding showDebateView: Bool
@@ -87,7 +88,7 @@ struct LibraryTabView: View {
                             //FIXME: - i == 100 (width)
                             
                             //0.07 + 0.4 + 0.53
-                            SavedTICell(index: i)
+                            SavedTICell(index: i, tiID:)
                         }
 //                        .onTapGesture {
 //                            withAnimation {
@@ -109,12 +110,13 @@ struct LibraryTabView: View {
 
 struct LibraryTabView_Previews: PreviewProvider {
     static var previews: some View {
+        
         LibraryTabView()
             .preferredColorScheme(.dark)
     }
 }
 
-
+//MARK: - Edit Library Button
 struct EditLibraryButton: View {
     
     @State private var showEditing = false
@@ -173,7 +175,8 @@ struct EditLibraryButton: View {
 struct SavedTICell: View {
     
     let index: Int
-//    let ti: TIModel
+    let tiID: String?
+    
     @State private var showTIFSC: Bool = false
     
     var body: some View {
@@ -211,33 +214,48 @@ struct SavedTICell: View {
 //MARK: - Mini Indicators SV
 struct MiniIndicatorsSV: View {
     
+    var ti: TI? = nil
     let tiChainCount: Int
+    var scale: CGFloat = 1
     
     var body: some View {
         
-        HStack(spacing: 0) {
-            Text("")
-                .frame(width: width * 0.14)
+        ZStack (alignment: .top) {
             
+            // 1.
             ZStack {
-                RoundedRectangle(cornerRadius: 6)
-                    .stroke(lineWidth: 0.5)
-                    .frame(width: width * 0.12, height: width * 0.04)
+                //Border
+                TiMapRectangleShape(cornerRadius: 2 * scale )
+                    .stroke(lineWidth: 1 )
+                    .foregroundStyle(.primary)
+//                    .frame(width: width * 0.15, height: width * 0.03)
 
-                HStack(spacing: 3) {
+                //Mini-Circles
+                HStack(spacing: 3 * scale) {
                     ForEach(0 ..< (tiChainCount < 5 ? tiChainCount : 5), id: \.self) { i in
                             Image(systemName: "circle.fill")
-                                .font(.system(size: width * 0.01))
+                                .font(.system(size: width * 0.01 * scale))
                     }
                 }
-                .frame(width: width * 0.1, height: width * 0.04)
+//                .frame(width: width * 0.1, height: width * 0.04)
             }
-            
-            Text("\(tiChainCount)")
-                .padding(.leading, width * 0.015)
-                .frame(width: width * 0.14, alignment: .leading)
+            .frame(width: width * 0.15 * scale, height: width * 0.03 * scale)
 
+
+            // 2. Number & User
+            HStack(spacing: 0) {
+                
+                //Number
+                Text("\(tiChainCount)")
+                    .font(.system(size: width * 0.03 * scale))
+                
+                Spacer()
+                
+                //User
+                UserButton(userUID: ti?.rsUserUID, scale: 0.3 * scale, horizontalWidth: 0.0)
+                
+            }
+            .frame(width: width * 0.4)
         }
-        .frame(width: width * 0.4)
     }
 }
