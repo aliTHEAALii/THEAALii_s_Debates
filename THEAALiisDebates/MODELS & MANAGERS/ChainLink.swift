@@ -10,35 +10,42 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 
-struct ChainLink: Identifiable, Codable {
+struct ChainLink: Identifiable, Codable, Equatable {
     
     @DocumentID var documentID: String?
     var id: String                         //same as the post
     var title    :  String
     var thumbnailURL :  String?
     var addedFromVerticalList: Bool
+    var creatorUID: String?
     //Vertical list info
     var verticalList : [String] = []
     var listAccess   :  VerticalListAccess?
     var listTitle    :  String?
     
     ///Create ChainLink
-    init(id: String, title: String, thumbnailURL: String?, addedFromVerticalListed: Bool) {
+    init(id: String, title: String, thumbnailURL: String?, creatorUID: String?, addedFromVerticalListed: Bool) {
         self.id = id
         self.title = title
         self.thumbnailURL = thumbnailURL
         self.addedFromVerticalList = addedFromVerticalListed
+        self.creatorUID = creatorUID
     }
     ///Read ChainLink
-    init(id: String, title: String, thumbnailURL: String?, addedFromVerticalList: Bool, verticalList: [String], listAccess: VerticalListAccess?, listTitle: String?) {
+    init(id: String, title: String, thumbnailURL: String?, creatorUID: String?, addedFromVerticalList: Bool, verticalList: [String], listAccess: VerticalListAccess?, listTitle: String?) {
         self.id           = id
         self.title        = title
         self.thumbnailURL = thumbnailURL
         self.addedFromVerticalList = addedFromVerticalList
+        self.creatorUID = creatorUID
         
         self.verticalList = verticalList
         self.listAccess   = listAccess
         self.listTitle    = listTitle
+    }
+    
+    static func ==(lhs: ChainLink, rhs: ChainLink) -> Bool {
+        lhs.id == rhs.id
     }
     
     //MARK: - Coding Keys
@@ -47,6 +54,7 @@ struct ChainLink: Identifiable, Codable {
         case title              = "title"
         case thumbnailURL       = "thumbnail_url"
         case addedFromVerticalList = "added_from_vertical_list"
+        case creatorUID         = "creator_uid"
         
         case verticalList       = "vertical_list"
         case listAccess         = "list_access"
@@ -58,10 +66,11 @@ struct ChainLink: Identifiable, Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        try container.encode(self.id          , forKey: .id          )
-        try container.encode(self.title, forKey: .title)
-        try container.encode(self.thumbnailURL, forKey: .thumbnailURL)
+        try container.encode(self.id                   , forKey: .id)
+        try container.encode(self.title                , forKey: .title)
+        try container.encodeIfPresent(self.thumbnailURL, forKey: .thumbnailURL)
         try container.encode(self.addedFromVerticalList, forKey: .addedFromVerticalList)
+        try container.encode(self.creatorUID, forKey: .creatorUID)
         //Vertical List
         try container.encode(self.verticalList       , forKey: .verticalList)
         try container.encodeIfPresent(self.listAccess, forKey: .listAccess  )
@@ -75,8 +84,9 @@ struct ChainLink: Identifiable, Codable {
         self.id = try container.decode(String.self, forKey: .id)
 
         self.title = try container.decode(String.self, forKey: .title)
-        self.thumbnailURL = try container.decode(String.self, forKey: .thumbnailURL)
+        self.thumbnailURL = try container.decodeIfPresent(String.self, forKey: .thumbnailURL)
         self.addedFromVerticalList = try container.decodeIfPresent(Bool.self, forKey: .addedFromVerticalList) ?? false
+        self.creatorUID = try container.decodeIfPresent(String.self, forKey: .creatorUID)
         //Vertical List
         self.verticalList = try container.decode([String].self,        forKey: .verticalList)
         self.listAccess   = try container.decodeIfPresent(VerticalListAccess.self, forKey: .listAccess  ) ?? .open

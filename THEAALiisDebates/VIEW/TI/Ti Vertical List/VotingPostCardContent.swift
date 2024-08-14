@@ -47,7 +47,9 @@ struct VotingPostCardContent: View {
                         .frame(width: width * sf, height: width * 0.5625 * sf)
                     }
                 } else if post!.type == .text {
-                    
+                    Text(post?.text ?? "nil")
+                        .multilineTextAlignment(.leading)
+                        .padding(.horizontal)
                 }
 
                 

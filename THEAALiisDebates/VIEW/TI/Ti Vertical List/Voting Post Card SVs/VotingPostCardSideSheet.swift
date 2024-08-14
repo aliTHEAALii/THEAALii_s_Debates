@@ -164,7 +164,7 @@ struct VotingPostCardSideSheet: View {
             
             isLoading = true
             
-            let chainLink = ChainLink(id: vlPost!.id, title: vlPost!.title, thumbnailURL: vlPost!.imageURL, addedFromVerticalListed: true)
+            let chainLink = ChainLink(id: vlPost!.id, title: vlPost!.title, thumbnailURL: vlPost!.imageURL, creatorUID: vlPost?.creatorUID, addedFromVerticalListed: true)
             
             Task {
                 do {

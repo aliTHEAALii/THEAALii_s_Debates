@@ -11,21 +11,23 @@ final class CCAddToChainVM {
     
     
     func uploadPostToChain(tiID: String, postID: String, leftOrRightChain: LeftOrRight,
-        title: String, postType: PostType, description: String, imageData: Data?, videoURL: String?, creatorUID: String) async throws {
+        title: String, postType: PostType, description: String, imageData: Data?, videoURL: String?, creatorUID: String) 
+    async throws {
         
         let thumbnailURLString: String? = await ImageManager.shared.saveImage(imageData: imageData,
                                                        thumbnailFor: .post,
                                                                      thumbnailForTypeId: postID)
-        
-        guard let thumbnailURLString = thumbnailURLString else {
-            print("❌🔥🍒🔼📸 Error Creating D2Ti: Couldn't upload Image 📸🔼🍒🔥❌")
-            return
+        if postType != .text {
+            guard thumbnailURLString != nil else {
+                print("❌🔥🍒🔼📸 Error Creating D2Ti: Couldn't upload Image 📸🔼🍒🔥❌")
+                return
+            }
         }
         
         let post = Post(id: postID, title: title, type: postType, text: description, imageURL: thumbnailURLString, videoURL: videoURL, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
         )
         
-        let chainLink = ChainLink(id: postID, title: title, thumbnailURL: thumbnailURLString, addedFromVerticalListed: false)
+        let chainLink = ChainLink(id: postID, title: title, thumbnailURL: thumbnailURLString, creatorUID: creatorUID, addedFromVerticalListed: false)
         
         Task {
             do {

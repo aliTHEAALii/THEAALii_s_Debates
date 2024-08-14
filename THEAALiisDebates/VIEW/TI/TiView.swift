@@ -106,6 +106,20 @@ struct TiView: View {
         
     }
     
+    private func fetchTiPost() {
+        guard !tiChain.isEmpty else { return }
+        guard let ti else { return }
+        
+        PostManager.shared.getPost(tiID: ti.id, postID: tiChain[selectedChainLinkIndex]) { result in
+            switch result{
+            case .success(let post):
+                tiPost = post
+            case .failure(_): //error
+                tiPost = nil
+            }
+        }
+    }
+    
     func getChainLink() {
         guard let ti = ti else { return }
         let chainLinkID = tiChain[selectedChainLinkIndex]
@@ -121,19 +135,7 @@ struct TiView: View {
         }
     }
     
-    private func fetchTiPost() {
-        guard !tiChain.isEmpty else { return }
-        guard let ti else { return }
-        
-        PostManager.shared.getPost(tiID: ti.id, postID: tiChain[selectedChainLinkIndex]) { result in
-            switch result{
-            case .success(let post):
-                tiPost = post
-            case .failure(_): //error
-                tiPost = nil
-            }
-        }
-    }
+
     
     //TODO: if selected Index == intro Post index
     var showPickIntroPostVideoButton: Bool {

@@ -111,7 +111,7 @@ final class CreateTiVM {
             return false
         }
         
-        let introChainLink = ChainLink(id: id, title: "INTRO", thumbnailURL: thumbnailURLString, addedFromVerticalListed: false)
+        let introChainLink = ChainLink(id: id, title: "INTRO", thumbnailURL: thumbnailURLString, creatorUID: creatorUID, addedFromVerticalListed: false)
 
         let introPost = Post(id: id, title: "INTRO", type: .text, text: description, imageURL: nil, videoURL: nil, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
         )
@@ -193,7 +193,7 @@ final class CreateTiVM {
         let introPost = Post(id: id, title: "INTRO", type: .text, text: description, imageURL: nil, videoURL: nil, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
         )
         
-        let introChainLink = ChainLink(id: id, title: "INTRO", thumbnailURL: thumbnailURLString, addedFromVerticalListed: false)
+        let introChainLink = ChainLink(id: id, title: "INTRO", thumbnailURL: thumbnailURLString, creatorUID: creatorUID, addedFromVerticalListed: false)
         
         let d2Ti = TI(ID: id, title: title, description: description, thumbnailURL: thumbnailURLString, creatorUID: creatorUID, tiAdminsUIDs: tiAdminsUIDs,
                        rsUserUID: rsUserUID, rsLevel1UsersUIDs: rsLevel1UsersUIDs, rsLevel2UsersUIDs: rsLevel2UsersUIDs, rsLevel3UsersUIDs: rsLevel3UsersUIDs, rsVerticalListAccess: rsVerticalListAccess,
@@ -276,7 +276,7 @@ final class CreateTiVM {
         let introPost = Post(id: id, title: "INTRO", type: .text, text: description, imageURL: nil, videoURL: nil, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
         )
         
-            let introChainLink = ChainLink(id: id, title: "INTRO", thumbnailURL: thumbnailURLString, addedFromVerticalListed: false)
+            let introChainLink = ChainLink(id: id, title: "INTRO", thumbnailURL: thumbnailURLString, creatorUID: creatorUID, addedFromVerticalListed: false)
         
         let d2Ti = TI(ID: id, title: title, description: description, thumbnailURL: thumbnailURLString, creatorUID: creatorUID, tiAdminsUIDs: tiAdminsUIDs,
                        rsUserUID: rsUserUID, rsLevel1UsersUIDs: rsLevel1UsersUIDs, rsLevel2UsersUIDs: rsLevel2UsersUIDs, rsLevel3UsersUIDs: rsLevel3UsersUIDs, rsVerticalListAccess: rsVerticalListAccess,

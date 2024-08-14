@@ -21,7 +21,7 @@ struct CCBottomBar: View {
             
             //Left Side
             if ti?.tiType == .d2 {
-                UserButton()
+                UserButton(userUID: ti?.lsUserUID)
                     .frame(width: width * 0.2)      //u
                 
                 //AddButtonSV()   //width * 0.15
@@ -64,7 +64,7 @@ struct CCBottomBar: View {
                     .frame(width: width * 0.15)
             }
             
-            UserButton()
+            UserButton(userUID: ti?.rsUserUID)
                 .frame(width: width * 0.2)      //u
         }
         .frame(width: width, height: width * 0.25)
