@@ -88,7 +88,7 @@ struct LibraryTabView: View {
                             //FIXME: - i == 100 (width)
                             
                             //0.07 + 0.4 + 0.53
-                            SavedTICell(index: i, tiID:)
+                            SavedTICell(index: i, tiID: "id")
                         }
 //                        .onTapGesture {
 //                            withAnimation {
@@ -171,44 +171,7 @@ struct EditLibraryButton: View {
 }
 
 
-//MARK: Saved TI Cell
-struct SavedTICell: View {
-    
-    let index: Int
-    let tiID: String?
-    
-    @State private var showTIFSC: Bool = false
-    
-    var body: some View {
-        HStack(spacing: 0) {
-            Text("\(index + 1).")
-                .frame(width: width * 0.07)
-            
-            VStack(spacing: 5) {
-                Rectangle()
-                    .foregroundColor(.gray)
-                    .frame(width: width * 0.4, height: width * 0.5625 * 0.4)
 
-                MiniIndicatorsSV(tiChainCount: 3)
-            }
-            
-            Text("Debate Title: let's try something ")
-                .multilineTextAlignment(.leading)
-                .padding(.leading, width * 0.02)
-                .frame(width: width * 0.53, alignment: .leading)
-        }
-        .foregroundColor(.primary)
-        .frame(height: width * 0.5625 * 0.45)
-//        .fullScreenCover(isPresented: $show) {
-//            TIView(ti: ti, showTIFSC: $showTIFSC)
-//        }
-//        .onAppear{ Task { try await fetchTI() } }
-    }
-    
-    private func fetchTI() async throws {
-//        TITManager.shared.getTIT(TITid: tiId)
-    }
-}
 
 
 //MARK: - Mini Indicators SV

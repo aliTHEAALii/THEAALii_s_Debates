@@ -95,16 +95,16 @@ struct iiView: View {
 }
 
 #Preview {
-//    iiView(ti: .constant(TiViewModel().ti))
+    iiView(ti: .constant(TiViewModel().ti))
     
-    TiView(ti: nil, showTiView: .constant(true))
+//    TiView(ti: nil, showTiView: .constant(true))
 }
 
 
 
 
-struct UploadToTiChainFSC: View {
-    var body: some View {
-        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Hello, world!@*/Text("Hello, world!")/*@END_MENU_TOKEN@*/
-    }
-}
+//struct UploadToTiChainFSC: View {
+//    var body: some View {
+//        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Hello, world!@*/Text("Hello, world!")/*@END_MENU_TOKEN@*/
+//    }
+//}

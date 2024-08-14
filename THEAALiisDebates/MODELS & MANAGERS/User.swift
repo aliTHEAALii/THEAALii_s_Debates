@@ -16,9 +16,9 @@ enum userLabel {
 
 
 //MARK: - User Model
-struct UserModel: Codable {
+struct UserModel: Codable, Equatable {
     
-    @DocumentID var id: String?
+    @DocumentID var documentID: String?
     let dataJoined: Date
     var userUID: String = ""
     var email  : String = ""
@@ -37,10 +37,14 @@ struct UserModel: Codable {
     
     var savedUsersUIDs:     [String?] = []
     var observingTIsIDs  :     [String]  = []
+    
+    //Equatable
+    static func ==(lhs: UserModel, rhs: UserModel) -> Bool {
+        lhs.userUID == rhs.userUID
+    }
 
     //MARK: -  Coding Keys
     enum CodingKeys: String, CodingKey {
-        case id
         case dataJoined = "date_joined"
         case userUID = "user_uid"
         case email = "email"
@@ -83,9 +87,9 @@ struct UserModel: Codable {
         observingTIs: [String]
     )
     {
-        self.dataJoined = dateJoined
         self.userUID = userUID
         self.email = email ?? ""
+        self.dataJoined = dateJoined
         
         self.displayName = displayName
         self.bio = bio
@@ -154,6 +158,45 @@ final class UserManager {
             return nil
         }
     }
+    func searchUsers(query: String, completion: @escaping ([UserModel]) -> Void) {
+        userCollection.whereField("display_name", isGreaterThanOrEqualTo: query)
+            .whereField("display_name", isLessThanOrEqualTo: query + "\u{f8ff}")
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("🆘🔍Error getting documents: \(error)❌")
+                    completion([])
+                } else {
+                    let tiArray = querySnapshot?.documents.compactMap {
+                        try? $0.data(as: UserModel.self)
+                    } ?? []
+                    completion(tiArray)
+                }
+            }
+    }
+//    func searchUsers(query: String, lastDocument: DocumentSnapshot? = nil, pageSize: Int = 5, completion: @escaping ([UserModel], DocumentSnapshot?) -> Void) {
+//            var queryRef = Firestore.firestore().collection("users")
+//            .whereField(UserModel.CodingKeys.displayName.rawValue, isGreaterThanOrEqualTo: query)
+//                .whereField("display_name", isLessThanOrEqualTo: query + "\u{f8ff}")
+//                .limit(to: pageSize)
+//            
+//            // Start after the last document if pagination is in use
+//            if let lastDoc = lastDocument {
+//                queryRef = queryRef.start(afterDocument: lastDoc)
+//            }
+//            
+//            queryRef.getDocuments { (querySnapshot, error) in
+//                if let error = error {
+//                    print("🆘🔍Error getting documents: \(error)❌")
+//                    completion([], nil)
+//                } else {
+//                    let userArray = querySnapshot?.documents.compactMap {
+//                        try? $0.data(as: UserModel.self)
+//                    } ?? []
+//                    let lastDoc = querySnapshot?.documents.last
+//                    completion(userArray, lastDoc)
+//                }
+//            }
+//        }
     
     
     //3. - Update

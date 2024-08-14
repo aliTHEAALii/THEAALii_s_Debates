@@ -7,81 +7,6 @@
 
 import SwiftUI
 
-//MARK: - User Button
-//struct UserButton2: View {
-//
-//    //FIXME: - Replace userVM
-//    @StateObject var userVM = UserViewModel()
-//
-//    let userUID: String?
-//    var imageURL: String?
-//
-//    @State private var showUserSheet = false
-//
-//    var body: some View {
-//
-//        Button {
-//            showUserSheet.toggle()
-//        } label: {
-//            ZStack {
-//
-//                Circle()
-//                    .frame(width: width * 0.12)
-//                    .foregroundColor(.black)
-//
-//                if userVM.user != nil {
-//                    if userVM.user?.profileImageURLString != nil {
-//
-//                        AsyncImage(url: URL(string: userVM.user?.profileImageURLString ?? ""), scale: 0.5) { image in
-//                            image
-//                                .resizable()
-//                                .clipShape(Circle())
-//                                .scaledToFit()
-//                                .frame(width: width * 0.15)
-//
-//                        } placeholder: {
-//                            ProgressView()
-//                        }
-//                    } else { PersonTITIconSV(scale: 1.3) }
-//                } else {
-//                    VStack {
-//                        Text("No")
-//                            .font(.system(size: width * 0.03, weight: .light))
-//                        Text("User")
-//                            .font(.system(size: width * 0.03, weight: .light))
-//                    }
-//                    .background(.black)
-//                    .foregroundColor(.secondary)
-//                }
-//
-//
-//                Circle()
-//                    .strokeBorder(lineWidth: 0.5)
-//                    .frame(width: width * 0.12)
-//                    .foregroundColor(.secondary)
-//
-//            }
-//        }
-//        .preferredColorScheme(.dark)
-//        .onAppear{
-//            //FIXME: - Crashed the app
-//            Task {
-//                if userUID != nil && userUID != "" {
-//                    //Valid UID
-//                    let userExists = try await UserManager.shared.getUser(userId: userUID!)
-//                    if userExists != nil {
-//                        try await userVM.loadUser(userID: userUID!)
-//                    }
-//                }
-//            }
-//        }
-//        .fullScreenCover(isPresented: $showUserSheet) {
-//
-//            UserFSC(user: userVM.user, showFSC: $showUserSheet)
-//        }
-//    }
-//}
-
 struct UserButton_Previews: PreviewProvider {
     static var previews: some View {
 //        UserButton(
@@ -92,7 +17,6 @@ struct UserButton_Previews: PreviewProvider {
         TiCard(ti: TestingModels().testTI0)
 
 //        CreateTI(showFSC: .constant(true), selectedTabIndex: .constant(2))
-
     }
 }
 
@@ -107,7 +31,6 @@ struct UserButton: View {
     var scale: CGFloat = 1
     var horizontalWidth: CGFloat = width * 0.4
     
-    
     @State private var showUserSheet = false
     @State private var isLoading = false
     
@@ -115,7 +38,6 @@ struct UserButton: View {
         
         HStack(spacing: 0) {
             
-            //MARK: - Button
             Button {
                 showUserSheet.toggle()
             } label: {
@@ -155,11 +77,9 @@ struct UserButton: View {
                         
                         //Black Background
                         Circle()
-                            .frame(width: width * 0.12 * scale)
+//                            .frame(width: width * 0.12 * scale)
                             .foregroundColor(.black)
                         
-//                        if let computedUser {
-//                            if let profileImageURLString = computedUser.profileImageURLString {
                         if let user {
                             if let profileImageURLString = user.profileImageURLString {
                                 AsyncImage(url: URL(string: profileImageURLString), scale: 0.5 * scale) { image in
@@ -167,14 +87,14 @@ struct UserButton: View {
                                         .resizable()
                                         .clipShape(Circle())
                                         .scaledToFit()
-                                        .frame(width: width * 0.12 * scale)
+//                                        .frame(width: width * 0.12 * scale)
                                     
                                 } placeholder: {
                                     ProgressView()
                                 }
                                 
                                 //User with Nil image
-                            } else { PersonTITIconSV(scale: 1.3 * scale) }
+                            } else { }//PersonTITIconSV(scale: 1.3 * scale) }
                             
                             //User Doesn't exist
                         } else {
@@ -191,10 +111,12 @@ struct UserButton: View {
                         //Border
                         Circle()
                             .strokeBorder(lineWidth: 0.5 * scale)
-                            .frame(width: width * 0.12 * scale)
+//                            .frame(width: width * 0.12 * scale)
                             .foregroundColor(.primary)
                         
                     }
+                    .frame(width: width * 0.12 * scale)
+
                 }
             }
             .onAppear{ Task { await loadUser() } }
@@ -208,7 +130,7 @@ struct UserButton: View {
     
     //MARK: - Functions
     func loadUser() async {
-        guard user == nil else { return }
+        if user != nil { return }
         guard let userUID else { return }
         isLoading = true
 
@@ -232,7 +154,7 @@ struct UserButton: View {
     //MARK: - Computed Properties
     var computedUser: UserModel? {
         if user != nil { return user }
-        if userUID == nil { return nil}
+        if userUID == nil { return nil }
 //        guard userUID != nil else { return nil }
         
         //3. user    && id          -> XXXX
@@ -242,20 +164,20 @@ struct UserButton: View {
         //2. no user && no UID      -> return nil
         
         if userUID != nil {
-#if DEBUG
-            return TestingModels().userArray.randomElement()
-
-#else
-            Task {
-                do {
-                    return try await UserManager.shared.getUser(userId: userUID ?? "")
-                } catch {
-                    print("🆘🔴🟠 Couln't get user 🟧🆘")
-                    print(error.localizedDescription)
-                    return nil
-                }
-            }
-#endif
+//#if DEBUG
+//            return TestingModels().userArray.randomElement()
+//
+//#else
+//            Task {
+//                do {
+//                    return try await UserManager.shared.getUser(userId: userUID ?? "")
+//                } catch {
+//                    print("🆘🔴🟠 Couln't get user 🟧🆘")
+//                    print(error.localizedDescription)
+//                    return nil
+//                }
+//            }
+//#endif
         }
         return nil
     }

@@ -65,6 +65,7 @@ struct UserPostedDebateCard_Previews: PreviewProvider {
 struct DebateCardIndicatorCirclesSV: View {
     
     var debateChainsCount: Int
+    var scale: CGFloat = 1
     
     var body: some View {
         
@@ -80,8 +81,8 @@ struct DebateCardIndicatorCirclesSV: View {
                             .fontWeight(.light)
                         
                         Circle()
-                            .stroke(lineWidth: 1)
-                            .frame(width: width * 0.05)
+                            .stroke(lineWidth: 1 * scale)
+                            .frame(width: width * 0.05 * scale)
                     }
                     
                 }
@@ -95,8 +96,8 @@ struct DebateCardIndicatorCirclesSV: View {
                             .font(.caption)
                         
                         Circle()
-                            .stroke(lineWidth: 1)
-                            .frame(width: width * 0.055)
+                            .stroke(lineWidth: 1 * scale)
+                            .frame(width: width * 0.055 * scale)
                     }
                     
                 }
@@ -111,13 +112,13 @@ struct DebateCardIndicatorCirclesSV: View {
 //                            .fontWeight(.light)
                         
                         Circle()
-                            .stroke(lineWidth: 0.7)
-                            .frame(width: width * 0.06)
+                            .stroke(lineWidth: 0.7 * scale)
+                            .frame(width: width * 0.06 * scale)
                     }
                     
                 }
             }
         }
-        .frame(width: width * 0.5, height: width * 0.08)
+        .frame(width: width * 0.5 * scale, height: width * 0.08 * scale)
     }
 }

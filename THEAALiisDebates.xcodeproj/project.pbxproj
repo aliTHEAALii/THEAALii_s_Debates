@@ -135,6 +135,8 @@
 		2FBA0CE12C45B58200BA4907 /* PickIntroVideoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBA0CE02C45B58200BA4907 /* PickIntroVideoButton.swift */; };
 		2FBA0CE32C46CCBF00BA4907 /* SideSheetRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBA0CE22C46CCBF00BA4907 /* SideSheetRectangle.swift */; };
 		2FD5F5482C00CC5E00488621 /* RoundedTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD5F5472C00CC5E00488621 /* RoundedTriangle.swift */; };
+		2FE9DFFD2C617815000353DC /* SearchTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE9DFFC2C617815000353DC /* SearchTab.swift */; };
+		2FE9DFFF2C656619000353DC /* UserLibraryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE9DFFE2C656619000353DC /* UserLibraryTab.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -262,6 +264,8 @@
 		2FBA0CE02C45B58200BA4907 /* PickIntroVideoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickIntroVideoButton.swift; sourceTree = "<group>"; };
 		2FBA0CE22C46CCBF00BA4907 /* SideSheetRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideSheetRectangle.swift; sourceTree = "<group>"; };
 		2FD5F5472C00CC5E00488621 /* RoundedTriangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTriangle.swift; sourceTree = "<group>"; };
+		2FE9DFFC2C617815000353DC /* SearchTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTab.swift; sourceTree = "<group>"; };
+		2FE9DFFE2C656619000353DC /* UserLibraryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLibraryTab.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -304,6 +308,7 @@
 		2F5684982C5A5BBF00071CAE /* Tab 2 Search */ = {
 			isa = PBXGroup;
 			children = (
+				2FE9DFFC2C617815000353DC /* SearchTab.swift */,
 			);
 			path = "Tab 2 Search";
 			sourceTree = "<group>";
@@ -558,6 +563,7 @@
 		2F690CE22BC191B700A31760 /* Tab 4  */ = {
 			isa = PBXGroup;
 			children = (
+				2FE9DFFE2C656619000353DC /* UserLibraryTab.swift */,
 				2F690CE32BC191D900A31760 /* LibraryTabView.swift */,
 				2F690CE52BC191F500A31760 /* EditSavedDebatesFSC.swift */,
 			);
@@ -834,6 +840,7 @@
 				2F690C722BC0BE5E00A31760 /* TITViewModel.swift in Sources */,
 				2F690C932BC17D8A00A31760 /* UserPostedDebateCard.swift in Sources */,
 				2F690D022BC1947B00A31760 /* VideoInfoSV.swift in Sources */,
+				2FE9DFFF2C656619000353DC /* UserLibraryTab.swift in Sources */,
 				2F690C912BC17D7100A31760 /* UserViewTabsBar.swift in Sources */,
 				2F690C692BC0BD7E00A31760 /* TITChainLink.swift in Sources */,
 				2F690C652BC0BD3C00A31760 /* Video Manager.swift in Sources */,
@@ -858,6 +865,7 @@
 				2F690CB92BC18E1100A31760 /* AdminResponseSideSheet.swift in Sources */,
 				2F3534082BDB34F000DE5E7A /* CTiStep1.swift in Sources */,
 				2F690D112BC1D9EA00A31760 /* CreateTI.swift in Sources */,
+				2FE9DFFD2C617815000353DC /* SearchTab.swift in Sources */,
 				2F690CAF2BC1874500A31760 /* VideoSV.swift in Sources */,
 				2F690CF72BC193DE00A31760 /* TITView.swift in Sources */,
 				2F56849A2C5EDEDB00071CAE /* iiEditTiAdminsBar.swift in Sources */,

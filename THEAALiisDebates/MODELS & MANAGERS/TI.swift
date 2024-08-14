@@ -13,7 +13,7 @@ enum TIType   : String, Codable { case post = "post",  d1 = "D-1", d2 = "D-2" }
 enum VerticalListAccess: String, Codable { case open = "open", restricted = "restricted", closed = "closed" }
 enum LeftOrRight { case left, right }
 
-struct TI: Identifiable, Codable, Hashable {
+struct TI: Identifiable, Codable, Hashable, Equatable {
     
     @DocumentID var documentID: String?
     var id: String
@@ -69,7 +69,9 @@ struct TI: Identifiable, Codable, Hashable {
     
     var tiObserversUIDs: [String] = []
 
-    
+    static func ==(lhs: TI, rhs: TI) -> Bool {
+        lhs.id == rhs.id
+    }
     
     //MARK: - Coding Keys
     enum CodingKeys: String, CodingKey {
@@ -227,7 +229,7 @@ struct TI: Identifiable, Codable, Hashable {
     ) {
         self.documentID = ID
         self.id = ID
-        self.title = title; self.description = description;
+        self.title = title.lowercased(); self.description = description;
         self.thumbnailURL = thumbnailURL;
         self.dateCreated = Date.now  //FIXME: Date()
         
@@ -269,7 +271,7 @@ struct TI: Identifiable, Codable, Hashable {
     ) {
         self.documentID = ID
         self.id = ID
-        self.title = title; self.description = description;
+        self.title = title.lowercased(); self.description = description;
         self.thumbnailURL = thumbnailURL;
         self.dateCreated = Date.now  //FIXME: Date()
         
@@ -426,6 +428,45 @@ final class TIManager {
             }
         }
     }
+//    func searchTIs(query: String, completion: @escaping ([TI]) -> Void) {
+//        TICollection.whereField("title", isGreaterThanOrEqualTo: query)
+//            .whereField("title", isLessThanOrEqualTo: query + "\u{f8ff}")
+//            .getDocuments { (querySnapshot, error) in
+//                if let error = error {
+//                    print("🆘🔍Error getting documents: \(error)❌")
+//                    completion([])
+//                } else {
+//                    let tiArray = querySnapshot?.documents.compactMap {
+//                        try? $0.data(as: TI.self)
+//                    } ?? []
+//                    completion(tiArray)
+//                }
+//            }
+//    }
+    func searchTIs(query: String, lastDocument: DocumentSnapshot? = nil, pageSize: Int = 5, completion: @escaping ([TI], DocumentSnapshot?) -> Void) {
+            var queryRef = Firestore.firestore().collection("THEAALii_Interactions")
+                .whereField("title", isGreaterThanOrEqualTo: query)
+                .whereField("title", isLessThanOrEqualTo: query + "\u{f8ff}")
+                .limit(to: pageSize)
+            
+            // Start after the last document if pagination is in use
+            if let lastDoc = lastDocument {
+                queryRef = queryRef.start(afterDocument: lastDoc)
+            }
+            
+            queryRef.getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("🆘🔍Error getting documents: \(error)❌")
+                    completion([], nil)
+                } else {
+                    let tiArray = querySnapshot?.documents.compactMap {
+                        try? $0.data(as: TI.self)
+                    } ?? []
+                    let lastDoc = querySnapshot?.documents.last
+                    completion(tiArray, lastDoc)
+                }
+            }
+        }
     
     // - 3. Update
     

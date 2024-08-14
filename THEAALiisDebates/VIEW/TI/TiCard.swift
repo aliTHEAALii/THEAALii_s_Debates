@@ -10,7 +10,8 @@ import SwiftUI
 
 struct TiCard: View {
     
-    var ti: TI
+    @State var ti: TI? = nil
+    var tiID: String? = nil
     
     @State private var showTiView: Bool = false
     
@@ -27,7 +28,7 @@ struct TiCard: View {
                 ZStack(alignment: .bottom) {
                     VStack(spacing: 0) {
                         
-                        if let thumbnailURL = ti.thumbnailURL {
+                        if let thumbnailURL = ti?.thumbnailURL {
                             AsyncImage(url: URL(string: thumbnailURL)) { image in
                                 image
                                     .resizable()
@@ -39,41 +40,52 @@ struct TiCard: View {
                                     .frame(width: width, height: width * 0.5625)
                             }
                         } else {
-                            
+                            ImageView(imageUrlString: ti?.thumbnailURL)
                         }
                     }
-                    .padding(.bottom, ti.tiType == .d2 ? width * 0.14 : width * 0.085)
+                    .padding(.bottom, ti?.tiType == .d2 ? width * 0.14 : width * 0.085)
                     
-                    if ti.tiType == .d2 {
-                        D2IconBarNew(ti: ti)
+                    if ti?.tiType == .d2 {
+                        if let ti {
+                            D2IconBarNew(ti: ti)
+                        }
                         
-                    } else if ti.tiType == .d1 {
-                        TiMapRectD1(ti: ti, cornerRadius: 8, rectWidth: width * 0.5, rectHeight: width * 0.085, stroke: 0.5)
+                    } else if ti?.tiType == .d1 {
+                        if let ti {
+                            TiMapRectD1(ti: ti, cornerRadius: 8, rectWidth: width * 0.5, rectHeight: width * 0.085, stroke: 0.5)
+                        }
                     }
                 }
                 
-                if ti.tiType == .d2 {
-                    Text(ti.title)
+                if ti?.tiType == .d2 {
+                    Text(ti?.title ?? "No TI")
                         .foregroundStyle(.white)
                         .padding(.vertical, width * 0.02)
                     
-                } else if ti.tiType == .d1 {
+                } else if ti?.tiType == .d1 {
                     HStack(spacing: 0) {
-                        Text(ti.title)
+                        Text(ti?.title ?? "No TI")
                             .foregroundStyle(.white)
                             .multilineTextAlignment(.leading)
                             .lineLimit(2)
                             .padding(.horizontal, width * 0.01)
                             .frame(width: width * 0.67, alignment: .leading)
                         
-                        UserButton(userUID: ti.creatorUID, horizontalName: true, scale: 0.7, horizontalWidth: width * 0.21)
+                        UserButton(userUID: ti?.creatorUID, horizontalName: true, scale: 0.7, horizontalWidth: width * 0.21)
                     }
-                    .frame(height: ti.title.count < 25 ? width * 0.13 : width * 0.17)
+                    .frame(height: ti?.title.count ?? 0 < 25 ? width * 0.13 : width * 0.17)
                 }
             }
         }
         .fullScreenCover(isPresented: $showTiView) {
             TiView(ti: ti, showTiView: $showTiView)
+        }
+        .task {
+            do {
+                if let tiID {
+                    ti = try await TIManager.shared.fetchTI(tiID: tiID)
+                }
+            } catch {  print("❌ Error Couldn't get TI for Library Tab Cell ❌") }
         }
     }
     
@@ -84,11 +96,11 @@ struct TiCard: View {
 //MARK: - Preview
 #Preview {
     
-//        D2CardBar(ti: TestingModels().testTI0)
+    //        D2CardBar(ti: TestingModels().testTI0)
     
     RootView(logStatus: true)
     
-//    TiCard2(ti: TestingModels().testTI0)
+    //    TiCard2(ti: TestingModels().testTI0)
 }
 
 
@@ -103,7 +115,7 @@ struct D2IconBarOld: View {
     @State var leftUser: UserModel? = nil
     @State var rightUser: UserModel? = nil
     
-//    var showNames = true
+    //    var showNames = true
     
     var body: some View {
         
@@ -119,19 +131,19 @@ struct D2IconBarOld: View {
                 VStack (spacing: width * 0.0075) {
                     TiMapRect(ti: ti, cornerRadius: 8, rectWidth: width * 0.7, rectHeight: width * 0.085, stroke: 0.5)
                     
+                    
+                    HStack(spacing: 0) {
+                        Text(leftUser?.displayName ?? "nil")
+                            .font(.system(size: width * 0.033, weight: .regular))
                         
-                        HStack(spacing: 0) {
-                            Text(leftUser?.displayName ?? "nil")
-                                .font(.system(size: width * 0.033, weight: .regular))
-                            
-                            Spacer()
-                            
-                            Text(rightUser?.displayName ?? "nil")
-                                .font(.system(size: width * 0.033, weight: .regular))
-                            
-                        }
-                        .foregroundStyle(.white)
+                        Spacer()
                         
+                        Text(rightUser?.displayName ?? "nil")
+                            .font(.system(size: width * 0.033, weight: .regular))
+                        
+                    }
+                    .foregroundStyle(.white)
+                    
                 }
                 
                 TiCircleIcon()
@@ -167,44 +179,46 @@ struct D2IconBarNew: View {
     //TODO: Pass this to the tiView since the fetch is already done here, don't fetch L & R users again in TiView
     @State var leftUser: UserModel? = nil
     @State var rightUser: UserModel? = nil
-        
+    
+    var scale: CGFloat = 1
+    
     var body: some View {
         
         ZStack {
             
             // -  Border & Names
-            VStack(spacing: width * 0.0075) {
+            VStack(spacing: width * 0.0075 * scale) {
                 
                 //Upper space
                 Rectangle()
                     .foregroundStyle(.clear)
-                    .frame(height: width * 0.05)
+                    .frame(height: width * 0.05 * scale)
                 
                 // Border
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(lineWidth: 1)
+                RoundedRectangle(cornerRadius: 16 * scale)
+                    .stroke(lineWidth: 1 * scale)
                     .foregroundStyle(.gray)
-                    .frame(width: width * 0.9, height: width * 0.08)
+                    .frame(width: width * 0.9 * scale, height: width * 0.08 * scale)
                 
                 //Name (left & right) //Bottom Space
                 HStack(spacing: 0) {
                     Text(leftUser?.displayName ?? "nil")
-                        .font(.system(size: width * 0.033, weight: .regular))
+                        .font(.system(size: width * 0.033 * scale, weight: .regular))
                     
                     Spacer()
                     
                     Text(rightUser?.displayName ?? "nil")
-                        .font(.system(size: width * 0.033, weight: .regular))
+                        .font(.system(size: width * 0.033 * scale, weight: .regular))
                     
                 }
                 .foregroundStyle(.white)
-                .frame(width: width * 0.775, height: width * 0.05)
+                .frame(width: width * 0.775 * scale, height: width * 0.05 * scale)
             } // --- \\
-//            .padding(.top, width * 0.05)
-
+            //            .padding(.top, width * 0.05)
+            
             //MARK: - Circles
             HStack(spacing: 0) {
-                                
+                
                 //left Circles
                 HStack(spacing: 0) {
                     if let leftSideChain = ti.leftSideChain {
@@ -227,64 +241,61 @@ struct D2IconBarNew: View {
                             }
                         }
                     }
-                }.frame(width: width * 0.4)
+                }.frame(width: width * 0.4 * scale)
                 
                 Rectangle()
                     .foregroundStyle(.clear)
-                    .frame(width: width * 0.05)
+                    .frame(width: width * 0.05 * scale)
                 
                 //right Circles
                 HStack(spacing: 0) {
-                if ti.rightSideChain.count > 3 {
-                    ForEach(0..<4) { i in
-                        
-                        CircleForTiCard(number: ti.rightSideChain.count - (3 - i))
-
-                    }
-                } else if ti.rightSideChain.count <= 3 && !ti.rightSideChain.isEmpty {
-                    ForEach(0..<3) { i in
-                        
-                        if (i + 1) <= ti.rightSideChain.count {
-                            CircleForTiCard(number: i + 1)
-                        } else {
-                            //blank circle for space
-                            CircleForTiCard(number: nil, color: .clear)
+                    if ti.rightSideChain.count > 3 {
+                        ForEach(0..<4) { i in
+                            
+                            CircleForTiCard(number: ti.rightSideChain.count - (3 - i))
+                            
+                        }
+                    } else if ti.rightSideChain.count <= 3 && !ti.rightSideChain.isEmpty {
+                        ForEach(0..<3) { i in
+                            
+                            if (i + 1) <= ti.rightSideChain.count {
+                                CircleForTiCard(number: i + 1)
+                            } else {
+                                //blank circle for space
+                                CircleForTiCard(number: nil, color: .clear)
+                            }
                         }
                     }
-                }
-            }.frame(width: width * 0.4)
-
+                }.frame(width: width * 0.4 * scale)
+                
                 
             }
-//            .frame(width: width * 0.7)
-//            .frame(width: rectWidth - width * 0.02, height: width * 0.07) ----\\\\\
-            //MARK: - Here
             
             // - Ti Icon & Users
             HStack(spacing: 0) {
                 
                 if leftUser != nil {
-                    UserButton(user: leftUser )
+                    UserButton(user: leftUser, scale: scale )
                     
                 } else {
-                    UserButton()
+                    UserButton(scale: scale)
                 }
                 
-                //MARK: - Icon
+                //MARK: - Circle Icon
                 Spacer()
-                TiCircleIcon()
+                TiCircleIcon(scale: scale)
                 Spacer()
                 
                 
                 if rightUser != nil {
-                    UserButton(user: rightUser )
+                    UserButton(user: rightUser,scale: scale )
                 } else {
-                    UserButton()
+                    UserButton(scale: scale)
                 }
             }
         }
-        .frame(height: width * 0.2)
-    .task { await fetchUser() }
+        .frame(height: width * 0.2 * scale)
+        .task { await fetchUser() }
     }
     
     func fetchUser() async {
@@ -331,7 +342,7 @@ struct TiMapRect: View {
                             if leftSideChain.count > 3 {
                                 ForEach(0..<4) { i in
                                     CircleForTiCard(number: leftSideChain.count - i)
-
+                                    
                                 }
                             } else if leftSideChain.count <= 3, !leftSideChain.isEmpty  {
                                 ForEach(0..<3) { i in
@@ -340,7 +351,7 @@ struct TiMapRect: View {
                                     if (3 - i) > leftSideChain.count {
                                         //blank circles for space
                                         CircleForTiCard(number: nil, color: .clear)
-
+                                        
                                     } else {
                                         CircleForTiCard(number: 3 - i)
                                     }
@@ -356,7 +367,7 @@ struct TiMapRect: View {
                             ForEach(0..<4) { i in
                                 
                                 CircleForTiCard(number: ti.rightSideChain.count - (3 - i))
-
+                                
                             }
                         } else if ti.rightSideChain.count <= 3 && !ti.rightSideChain.isEmpty {
                             ForEach(0..<3) { i in
@@ -399,7 +410,7 @@ struct TiMapRectangleShape: Shape {
         let topLeft = CGPoint(x: 0, y: 0)
         let topRight = CGPoint(x: width, y: 0)
         
-                
+        
         var path = Path()
         
         path.move(to: topLeft)
@@ -449,9 +460,9 @@ struct TiMapRectD1: View {
                         ForEach(0..<3) { i in
                             
                             if (i + 1) <= ti.rightSideChain.count {
-
+                                
                                 CircleForTiCard(number: i + 1, color: Color.secondary)
-
+                                
                             } else {
                                 //blank circle for space
                                 CircleForTiCard(number: nil, color: .clear)
@@ -498,8 +509,8 @@ struct CircleForTiCard: View {
                 .frame(height: width * 0.07)
         }
         .padding(.horizontal, width * 0.000)
-
-
+        
+        
     }
     
     var fontSize: CGFloat {

@@ -21,23 +21,25 @@ struct TabsBar: View {
         ZStack(alignment: .bottom) {
             
             switch selectedIndex {
+            
             case 0 :
+                
                 FeedTabView()
                 
             case 1 :
-                VStack {
-                    Spacer()
-                    Text("search")
-                    Spacer()
-                }
                 
-                ///case 2 :
+                SearchTab()
+                
+            //case 2 :
                 
             case 3 :
-                LibraryTabView()
+                
+                UserLibraryTab()
                 
             case 4 :
+                
                 UserTabView()
+                
                 
             default :
                 FeedTabView()
@@ -47,6 +49,7 @@ struct TabsBar: View {
             //            DebateView(showDebateView: $showDebateView)
             //                .padding(.bottom, !isMiniPlayer ? 0 : height - width * 0.15)
             //                .frame(height: height - width * 0.15)
+            
             
             //MARK: - Bar
             HStack(spacing: 0) {

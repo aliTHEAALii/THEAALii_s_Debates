@@ -54,23 +54,8 @@ final class VerticalListVM {
             }
         }
     }
-    
-//    func onAppearFetch() async {
-//        do {
-//            let querySnapshot = try await Firestore.firestore()
-//                .collection("THEAALii_Interactions")
-////                .whereField("ti_type", isEqualTo: "D-1") // Add condition
-//                .order(by: "ti_absolute_votes", descending: true) // Sort by field
-//                .getDocuments()
-//            let fetchedInteractions = querySnapshot.documents.compactMap { document in
-//                try? document.data(as: TI.self)
-//            }
-//            verticalListPosts = fetchedInteractions
-//        } catch {
-//            print("Error fetching interactions: \(error)")
-//        }
-//    }
-    func getVLPost(tiID: String, chainLinkID: String, completion: @escaping (Result<[Post], Error>)->Void) async {
+
+    func getVLPosts(tiID: String, chainLinkID: String, completion: @escaping (Result<[Post], Error>)->Void) async {
         
                 do {
                     let querySnapshot = try await Firestore.firestore()
@@ -92,4 +77,54 @@ final class VerticalListVM {
                     completion(.failure(error))
                 }
     }
+//    func getVLPosts(tiID: String, chainLinkID: String, lastDocument: DocumentSnapshot? = nil, pageSize: Int = 10, completion: @escaping (Result<([Post], DocumentSnapshot?), Error>) -> Void) {
+//        var query = Firestore.firestore()
+//            .collection("THEAALii_Interactions")
+//            .document(tiID)
+//            .collection("Chain_Links")
+//            .document(chainLinkID)
+//            .collection("Vertical_List_Posts")
+//            .order(by: "total_votes", descending: true) // Sort by field
+//            .limit(to: pageSize)
+//        
+//        // Start after the last document if pagination is in use
+//        if let lastDoc = lastDocument {
+//            query = query.start(afterDocument: lastDoc)
+//        }
+//        
+//        query.getDocuments { querySnapshot, error in
+//            if let error = error {
+//                print("Error fetching interactions: \(error)")
+//                completion(.failure(error))
+//            } else {
+//                let posts = querySnapshot?.documents.compactMap { document in
+//                    try? document.data(as: Post.self)
+//                } ?? []
+//                let lastDoc = querySnapshot?.documents.last
+//                completion(.success((posts, lastDoc)))
+//            }
+//        }
+//    }
+//    
+
 }
+
+
+
+
+
+//    func onAppearFetch() async {
+//        do {
+//            let querySnapshot = try await Firestore.firestore()
+//                .collection("THEAALii_Interactions")
+////                .whereField("ti_type", isEqualTo: "D-1") // Add condition
+//                .order(by: "ti_absolute_votes", descending: true) // Sort by field
+//                .getDocuments()
+//            let fetchedInteractions = querySnapshot.documents.compactMap { document in
+//                try? document.data(as: TI.self)
+//            }
+//            verticalListPosts = fetchedInteractions
+//        } catch {
+//            print("Error fetching interactions: \(error)")
+//        }
+//    }

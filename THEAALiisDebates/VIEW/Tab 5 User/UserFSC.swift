@@ -163,11 +163,11 @@ struct SaveUserButton: View {
     var body: some View {
         
         Button {
-            if currentUser.id != nil {
+//            if currentUser.id != nil {
                 Task {
                     try await updateSavedUsers()
                 }
-            }
+//            }
         } label: {
             ZStack {
                 if userSaved {
@@ -212,29 +212,27 @@ struct SaveUserButton: View {
     
     //F
     var userSaved: Bool {
-        if let userId = user.id {
-            return currentUser.savedUsersUIDs.contains(userId)
-        } else { return false }
+        return currentUser.savedUsersUIDs.contains(user.userUID)
     }
     
     func updateSavedUsers() async throws {
-        if let userId = user.id, let currentUserId = currentUser.id {
+//        if let userId = user.id, let currentUserId = currentUser.id {
             Task {
                 print("🍌 🫒 saved user enter 🫒 🍌")
                 if userSaved {
-                    try await UserManager.shared.updateSavedUsers(currentUserId: currentUserId ,userIdForArray: userId,addOrRemove: (userSaved ? .remove : .remove))
+                    try await UserManager.shared.updateSavedUsers(currentUserId: currentUser.userUID ,userIdForArray: user.userUID,addOrRemove: (userSaved ? .remove : .remove))
                     print("🍌 🫒 saved user remove! 🫒 🍌")
                     
-                    currentUser.savedUsersUIDs.remove(object: userId)
+                    currentUser.savedUsersUIDs.remove(object: user.userUID)
                 } else {
-                    try await UserManager.shared.updateSavedUsers(currentUserId: currentUserId ,userIdForArray: userId,addOrRemove: (userSaved ? .remove : .add))
+                    try await UserManager.shared.updateSavedUsers(currentUserId: currentUser.userUID ,userIdForArray: user.userUID ,addOrRemove: (userSaved ? .remove : .add))
                     print("🍌 🫒 saved user add! 🫒 🍌")
                     
-                    currentUser.savedUsersUIDs.append(userId)
+                    currentUser.savedUsersUIDs.append(user.userUID)
                     showSavedUsersSheet.toggle()
                 }
             }
-        }
+//        }
     }
 }
 

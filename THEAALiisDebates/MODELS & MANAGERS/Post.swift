@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 
 enum PostType: String, Codable { case video = "video", text = "text", image = "image" }
 
-struct Post: Identifiable, Codable {
+struct Post: Identifiable, Codable, Equatable {
     
     @DocumentID var documentID: String?
     let id: String
@@ -40,6 +40,10 @@ struct Post: Identifiable, Codable {
     var downVotersUIDsArray: [String] = []
         
     var commentsArray: [String] = []
+    
+    static func ==(lhs: Post, rhs: Post) -> Bool {
+        lhs.id == rhs.id
+    }
 
     //MARK: Coding Keys
     enum CodingKeys: String, CodingKey {

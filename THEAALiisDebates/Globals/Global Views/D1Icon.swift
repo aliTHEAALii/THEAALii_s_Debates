@@ -118,6 +118,7 @@ struct D2IconOld: View {
 struct D2Icon: View {
     
     var sf: CGFloat = 1
+    var thumbnailUrlString: String? = nil
     
     var body: some View {
         
@@ -127,10 +128,14 @@ struct D2Icon: View {
             //Thumbnail
             VStack(spacing: 0) {
                 
-                RoundedRectangle(cornerRadius: 8 * sf)
-                    .stroke(lineWidth: 1 * sf)
-                    .foregroundStyle(.white, .white)
-                    .frame(width: width * sf, height: width * 0.5625 * sf)
+                if thumbnailUrlString != nil {
+                    ImageView(imageUrlString: thumbnailUrlString, scale: sf)
+                } else {
+                    RoundedRectangle(cornerRadius: 8 * sf)
+                        .stroke(lineWidth: 1 * sf)
+                        .foregroundStyle(.white, .white)
+                        .frame(width: width * sf, height: width * 0.5625 * sf)
+                }
                 
                 Spacer()
             } // --- //

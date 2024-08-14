@@ -10,11 +10,12 @@ import SwiftUI
 //MARK: - User Tab View
 struct UserTabView: View {
     
-    @AppStorage("current_user_uid"  ) var currentUserUID: String = ""
+    @AppStorage("current_user_uid"  ) var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
     @AppStorage("user_name" ) var currentUserName: String = ""
     @AppStorage("user_Pic"  ) var currentUserProfilePicData: Data?
     @AppStorage("log_status") var logStatus: Bool = false
     
+    @State var currentUser: UserModel? = nil
     @State var userName       = ""
     @State var currentUserBio = ""
 //    @State var userProfilePicData: Data?
@@ -33,7 +34,7 @@ struct UserTabView: View {
                 
                 // - Name & Bio
                 VStack(spacing: 15) {
-                    Text(currentUserUID)
+                    Text("Your UID:     " + currentUserUID)
                     Text(currentUserName != "" ? currentUserName : "No Name")
                         .foregroundColor(currentUserName != "" ? .primary : .secondary)
                         .font(.title)
@@ -53,19 +54,33 @@ struct UserTabView: View {
                 // - Posts Array
                 LazyVStack {
                     ScrollView(showsIndicators: false) {
-                        ForEach(0..<5, id: \.self) { i in
-                            
-//                            DebateCard() //TODO
-//                            VotingCell()///for Public Questions Tab!
-                            ///
-                            UserPostedDebateCard()
-                            
+                        if currentUser != nil {
+                            ForEach(0 ..< currentUser!.createdTIsIDs.count, id: \.self) { i in
+                                
+                                //                            DebateCard() //TODO
+                                //                            VotingCell()///for Public Questions Tab!
+                                ///
+//                                UserPostedDebateCard()
+                                ZStack(alignment: .topLeading) {
+                                    Text("\(i + 1)")
+                                        .font(.title)
+                                    
+                                    TiCard(ti: nil, tiID: currentUser!.createdTIsIDs[i])
+                                }
+                                
+                            }
                         }
                     }
                 }
                 
-
                 Spacer()
+            }
+        }
+        .task {
+            if currentUser == nil {
+                do {
+                    currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
+                } catch { print("❌ Error Couldn't get user for Library Tab❌") }
             }
         }
     }

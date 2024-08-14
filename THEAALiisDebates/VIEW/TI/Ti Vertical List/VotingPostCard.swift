@@ -48,8 +48,10 @@ struct VotingPostCard: View {
                             LoadingView()
                         }
                         
+                        
                         //Order Tag
                         Text("\(order)")
+                            .foregroundStyle( vlPost?.addedToChain == true ? Color.ADColors.green : .white )
                             .padding(.all, width * 0.02)
                     }
                     
@@ -109,7 +111,7 @@ struct VotingPostCard: View {
                 .padding(.bottom, width * 0.005)
         }
 //        .background(Color.black)
-        .background( vlPost?.addedToChain == true ? Color.ADColors.green.opacity(0.2) : .black )
+        .background( vlPost?.addedToChain == true ? Color.ADColors.green.opacity(0.1) : .black )
         .preferredColorScheme(.dark)
         .onAppear{ onAppearFetchPost() }
         .overlay { if isLoading { ProgressView() } }
