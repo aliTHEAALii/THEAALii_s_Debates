@@ -32,18 +32,19 @@ struct CCAddToChain: View {
     var body: some View {
         
         VStack(spacing: 20) {
-            //Header - Title & Close Button
+            
+            //1. Header - Title & Close Button
             HStack(spacing: 0) {
                 
                 Text(headerText)
                     .font(.title)
                     .foregroundStyle(.white)
                     .frame(width: width * 0.85, height: width * 0.15, alignment: .leading)
-//                CloseButton(showFSC: $showAddPostFSC)
+                
+                //---Close Button
                 Button {
                     isLoading = true
                     if postVideoURL != nil {
-//                        vm.closeButtonPressed(postVideoURL: postVideoURL)
                         Task {
                             do {
                                 try await VideoManager.shared.deleteVideo(videoID: postID)
@@ -64,16 +65,17 @@ struct CCAddToChain: View {
                 } label: {
                     Image(systemName: "xmark")
                         .font(.system(size: width * 0.075, weight: .thin))
-                        .foregroundColor(.primary)
+                        .foregroundColor(postVideoURL == nil ? .primary : .red)
                 }
                 .preferredColorScheme(.dark)
             }
             // - Header - Title & Close Button - \\
 
-            //MARK: - Pick Post Type
+            //2. Pick Post Type
             PickPostTypeBar(postType: $postType)
             
             
+            //3. Pick Post Thumbnail
             if postType != .text {
                 PickThumbnailSV(thumbnailFor: .video,
                                 thumbnailForTypeId: "change!",
@@ -82,25 +84,31 @@ struct CCAddToChain: View {
                 .padding(.top)
             }
             
-//            AddVideoFSC(tiID: <#T##String#>, tiChainLID: <#T##String#>, showFullScreenCover: <#T##Binding<Bool>#>)
             
-            //Pick Video
+            //4. Pick Video
             if postType == .video {
                 PickVideoButton(videoID: postID, videoURL: $postVideoURL)
             }
             
-            //Enter Title & Description
+            
+            //5. Enter Title & Description
             EnterTiTitle(placeholderText: "Post Title", tiTitle: $postTitle)
             EnterDescriptionButton(description: $postDescription,
                                    buttonTitle: "Enter Post Text",
                                    buttonColor: postType == .text ? .red : .secondary)
             
+            
             Spacer()
             
-            //MARK: - Post Button
+            
+            //----6.  Post Button
             Button {
+                
                 if buttonText == "POST" {
+                    
+                    //MARK: - Post to Left Or Right Chain
                     if leftOrRight != nil {
+                        
                         Task {
                             isLoading = true
                             
@@ -109,19 +117,23 @@ struct CCAddToChain: View {
                             if leftOrRight == .left {
                                 tiChain.insert(postID, at: 0)
                                 ti?.leftSideChain?.append(postID)
+                                
                             } else if leftOrRight == .right {
                                 tiChain.append(postID)
                                 ti?.rightSideChain.append(postID)
                             }
                             
                             isLoading = false
-                            
                             showAddPostFSC = false
                         }
+                        
+                        //MARK: - Post to Vertical List
                     } else if leftOrRight == nil {
+                        
                         Task {
                             isLoading = true
                             if let chainLinkID = tiChainLink?.id {
+                                
                                 try await VerticalListVM().uploadPostToChainLinkVerticalList(tiID: ti!.id, chainLinkID: chainLinkID, postID: postID, title: postTitle, postType: postType, description: postDescription, imageData: postThumbnailData, videoURL: postVideoURL, creatorUID: currentUserUID) { error in
                                     if (error != nil) {
 //                                        isLoading = false
@@ -135,6 +147,7 @@ struct CCAddToChain: View {
                             showAddPostFSC = false                        }
                     }
                 }
+                
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 8)
@@ -152,7 +165,11 @@ struct CCAddToChain: View {
         .overlay { if isLoading { LoadingView() } }
     }
     
-    //MARK: - Functions
+    
+    
+    
+    
+    //MARK: - Text
     var headerText: String {
         "Add Post to " + (leftOrRight == .right ? "RIGHT Chain" : "LEFT Chain")
     }

@@ -134,6 +134,7 @@
 		2FBA0CDD2C42C5B400BA4907 /* CCBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBA0CDC2C42C5B400BA4907 /* CCBottomBar.swift */; };
 		2FBA0CE12C45B58200BA4907 /* PickIntroVideoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBA0CE02C45B58200BA4907 /* PickIntroVideoButton.swift */; };
 		2FBA0CE32C46CCBF00BA4907 /* SideSheetRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBA0CE22C46CCBF00BA4907 /* SideSheetRectangle.swift */; };
+		2FD05EC12C6DB6D40082C277 /* PickVideoButtonNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD05EC02C6DB6D40082C277 /* PickVideoButtonNew.swift */; };
 		2FD5F5482C00CC5E00488621 /* RoundedTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD5F5472C00CC5E00488621 /* RoundedTriangle.swift */; };
 		2FE9DFFD2C617815000353DC /* SearchTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE9DFFC2C617815000353DC /* SearchTab.swift */; };
 		2FE9DFFF2C656619000353DC /* UserLibraryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE9DFFE2C656619000353DC /* UserLibraryTab.swift */; };
@@ -263,6 +264,7 @@
 		2FBA0CDC2C42C5B400BA4907 /* CCBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCBottomBar.swift; sourceTree = "<group>"; };
 		2FBA0CE02C45B58200BA4907 /* PickIntroVideoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickIntroVideoButton.swift; sourceTree = "<group>"; };
 		2FBA0CE22C46CCBF00BA4907 /* SideSheetRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideSheetRectangle.swift; sourceTree = "<group>"; };
+		2FD05EC02C6DB6D40082C277 /* PickVideoButtonNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickVideoButtonNew.swift; sourceTree = "<group>"; };
 		2FD5F5472C00CC5E00488621 /* RoundedTriangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTriangle.swift; sourceTree = "<group>"; };
 		2FE9DFFC2C617815000353DC /* SearchTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTab.swift; sourceTree = "<group>"; };
 		2FE9DFFE2C656619000353DC /* UserLibraryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLibraryTab.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				2F3534122BE087A900DE5E7A /* EnterTiTitle.swift */,
 				2F690D1F2BCAD57700A31760 /* Pick User.swift */,
 				2F690D282BD47E0E00A31760 /* EditTIAdminsSV.swift */,
+				2FD05EC02C6DB6D40082C277 /* PickVideoButtonNew.swift */,
 			);
 			path = "Create TI Components";
 			sourceTree = "<group>";
@@ -791,6 +794,7 @@
 				2F690C742BC1775000A31760 /* TestingComponentsManager.swift in Sources */,
 				2F3534102BE00B0900DE5E7A /* CTiStep2D1.swift in Sources */,
 				2F690C522BC09C8000A31760 /* GoogleLoginButton.swift in Sources */,
+				2FD05EC12C6DB6D40082C277 /* PickVideoButtonNew.swift in Sources */,
 				2F690CFB2BC193FF00A31760 /* TITCard.swift in Sources */,
 				2F690CBB2BC18E2300A31760 /* VotingSVOld.swift in Sources */,
 				2F690CCD2BC1905500A31760 /* AddTIVideoButton.swift in Sources */,

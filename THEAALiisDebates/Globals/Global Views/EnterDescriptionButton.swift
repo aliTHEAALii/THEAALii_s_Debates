@@ -52,7 +52,7 @@ struct EnterDescriptionButton: View {
                     .padding(.top, width * 0.1)
 
                 
-                ScrollView {
+//                ScrollView {
                     
                     Rectangle()
                         .foregroundColor(.black)
@@ -73,7 +73,7 @@ struct EnterDescriptionButton: View {
                             .frame(width: width * 0.85, height: width * 1.5, alignment: .top)
                             .submitLabel(.done)
                     }
-                }//.padding(.top, width * 0.1)
+//                }//.padding(.top, width * 0.1)
             }
             .background(Color.black)
             .preferredColorScheme(.dark)

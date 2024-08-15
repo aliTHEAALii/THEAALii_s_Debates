@@ -50,6 +50,7 @@ struct VotingPostCardContent: View {
                     Text(post?.text ?? "nil")
                         .multilineTextAlignment(.leading)
                         .padding(.horizontal)
+                        .padding(.trailing, width * 0.15)
                 }
 
                 

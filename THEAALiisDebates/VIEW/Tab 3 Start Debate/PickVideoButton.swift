@@ -35,7 +35,7 @@ final class PickVideoButtonVM: ObservableObject {
 }
 
 //MARK: - View
-struct PickVideoButton: View {
+struct PickVideoButtonOld: View {
     
     @ObservedObject private var createTitVM = CreateTITVM()
     @StateObject    private var videoVM     = PickVideoButtonVM()
@@ -178,6 +178,7 @@ struct PickVideoButton_Previews: PreviewProvider {
 //MARK: Pick Video Button SV
 struct PickVideoButtonSV: View {
     var body: some View {
+        
         ZStack {
             
             RoundedRectangle(cornerRadius: 16)
@@ -185,24 +186,36 @@ struct PickVideoButtonSV: View {
                 .foregroundColor(.secondary)
                 .frame(width: width, height: width * 0.5625)
             
-            HStack(spacing: 0) {
                 
-                Text("Pick ")
-                    .frame(width: width * 0.3, alignment: .trailing)
-                
-                Image(systemName: "triangle")
-                    .font(.system(size: width * 0.075, weight: .light))
-                    .frame(width: width * 0.15)
-                    .offset(y: -1)
-                    .rotationEffect(Angle(degrees: 90))
-                
-                
-                Text("Video")
-                    .frame(width: width * 0.3, alignment: .leading)
-                
-            }
-            .foregroundColor(.ADColors.green)
+                HStack(spacing: 0) {
+                    
+                    Text("Pick ")
+                        .frame(width: width * 0.3, alignment: .trailing)
+                    
+                    Image(systemName: "triangle")
+                        .font(.system(size: width * 0.075, weight: .light))
+                        .frame(width: width * 0.15)
+                        .offset(y: -1)
+                        .rotationEffect(Angle(degrees: 90))
+                    
+                    
+                    Text("Video")
+                        .frame(width: width * 0.3, alignment: .leading)
+                    
+                }
+                .foregroundColor(.ADColors.green)
             .font(.system(size: width * 0.1, weight: .thin))
+                
+                
+            
+            VStack {
+                
+                Text("Duration: Less than 5 minutes")
+//                Text("Size: Less than 300 MB")
+            }
+            .foregroundStyle(.secondary)
+            .frame(height: width * 0.37, alignment: .bottom)
+
 
         }
         .frame(width: width * 0.8)
