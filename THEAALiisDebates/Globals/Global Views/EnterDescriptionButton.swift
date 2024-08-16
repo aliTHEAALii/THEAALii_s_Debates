@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-//MARK: - Enter Description Button
 struct EnterDescriptionButton: View {
     
     @Binding var description: String
@@ -18,6 +17,7 @@ struct EnterDescriptionButton: View {
     
     var body: some View {
         
+        //Button Bar
         Button {
             showSheet.toggle()
         } label: {
@@ -41,43 +41,42 @@ struct EnterDescriptionButton: View {
             .frame(width: width * 0.15, height: width * 0.15)
         }
         .foregroundColor(.secondary)
+        //MARK: - Sheet
         .sheet(isPresented: $showSheet) {
             
-            // - FSC Title
             VStack {
+                
+                // - Title
                 Text(buttonTitle)
                     .font(.title)
                     .foregroundColor(.ADColors.green)
                     .frame(width: width, height: width * 0.15, alignment: .center)
                     .padding(.top, width * 0.1)
-
                 
-//                ScrollView {
-                    
-                    Rectangle()
-                        .foregroundColor(.black)
-                        .frame(width: width, height: width * 0.15)
-                    
-                    ZStack {
-                        
-                        //FIXME: - BIO from database
-                        if description == "" {
-                            Text("Enter Post Description")
-                                .foregroundColor(.secondary.opacity(0.5))
-                                .frame(width: width * 0.85, height: width * 1.3, alignment: .top)
-                        }
-                        
-                        TextEditor(text: $description)
-                            .multilineTextAlignment(.leading)
-                            .scrollContentBackground(.hidden)
-                            .frame(width: width * 0.85, height: width * 1.5, alignment: .top)
-                            .submitLabel(.done)
+                
+                
+                ZStack {
+                    //FIXME: - BIO from database
+                    if description == "" {
+                        Text("Enter Post Description")
+                            .foregroundColor(.secondary.opacity(0.5))
+                            .frame(width: width * 0.85, alignment: .top)
                     }
-//                }//.padding(.top, width * 0.1)
+                    
+                    TextEditor(text: $description)
+                        .multilineTextAlignment(.leading)
+                        .scrollContentBackground(.hidden)
+//                        .frame(width: width * 0.85, height: width * 1.5, alignment: .top)
+                        .frame(width: width * 0.85, alignment: .top)
+                        .submitLabel(.done)
+                }
             }
-            .background(Color.black)
-            .preferredColorScheme(.dark)
+            .presentationDetents([.medium, .large])
+
         }
+//        .presentationDetents([.medium])
+//        .preferredColorScheme(.dark)
+
     }
 }
 
@@ -85,3 +84,54 @@ struct EnterDescriptionButton: View {
 #Preview {
     EnterDescriptionButton(description: .constant("meaw desc"), buttonTitle: "Title of button")
 }
+
+
+
+//.fullScreenCover(isPresented: $showSheet) {
+//    VStack {
+//        
+//        // - FSC Title
+//        HStack {
+//            Text(buttonTitle)
+//                .font(.title)
+//                .foregroundColor(.ADColors.green)
+////                        .frame(width: width * 0.85, height: width * 0.15, alignment: .center)
+////                    .padding(.top, width * 0.1)
+//            
+//            Spacer()
+//            
+//            Button {
+//                showSheet = false
+//            } label: {
+//                Image(systemName: "xmark")
+//                    .font(.system(size: width * 0.075, weight: .thin))
+//                    .foregroundColor(.primary)
+//                    .frame(width: width * 0.15)
+//            }
+//        }
+//        
+//        
+//        //                ScrollView {
+//        
+//        Rectangle()
+//            .foregroundColor(.clear)
+//            .frame(width: width, height: width * 0.1)
+//        
+//        ZStack {
+//            
+//            //FIXME: - BIO from database
+//            if description == "" {
+//                Text("Enter Post Description")
+//                    .foregroundColor(.secondary.opacity(0.5))
+//                    .frame(width: width * 0.85, height: width * 1.3, alignment: .top)
+//            }
+//            
+//            TextEditor(text: $description)
+//                .multilineTextAlignment(.leading)
+//                .scrollContentBackground(.hidden)
+//                .frame(width: width * 0.85, height: width * 1.5, alignment: .top)
+//                .submitLabel(.done)
+//        }
+//        //                }//.padding(.top, width * 0.1)
+//    }
+//}

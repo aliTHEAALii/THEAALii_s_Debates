@@ -66,20 +66,42 @@ struct PickVideoButton: View {
                 
             case .failed:
                 Text("❌ Uploading Video failed ❌")
-                Text("video Duration More than: 5 Minutes")
+                Text(loadStateDescriptiveText)
+                
+                //Pick AnotherVideo
+//                if videoURL != nil {
+//                    Button {
+//                        showVideoPicker.toggle()
+//                    } label: {
+//                        ZStack {
+//                            RoundedRectangle(cornerRadius: 8)
+//                                .stroke(lineWidth: 1)
+//                                .frame(width: width * 0.8, height: width * 0.1)
+//                            Text("Pick Another Video")
+//                        }
+//                        .foregroundStyle(.secondary)
+//                    }
+//                }
             }
             
             //MARK: - Pick Video Button
             Button {
                 showVideoPicker.toggle()
             } label: {
-                if videoURL != nil || loadState == .loading {
+                if videoURL != nil  { //
                     ZStack {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(lineWidth: 1)
                             .frame(width: width * 0.8, height: width * 0.1)
                         Text("Pick Another Video")
-                        //                        VideoPlayer(player: AVPlayer(url: URL(string: videoURL!)! ) )
+                    }
+                    .foregroundStyle(.secondary)
+                } else if loadState == .loading {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(lineWidth: 1)
+                            .frame(width: width * 0.8, height: width * 0.1)
+                        Text("Pick Another Video")
                     }
                     .foregroundStyle(.secondary)
                 } else {
@@ -94,6 +116,7 @@ struct PickVideoButton: View {
 
             .onChange(of: selectedVideo) { _, _ in
                 loadState = .loading
+                loadStateDescriptiveText = ""
                 
                 selectedVideo?.loadTransferable(type: VideoModel.self) { result in
                     
@@ -112,49 +135,52 @@ struct PickVideoButton: View {
                                     videoDuration = duration
                                     print("🟢Video duration: \(duration) seconds🥎")
                                     
+                                    // Check if the video length and size are acceptable (5 min)
+                                    if videoDuration > 300.0 { // For example, max 60 seconds
+                                        print("🟣🥩🎥🥎 video Duration larger than: 300.0 seconds 🥎🎥🟣")
+                                        loadStateDescriptiveText = "Video Duration more than: 5 Minutes"
+                                        loadState = .failed
+                                        return
+                                    }
                                     
+                                    if let size = videoSizeInMB, size > 300.0 { // For example, max 50 MB
+                                        // Compress the video if it's larger than 50MB
+                                        
+                                        print("🟣🥩🎥🥎 video Size larger than: 300.0 MB 🥎🎥🟣")
+                                        loadStateDescriptiveText = "Compressing Video"
+                                        
+                                        let outputURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("compressedVideo.mp4")
+                                        compressVideo(inputURL: pickedVideo.url, outputURL: outputURL) { success in
+                                            if success {
+                                                // Proceed with uploading the compressed video
+                                                videoVM.uploadVideoGetUrl(videoModel: VideoModel(url: outputURL), videoID: videoID) { urlString in
+                                                    loadStateDescriptiveText = "Compressed Video"
+
+                                                    videoURL = urlString
+                                                    loadState = .loaded
+                                                }
+                                            } else {
+                                                loadState = .failed
+                                                loadStateDescriptiveText = "❌ Failed to Compressing Video"
+
+                                            }
+                                        }
+                                    } else {
+                                        // Proceed with uploading the original video
+                                        videoVM.uploadVideoGetUrl(videoModel: pickedVideo, videoID: videoID) { urlString in
+                                            videoURL = urlString
+                                            loadState = .loaded
+                                            
+                                        }
+                                    }
+                                    
+                                //---
                                 case .failure(let error):
                                     print("🔴Failed to get video duration: \(error)🔴")
                                 }
                             }
                             
-                            // Check if the video length and size are acceptable (5 min)
-                            if videoDuration > 300.0 { // For example, max 60 seconds
-                                print("🟣🥩🎥🥎 video Duration larger than: 300.0 seconds 🥎🎥🟣")
-                                loadStateDescriptiveText = "Video Duration more than: 5 Minutes"
-                                loadState = .failed
-                                return
-                            }
                             
-                            if let size = videoSizeInMB, size > 300.0 { // For example, max 50 MB
-                                // Compress the video if it's larger than 50MB
-                                
-                                print("🟣🥩🎥🥎 video Size larger than: 300.0 MB 🥎🎥🟣")
-                                loadStateDescriptiveText = "Compressing Video"
-                                
-                                let outputURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("compressedVideo.mp4")
-                                compressVideo(inputURL: pickedVideo.url, outputURL: outputURL) { success in
-                                    if success {
-                                        // Proceed with uploading the compressed video
-                                        videoVM.uploadVideoGetUrl(videoModel: VideoModel(url: outputURL), videoID: videoID) { urlString in
-                                            loadStateDescriptiveText = "Compressed Video"
-
-                                            videoURL = urlString
-                                            loadState = .loaded
-                                        }
-                                    } else {
-                                        loadState = .failed
-                                        loadStateDescriptiveText = "❌ Failed to Compressing Video"
-
-                                    }
-                                }
-                            } else {
-                                // Proceed with uploading the original video
-                                videoVM.uploadVideoGetUrl(videoModel: pickedVideo, videoID: videoID) { urlString in
-                                    videoURL = urlString
-                                    loadState = .loaded
-                                }
-                            }
                         }
                     case .failure(_):
                         loadState = .failed

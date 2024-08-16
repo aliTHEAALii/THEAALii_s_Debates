@@ -11,7 +11,7 @@ import SwiftUI
 //MARK: - Voting Video Card
 struct VotingPostCard: View {
     
-    @AppStorage("current_user_uid") private var currentUserUID: String = ""
+    @AppStorage("current_user_uid") private var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
     
     let postID: String?
     
