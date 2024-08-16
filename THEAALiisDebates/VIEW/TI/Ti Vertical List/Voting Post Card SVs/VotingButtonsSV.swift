@@ -334,76 +334,76 @@ struct VotingButtonsSV: View {
     //MARK: - UPVOTE func
     private func upVote() {
         loadingUpVote = true
-        
+
         guard let tiID = ti?.id else { loadingUpVote = false; return }
         guard let chainLink = chainLink else { loadingUpVote = false; return }
         guard let vlPost = vlPost else { loadingUpVote = false; return }
-        
+
         if vlPost.upVotersUIDsArray.contains(currentUserUID) {
             print("💃")
-            
+
             // Remove userUID from array
             PostManager.shared.updateVerticalListUpVotersArray(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, userUID: currentUserUID, addOrRemove: .remove) { error in
                 if let error { print("❌\(error.localizedDescription) ❌"); return }
-                
+
                 Task {
                     do {
                         try await PostManager.shared.changeVLUpVotes(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, increaseOrDecrease: .decrease)
-                        
+
                         DispatchQueue.main.async {
                             self.vlPost!.upVotersUIDsArray.remove(object: currentUserUID)
                             self.vlPost!.upVotes -= 1
                             self.vlPost!.totalVotes -= 1
                             self.loadingUpVote = false
                         }
-                        
+
                     } catch {
                         print("❌🗳️ 1 if upVoted 🗳️❌")
                         self.loadingUpVote = false
                     }
                 }
             }
-            
+
         } else {
             // If Down Voted
             if vlPost.downVotersUIDsArray.contains(currentUserUID) {
                 print("💅")
                 PostManager.shared.updateVerticalListDownVotersArray(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, userUID: currentUserUID, addOrRemove: .remove) { error in
                     if error != nil { return }
-                    
+
                     Task {
                         do {
                             try await PostManager.shared.changeVLDownVotes(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, increaseOrDecrease: .decrease)
-                            
+
                             DispatchQueue.main.async {
                                 self.vlPost!.downVotersUIDsArray.remove(object: currentUserUID)
                                 self.vlPost!.downVotes -= 1
                                 self.vlPost!.totalVotes += 1
                             }
-                            
+
                         } catch {
                             print("❌🗳️ 2 if upVoted 🗳️❌")
                         }
                     }
                 }
             }
-            
+
             // Not Voted
             print("🦁")
             PostManager.shared.updateVerticalListUpVotersArray(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, userUID: currentUserUID, addOrRemove: .add) { error in
                 if let error { print(error.localizedDescription); return }
-                
+
                 Task {
                     do {
                         try await PostManager.shared.changeVLUpVotes(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, increaseOrDecrease: .increase)
-                        
+
                         DispatchQueue.main.async {
                             self.vlPost!.upVotersUIDsArray.append(currentUserUID)
                             self.vlPost!.upVotes += 1
                             self.vlPost!.totalVotes += 1
                             self.loadingUpVote = false
                         }
-                        
+
                     } catch {
                         print("❌🗳️ 3 if upVoted 🗳️❌")
                         self.loadingUpVote = false
@@ -411,7 +411,7 @@ struct VotingButtonsSV: View {
                 }
             }
         }
-    }
+        
     }
 
     //MARK: - DOWNVOTE func
