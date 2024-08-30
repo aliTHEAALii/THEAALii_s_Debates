@@ -63,6 +63,15 @@ struct iiEditTiAdminsBar: View {
                 .frame(width: width * 0.15, height: width * 0.15)
                 .foregroundStyle(.white)
             }
+            
+            
+            
+            
+            
+            
+            
+            
+            
             //MARK: - Full Screen Cover
             .fullScreenCover(isPresented: $showEditAdmins) {
                 
@@ -95,7 +104,7 @@ struct iiEditTiAdminsBar: View {
                                     Task { await addOrRemoveAdmin(adminUID: adminUID, remove: true) }
                                     print("🟠 remove admin pressed 🟠")
                                 } label: {
-                                    Image(systemName: "x.circle")
+                                    Image(systemName: "minus.circle")
                                         .foregroundStyle(.red)
                                 }
                             }

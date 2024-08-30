@@ -107,17 +107,15 @@ struct FeedTabView: View {
             Divider()
             
             // Interactions Feed
-            LazyVStack {
-                ForEach(interactionsFeed, id: \.id) { ti in
-                    TiCard(ti: ti)
-                        .onAppear {
-                            if ti == interactionsFeed.last {
-                                Task {
-                                    await onAppearFetch()
-                                }
+            ForEach(interactionsFeed, id: \.id) { ti in
+                TiCard(ti: ti)
+                    .onAppear {
+                        if ti == interactionsFeed.last {
+                            Task {
+                                await onAppearFetch()
                             }
                         }
-                }
+                    }
             }
             
             // Bottom space for the scroll view

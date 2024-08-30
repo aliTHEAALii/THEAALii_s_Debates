@@ -189,8 +189,8 @@ final class PostManager {
     
     // ,Post Document Location
     private let TICollection: CollectionReference = Firestore.firestore().collection("THEAALii_Interactions")
-    private func TIDocument(tiID: String) -> DocumentReference { TICollection.document(tiID) }
-    private func PostDocument(tiID: String, postID: String) -> DocumentReference {
+    func TIDocument(tiID: String) -> DocumentReference { TICollection.document(tiID) }
+    func PostDocument(tiID: String, postID: String) -> DocumentReference {
         TICollection.document(tiID).collection("Posts").document(postID)
     }
     private func VLPostDocument(tiID: String, chainLinkID: String, postID: String) -> DocumentReference {
@@ -317,7 +317,7 @@ final class PostManager {
         try await VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData([Post.CodingKeys.addedToChain.rawValue : true])
     }
     
-    //MARK: Voting
+    //MARK: - Voting -
     //1 - UP Voters Array
     func updateUpVotersArray(tiID: String, postID: String, userUID: String, addOrRemove: AddOrRemove, completion: @escaping (Error?)->Void) {
         

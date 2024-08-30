@@ -140,13 +140,18 @@ struct VotingPostCard: View {
                     VotingPostCardSideSheet(isAdmin: isAdmin, ti: $ti, tiChain: $tiChain, tiChainLink: $chainLink, vlPost: $vlPost, showSideSheet: $showSideOptions, isLoading: $isLoading)
                         .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
                     
-                } else {
-                    SideSheetForVotingCellOld(isAdmin: isAdmin, showSideSheet: $showSideOptions)
-                        .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
+                    
+                    
+                } else if !isAdmin , ti != nil, chainLink != nil, vlPost != nil {
+//                    SideSheetForVotingCellOld(isAdmin: isAdmin, showSideSheet: $showSideOptions)
+//                        .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
                     //                    VotingPostCardSideSheet(isAdmin: isAdmin, ti: $ti,
                     //                                            tiChain: ,
                     //                                            selectedChainLinkIndex: ,
                     //                                            tiChainLink: $chainLink, tiPost: $tiPost, showSideSheet: $showSideOptions)
+                    VotingButtonsSideSheet(ti: $ti, chainLink: $chainLink, vlPost: $vlPost, showVoteNumbers: true, showSideOptions: $showSideOptions)
+                        .offset(x: showSideOptions ? width * 0.42 : width * 0.68)
+
                 }
             }
             .frame(height: width * 0.5625 * 1)

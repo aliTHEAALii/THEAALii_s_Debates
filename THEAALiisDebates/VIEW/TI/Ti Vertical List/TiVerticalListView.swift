@@ -63,7 +63,7 @@ struct TiVerticalListView: View {
                                     chainLink: $tiChainLink,
                                     tiPostID: post.id,
                                     order: index + 1,
-                                    isAdmin: true
+                                    isAdmin: TiViewModel().isAdmin(ti: ti, currentUserUID: currentUserUID)
                                 )
                                 .onAppear {
                                     if post == verticalListPosts.last {

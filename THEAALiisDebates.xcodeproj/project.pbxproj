@@ -135,6 +135,8 @@
 		2FBA0CE12C45B58200BA4907 /* PickIntroVideoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBA0CE02C45B58200BA4907 /* PickIntroVideoButton.swift */; };
 		2FBA0CE32C46CCBF00BA4907 /* SideSheetRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBA0CE22C46CCBF00BA4907 /* SideSheetRectangle.swift */; };
 		2FD05EC12C6DB6D40082C277 /* PickVideoButtonNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD05EC02C6DB6D40082C277 /* PickVideoButtonNew.swift */; };
+		2FD05EC32C6EFC470082C277 /* PostVotingMethodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD05EC22C6EFC470082C277 /* PostVotingMethodes.swift */; };
+		2FD05EC52C6FCA250082C277 /* VotingButtonsSideSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD05EC42C6FCA250082C277 /* VotingButtonsSideSheet.swift */; };
 		2FD5F5482C00CC5E00488621 /* RoundedTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD5F5472C00CC5E00488621 /* RoundedTriangle.swift */; };
 		2FE9DFFD2C617815000353DC /* SearchTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE9DFFC2C617815000353DC /* SearchTab.swift */; };
 		2FE9DFFF2C656619000353DC /* UserLibraryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE9DFFE2C656619000353DC /* UserLibraryTab.swift */; };
@@ -265,6 +267,8 @@
 		2FBA0CE02C45B58200BA4907 /* PickIntroVideoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickIntroVideoButton.swift; sourceTree = "<group>"; };
 		2FBA0CE22C46CCBF00BA4907 /* SideSheetRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideSheetRectangle.swift; sourceTree = "<group>"; };
 		2FD05EC02C6DB6D40082C277 /* PickVideoButtonNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickVideoButtonNew.swift; sourceTree = "<group>"; };
+		2FD05EC22C6EFC470082C277 /* PostVotingMethodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVotingMethodes.swift; sourceTree = "<group>"; };
+		2FD05EC42C6FCA250082C277 /* VotingButtonsSideSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingButtonsSideSheet.swift; sourceTree = "<group>"; };
 		2FD5F5472C00CC5E00488621 /* RoundedTriangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTriangle.swift; sourceTree = "<group>"; };
 		2FE9DFFC2C617815000353DC /* SearchTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTab.swift; sourceTree = "<group>"; };
 		2FE9DFFE2C656619000353DC /* UserLibraryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLibraryTab.swift; sourceTree = "<group>"; };
@@ -302,8 +306,9 @@
 		2F4F878D2C35D6C80018D2A5 /* Voting Post Card SVs */ = {
 			isa = PBXGroup;
 			children = (
-				2F4F878E2C35D71F0018D2A5 /* VotingPostCardSideSheet.swift */,
 				2FBA0CD82C42AA8D00BA4907 /* VotingButtonsSV.swift */,
+				2F4F878E2C35D71F0018D2A5 /* VotingPostCardSideSheet.swift */,
+				2FD05EC42C6FCA250082C277 /* VotingButtonsSideSheet.swift */,
 			);
 			path = "Voting Post Card SVs";
 			sourceTree = "<group>";
@@ -413,6 +418,7 @@
 				2F690C582BC09D3A00A31760 /* Image Manager.swift */,
 				2F690C642BC0BD3C00A31760 /* Video Manager.swift */,
 				2F690CAC2BC1860500A31760 /* Post.swift */,
+				2FD05EC22C6EFC470082C277 /* PostVotingMethodes.swift */,
 				2F690C762BC177C600A31760 /* TI.swift */,
 			);
 			path = "MODELS & MANAGERS";
@@ -806,6 +812,7 @@
 				2F690C152BC095BF00A31760 /* ContentView.swift in Sources */,
 				2F690C4D2BC09C2600A31760 /* AppleLoginButton.swift in Sources */,
 				2F690C802BC1789200A31760 /* DescriptionSV.swift in Sources */,
+				2FD05EC32C6EFC470082C277 /* PostVotingMethodes.swift in Sources */,
 				2F690C412BC09B4000A31760 /* AuthenticationManager.swift in Sources */,
 				2F690CD42BC190E000A31760 /* CreateDebateButton.swift in Sources */,
 				2F690CEA2BC1929D00A31760 /* FeedVM.swift in Sources */,
@@ -870,6 +877,7 @@
 				2F3534082BDB34F000DE5E7A /* CTiStep1.swift in Sources */,
 				2F690D112BC1D9EA00A31760 /* CreateTI.swift in Sources */,
 				2FE9DFFD2C617815000353DC /* SearchTab.swift in Sources */,
+				2FD05EC52C6FCA250082C277 /* VotingButtonsSideSheet.swift in Sources */,
 				2F690CAF2BC1874500A31760 /* VideoSV.swift in Sources */,
 				2F690CF72BC193DE00A31760 /* TITView.swift in Sources */,
 				2F56849A2C5EDEDB00071CAE /* iiEditTiAdminsBar.swift in Sources */,

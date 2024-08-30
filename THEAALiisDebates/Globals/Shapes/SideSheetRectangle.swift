@@ -12,16 +12,23 @@ struct SideSheetRectangle: View {
     var cornerRadius: CGFloat = 8
     var rectWidth: CGFloat = width * 0.55
     var rectHeight: CGFloat = width * 0.1
-    var stroke: CGFloat = 1
     var color: Color = .white
     var fill = false
+    var stroke: CGFloat? = 1
+
     
     var body: some View {
         
-        SideSheetRectangleShape(cornerRadius: cornerRadius)
-            .stroke(lineWidth: stroke )
-            .foregroundStyle(color)
-            .frame(width: rectWidth, height: rectHeight)
+        if fill {
+            SideSheetRectangleShape(cornerRadius: cornerRadius)
+                .foregroundStyle(color)
+                .frame(width: rectWidth, height: rectHeight)
+        } else {
+            SideSheetRectangleShape(cornerRadius: cornerRadius)
+                .stroke(lineWidth: stroke ?? 1 )
+                .foregroundStyle(color)
+                .frame(width: rectWidth, height: rectHeight)
+        }
     }
 }
 

@@ -91,6 +91,9 @@ struct iiView: View {
             Spacer()
         }
         .preferredColorScheme(.dark)
+        .refreshable {
+            
+        }
     }
 }
 
