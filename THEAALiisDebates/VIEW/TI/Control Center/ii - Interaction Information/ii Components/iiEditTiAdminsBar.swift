@@ -20,6 +20,7 @@ struct iiEditTiAdminsBar: View {
     
     var body: some View {
         
+        //MARK: - Bar SubView
         HStack(spacing: 0) {
             
             if ti != nil {
@@ -28,7 +29,7 @@ struct iiEditTiAdminsBar: View {
                     Text("Admins: ")
                     
                     //Admins
-                    if ti!.tiAdminsUIDs.isEmpty {
+                    if tiAdminsUIDs.isEmpty {
                         
                         Spacer()
                         
@@ -39,7 +40,8 @@ struct iiEditTiAdminsBar: View {
                         Spacer()
                         
                     } else {
-                        ForEach(ti!.tiAdminsUIDs, id: \.self) { adminUID in
+                        ForEach(tiAdminsUIDs, id: \.self) { adminUID in
+
                             
                             UserButton(userUID: adminUID)
                                 .padding(.leading, width * 0.02)
@@ -67,11 +69,7 @@ struct iiEditTiAdminsBar: View {
             
             
             
-            
-            
-            
-            
-            
+
             //MARK: - Full Screen Cover
             .fullScreenCover(isPresented: $showEditAdmins) {
                 
@@ -89,13 +87,6 @@ struct iiEditTiAdminsBar: View {
                             //MARK: - Vertical edit
                             VStack(spacing: 10) {
                                 
-//                                Button {
-//                                    Task { await addOrRemoveAdmin(adminUID: adminUID, remove: true) }
-//                                    
-//                                } label: {
-//                                    Image(systemName: "x.circle")
-//                                        .foregroundStyle(.red)
-//                                }
                                 
                                 UserButton(userUID: adminUID)
                                 
@@ -148,11 +139,8 @@ struct iiEditTiAdminsBar: View {
             }
         }
         .frame(width: width, height: width * 0.2)
-        .onAppear {
-            tiAdminsUIDs = ti!.tiAdminsUIDs
-            Task { await fetchUser() }
-        }
-        .onChange(of: showEditAdmins) { _, newValue in
+        .onAppear { Task { await fetchUser(); await fetchTI() } }
+        .onChange(of: showEditAdmins) { _, _ in
             Task {
                 do {
                     try await TIManager.shared.newAdmins(tiID: ti!.id, adminsUIDsArray: tiAdminsUIDs)
@@ -161,6 +149,7 @@ struct iiEditTiAdminsBar: View {
                 }
             }
         }
+//        .onChange(of: tiAdminsUIDs) { _, _ in ti!.tiAdminsUIDs = tiAdminsUIDs }
     }
     
     //MARK: - Function ----
@@ -198,9 +187,14 @@ struct iiEditTiAdminsBar: View {
         do {
             self.currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
             tiAdminsUIDs = ti!.tiAdminsUIDs
-        } catch {
-            print("❌ Couldn't fetch User: \(error.localizedDescription) ❌")
-        }
+        } catch { print("❌ Couldn't fetch User: \(error.localizedDescription) ❌") }
+    }
+    func fetchTI() async {
+        do {
+            let newTI = try await TIManager.shared.fetchTI(tiID: ti!.id)
+            tiAdminsUIDs = newTI?.tiAdminsUIDs ?? []
+            
+        } catch { print("❌ Couldn't fetch TI: \(error.localizedDescription) ❌") }
     }
     
     var adminsLessThan4: Bool {

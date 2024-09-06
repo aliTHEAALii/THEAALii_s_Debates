@@ -25,6 +25,12 @@ struct VotingPostCard: View {
     
     let isAdmin: Bool
     
+    //Votes
+    @State private var upVotes:    Int = 0
+    @State private var downVotes:  Int = 0
+    @State private var totalVotes: Int = 0
+    @State private var upVotersUIDsArray: [String] = []
+    @State private var downVotersUIDsArray: [String] = []
     
     //    @StateObject private var cardVM = VotingCardViewModel()
     @State private var showSideOptions: Bool = false
@@ -34,69 +40,13 @@ struct VotingPostCard: View {
         
         VStack(spacing: 0) {
             
-//            ZStack {
-//                HStack(spacing: 0) {
-//                    
-//                    //MARK: Content
-//                    ZStack(alignment: .topLeading) {
-//                        if vlPost != nil {
-//                            //                            TIVideoPlayerViewOld(tiVideo: $tiVideo, urlString: "", sf: 0.85)
-//                            VotingPostCardContent(post: $vlPost, sf: 0.85)
-//                        } else {
-//                            Rectangle()
-//                                .fill(Color.gray.opacity(0.2))
-//                            LoadingView()
-//                        }
-//                        
-//                        
-//                        //Order Tag
-//                        Text("\(order)")
-//                            .foregroundStyle( vlPost?.addedToChain == true ? Color.ADColors.green : .white )
-//                            .padding(.all, width * 0.02)
-//                    }
-//                    
-//                    
-//                    
-//                    
-//                    //MARK: - Voting
-//                    if ti != nil, vlPost != nil {
-//                        VotingButtonsSV(ti: $ti, chainLink: $chainLink, vlPost: $vlPost, showSideOptions: $showSideOptions)
-//                    } else {
-//                        ProgressView()
-//                            .frame(width: width * 0.15, height: width * 0.45)
-//                    }
-//                }
-//                .frame(width: width, alignment: .leading)
-//                
-//                
-//                //MARK: Side Options                SideOptionsSheet(showSideSheet: $showSideOptions)
-//                //                if isAdmin && tiVideo != nil, ti != nil, chainLink != nil {
-//                //                    AdminResponseSideSheet(tiId: ti!.id, tiChainLId: chainLink!.id, tiVideo: tiVideo!,
-//                //                                           isAdmin: isAdmin,
-//                //                                           showSideSheet: $showSideOptions)
-//                //                    .offset(x: showSideOptions ? width * 0.275 : width * 0.777)
-//                
-//                if isAdmin , ti != nil, chainLink != nil, vlPost != nil {
-//                    
-//                    VotingPostCardSideSheet(isAdmin: isAdmin, ti: $ti, tiChain: $tiChain, tiChainLink: $chainLink, vlPost: $vlPost, showSideSheet: $showSideOptions, isLoading: $isLoading)
-//                        .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
-//                    
-//                } else {
-//                    SideSheetForVotingCellOld(isAdmin: isAdmin, showSideSheet: $showSideOptions)
-//                        .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
-//                    //                    VotingPostCardSideSheet(isAdmin: isAdmin, ti: $ti,
-//                    //                                            tiChain: ,
-//                    //                                            selectedChainLinkIndex: ,
-//                    //                                            tiChainLink: $chainLink, tiPost: $tiPost, showSideSheet: $showSideOptions)
-//                }
-//            }
-//            .frame(height: width * 0.5625 * 0.85)
+
             ZStack {
                 
                 //MARK: Content
                 ZStack(alignment: .topLeading) {
                     if vlPost != nil {
-                        //                            TIVideoPlayerViewOld(tiVideo: $tiVideo, urlString: "", sf: 0.85)
+                        //TIVideoPlayerViewOld(tiVideo: $tiVideo, urlString: "", sf: 0.85)
                         VotingPostCardContent(post: $vlPost, sf: 1)
                     } else {
                         Rectangle()
@@ -128,7 +78,7 @@ struct VotingPostCard: View {
                 .frame(width: width, alignment: .leading)
                 
                 
-                //MARK: Side Options                SideOptionsSheet(showSideSheet: $showSideOptions)
+                //MARK: Side Options
                 //                if isAdmin && tiVideo != nil, ti != nil, chainLink != nil {
                 //                    AdminResponseSideSheet(tiId: ti!.id, tiChainLId: chainLink!.id, tiVideo: tiVideo!,
                 //                                           isAdmin: isAdmin,
@@ -176,8 +126,7 @@ struct VotingPostCard: View {
             Divider()
                 .padding(.bottom, width * 0.005)
         }
-        //        .background(Color.black)
-        .background( vlPost?.addedToChain == true ? Color.ADColors.green.opacity(0.1) : .black )
+        .background( vlPost?.addedToChain == true ? Color.ADColors.green.opacity(0.125) : .black )
         .preferredColorScheme(.dark)
         .onAppear{ onAppearFetchPost() }
         .overlay { if isLoading { ProgressView() } }
@@ -190,6 +139,7 @@ struct VotingPostCard: View {
         guard let ti else { return }
         guard let chainLink else { return }
         guard let postID else { return }
+        
         PostManager.shared.getVerticalListPost(tiID: ti.id, chainLinkID: chainLink.id, postID: postID) { result in
             switch result{
             case .success(let post):
@@ -206,3 +156,66 @@ struct VotingPostCard: View {
     
     //    VotingPostCard()
 }
+
+
+
+
+
+
+//            ZStack {
+//                HStack(spacing: 0) {
+//
+//                    //MARK: Content
+//                    ZStack(alignment: .topLeading) {
+//                        if vlPost != nil {
+//                            //                            TIVideoPlayerViewOld(tiVideo: $tiVideo, urlString: "", sf: 0.85)
+//                            VotingPostCardContent(post: $vlPost, sf: 0.85)
+//                        } else {
+//                            Rectangle()
+//                                .fill(Color.gray.opacity(0.2))
+//                            LoadingView()
+//                        }
+//
+//
+//                        //Order Tag
+//                        Text("\(order)")
+//                            .foregroundStyle( vlPost?.addedToChain == true ? Color.ADColors.green : .white )
+//                            .padding(.all, width * 0.02)
+//                    }
+//
+//
+//
+//
+//                    //MARK: - Voting
+//                    if ti != nil, vlPost != nil {
+//                        VotingButtonsSV(ti: $ti, chainLink: $chainLink, vlPost: $vlPost, showSideOptions: $showSideOptions)
+//                    } else {
+//                        ProgressView()
+//                            .frame(width: width * 0.15, height: width * 0.45)
+//                    }
+//                }
+//                .frame(width: width, alignment: .leading)
+//
+//
+//                //MARK: Side Options                SideOptionsSheet(showSideSheet: $showSideOptions)
+//                //                if isAdmin && tiVideo != nil, ti != nil, chainLink != nil {
+//                //                    AdminResponseSideSheet(tiId: ti!.id, tiChainLId: chainLink!.id, tiVideo: tiVideo!,
+//                //                                           isAdmin: isAdmin,
+//                //                                           showSideSheet: $showSideOptions)
+//                //                    .offset(x: showSideOptions ? width * 0.275 : width * 0.777)
+//
+//                if isAdmin , ti != nil, chainLink != nil, vlPost != nil {
+//
+//                    VotingPostCardSideSheet(isAdmin: isAdmin, ti: $ti, tiChain: $tiChain, tiChainLink: $chainLink, vlPost: $vlPost, showSideSheet: $showSideOptions, isLoading: $isLoading)
+//                        .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
+//
+//                } else {
+//                    SideSheetForVotingCellOld(isAdmin: isAdmin, showSideSheet: $showSideOptions)
+//                        .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
+//                    //                    VotingPostCardSideSheet(isAdmin: isAdmin, ti: $ti,
+//                    //                                            tiChain: ,
+//                    //                                            selectedChainLinkIndex: ,
+//                    //                                            tiChainLink: $chainLink, tiPost: $tiPost, showSideSheet: $showSideOptions)
+//                }
+//            }
+//            .frame(height: width * 0.5625 * 0.85)

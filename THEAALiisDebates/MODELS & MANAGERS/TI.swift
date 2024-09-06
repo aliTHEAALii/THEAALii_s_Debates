@@ -428,6 +428,7 @@ final class TIManager {
             }
         }
     }
+    
 //    func searchTIs(query: String, completion: @escaping ([TI]) -> Void) {
 //        TICollection.whereField("title", isGreaterThanOrEqualTo: query)
 //            .whereField("title", isLessThanOrEqualTo: query + "\u{f8ff}")

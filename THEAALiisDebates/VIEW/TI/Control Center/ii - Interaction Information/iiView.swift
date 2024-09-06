@@ -19,39 +19,19 @@ struct iiView: View {
         VStack(spacing: 0) {
             
             // 1. Top
-            //if ti != nil {
-//            if ti?.tiType == .d2 {
-//                ZStack {
-//                    RoundedRectangle(cornerRadius: 8)
-//                        .stroke(lineWidth: 0.5)
-//                        .foregroundColor(.gray)
-//                        .frame(width: width * 0.9, height: width * 0.08)
-//                    
-//                    HStack {
-//                        UserButton(userUID: nil)
-//                        Spacer()
-//                        TIIcon()
-//                        Spacer()
-//                        UserButton(userUID: nil)
-//                    }
-//                }
-//                .frame(height: width * 0.25)
-//            }
             if let ti {
                 D2IconBarNew(ti: ti)
             }
-            //}
             
             // 2. Title
             Text(ti?.title ?? "")
                 .font(.title)
                 .padding()
+            
             // 2. Thumbnail
             
             
 
-            
-//            Divider()
             
 
             
@@ -61,6 +41,7 @@ struct iiView: View {
             Text(ti?.description ?? "No Description")
                 .multilineTextAlignment(.center)
                 .padding()
+
             
             // 3. Creator
             HStack(spacing: 0) {
@@ -98,9 +79,9 @@ struct iiView: View {
 }
 
 #Preview {
-    iiView(ti: .constant(TiViewModel().ti))
+//    iiView(ti: .constant(TiViewModel().ti))
     
-//    TiView(ti: nil, showTiView: .constant(true))
+    TiView(ti: nil, showTiView: .constant(true))
 }
 
 
