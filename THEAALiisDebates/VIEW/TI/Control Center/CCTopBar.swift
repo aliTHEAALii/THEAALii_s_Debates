@@ -114,6 +114,7 @@ struct CCIndicatorCircles: View {
                 
                 ForEach(0..<ccVM.tiChain(ti: ti).count, id: \.self) { i in
                     
+                    //MARK: - Intro C
                     if i == introPostIndex {
                         ZStack {
                             TiCircleIcon(scale: 0.4, tiType: ti!.tiType,
@@ -122,6 +123,7 @@ struct CCIndicatorCircles: View {
                         }
                         .frame(width: width * 0.1)
                         
+                    //MARK: - Triangle C
                     } else if i == selectedChainLink {
                         ZStack {
                             TiTriangle(scale: 0.15, stroke: 5,
@@ -130,7 +132,9 @@ struct CCIndicatorCircles: View {
                         }
                         .frame(width: width * 0.1)
                         
+                        //MARK: - Regular Circles C
                     } else {
+                        //MARK: - Circles
                         ZStack {
                             Circle()
                                 .stroke(lineWidth: 0.5)

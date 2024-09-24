@@ -119,7 +119,7 @@ struct SearchTab: View {
             VStack(spacing: 0) {
                 
                 PickSearchTypeBar(searchUsers: $searchForUsers)
-                    .searchable(text: $searchText, prompt: "Search THEAALii's Interactions by title")
+                    .searchable(text: $searchText, prompt: searchForUsers ? "Search Users": "Search THEAALii's Interactions by title")
                     .onChange(of: searchText) { _, newValue in
                         if searchForUsers == false {
                             resetSearch()

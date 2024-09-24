@@ -24,7 +24,7 @@ struct TiCard: View {
             
             VStack(spacing: 0) {
                 
-                // Thumbnail
+                // - Thumbnail
                 ZStack(alignment: .bottom) {
                     VStack(spacing: 0) {
                         

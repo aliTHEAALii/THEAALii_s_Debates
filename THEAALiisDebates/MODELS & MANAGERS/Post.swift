@@ -661,4 +661,12 @@ final class PostManager {
             completion( .success(()) )
         }
     }
+    func deleteVLPost(tiID: String, chainLinkID: String, postID: String) async {
+        do {
+            try await VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).delete()
+            
+        } catch {
+            print("👹❌Error deleting VLPost: \(error.localizedDescription)❌👹")
+        }
+    }
 }

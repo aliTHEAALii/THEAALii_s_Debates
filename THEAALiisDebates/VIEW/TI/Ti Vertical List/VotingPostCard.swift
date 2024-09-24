@@ -15,17 +15,19 @@ struct VotingPostCard: View {
     
     let postID: String?
     
-    @Binding var ti: TI?
-    @Binding var tiChain: [String]
+    @Binding var ti       : TI?
+    @Binding var tiChain  : [String]
     @Binding var chainLink: ChainLink?
-    @State var vlPost: Post? = nil
-    let tiPostID: String
+    
+    @State var vlPost : Post? = nil
+    let tiPostID      : String
     @State var tiVideo: TIVideoModel? = nil
     let order: Int
     
     let isAdmin: Bool
     
     //Votes
+    
     @State private var upVotes:    Int = 0
     @State private var downVotes:  Int = 0
     @State private var totalVotes: Int = 0
@@ -60,48 +62,56 @@ struct VotingPostCard: View {
                         .foregroundStyle( vlPost?.addedToChain == true ? Color.ADColors.green : .white )
                         .padding(.all, width * 0.02)
                 }
+                
+                
+                //MARK: - Voting
                 HStack(spacing: 0) {
+                
                     Spacer()
-
                     
-                    
-                    
-                    
-                    //MARK: - Voting
                     if ti != nil, vlPost != nil {
-                        VotingButtonsSV(ti: $ti, chainLink: $chainLink, vlPost: $vlPost, showSideOptions: $showSideOptions)
+                        
+//                        VotingButtonsSV(ti: $ti, chainLink: $chainLink, vlPost: $vlPost,
+//                                        //votes
+//                                        upVotes: $upVotes, downVotes: $downVotes, totalVotes: $totalVotes,
+//                                        upVotersUIDsArray: $upVotersUIDsArray,
+//                                        downVotersUIDsArray: $downVotersUIDsArray,
+//                                        showSideOptions: $showSideOptions)
+                        if isAdmin {
+                            NonAdminVotingButtons(ti: $ti, chainLink: $chainLink, vlPost: $vlPost, showVoteNumbersBinding: $showSideOptions)
+                            
+                        } else if !isAdmin {
+                            AdminVotingButtons(ti: $ti, tiChain: $tiChain, tiChainLink: $chainLink, vlPost: $vlPost)
+
+                        }
                     } else {
                         ProgressView()
                             .frame(width: width * 0.15, height: width * 0.45)
                     }
                 }
                 .frame(width: width, alignment: .leading)
-                
+//                .offset(x: showSideOptions ? width * -0.68 : width * -0.42) //MARK: -Delete
+
                 
                 //MARK: Side Options
-                //                if isAdmin && tiVideo != nil, ti != nil, chainLink != nil {
-                //                    AdminResponseSideSheet(tiId: ti!.id, tiChainLId: chainLink!.id, tiVideo: tiVideo!,
-                //                                           isAdmin: isAdmin,
-                //                                           showSideSheet: $showSideOptions)
-                //                    .offset(x: showSideOptions ? width * 0.275 : width * 0.777)
-                
                 if isAdmin , ti != nil, chainLink != nil, vlPost != nil {
-                    
-                    VotingPostCardSideSheet(isAdmin: isAdmin, ti: $ti, tiChain: $tiChain, tiChainLink: $chainLink, vlPost: $vlPost, showSideSheet: $showSideOptions, isLoading: $isLoading)
-                        .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
-                    
+                    //Admin Side Sheet
+//                    VotingPostCardSideSheet(isAdmin: isAdmin, ti: $ti, tiChain: $tiChain, 
+//                                            tiChainLink: $chainLink, vlPost: $vlPost,
+//                                            //votes
+//                                            upVotes: $upVotes, downVotes: $downVotes, totalVotes: $totalVotes,
+//                                            upVotersUIDsArray: $upVotersUIDsArray,
+//                                            downVotersUIDsArray: $downVotersUIDsArray,
+//                                            //view
+//                                            showSideSheet: $showSideOptions, isLoading: $isLoading)
+//                        .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
                     
                     
                 } else if !isAdmin , ti != nil, chainLink != nil, vlPost != nil {
-//                    SideSheetForVotingCellOld(isAdmin: isAdmin, showSideSheet: $showSideOptions)
-//                        .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
-                    //                    VotingPostCardSideSheet(isAdmin: isAdmin, ti: $ti,
-                    //                                            tiChain: ,
-                    //                                            selectedChainLinkIndex: ,
-                    //                                            tiChainLink: $chainLink, tiPost: $tiPost, showSideSheet: $showSideOptions)
+                    //Non-Admin Side Sheet
                     VotingButtonsSideSheet(ti: $ti, chainLink: $chainLink, vlPost: $vlPost, showVoteNumbers: true, showSideOptions: $showSideOptions)
                         .offset(x: showSideOptions ? width * 0.42 : width * 0.68)
-
+                    
                 }
             }
             .frame(height: width * 0.5625 * 1)
@@ -144,11 +154,28 @@ struct VotingPostCard: View {
             switch result{
             case .success(let post):
                 vlPost = post
+                
+                upVotes = vlPost?.upVotes ?? 0
+                downVotes = vlPost?.downVotes ?? 0
+                totalVotes = vlPost?.totalVotes ?? 0
+                upVotersUIDsArray = vlPost?.upVotersUIDsArray ?? []
+                downVotersUIDsArray = vlPost?.downVotersUIDsArray ?? []
+                
             case .failure(_): //error
                 vlPost = nil
             }
         }
+        
+
     }
+    
+//    private func getVotingProperties() {
+//        upVotes = vlPost?.upVotes ?? 0
+//        downVotes = vlPost?.downVotes ?? 0
+//        totalVotes = vlPost?.totalVotes ?? 0
+//        upVotersUIDsArray = vlPost?.upVotersUIDsArray ?? []
+//        downVotersUIDsArray = vlPost?.downVotersUIDsArray ?? []
+//    }
     
 }
 #Preview {

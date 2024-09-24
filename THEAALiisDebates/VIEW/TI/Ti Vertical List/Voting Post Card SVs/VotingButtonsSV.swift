@@ -19,11 +19,16 @@ struct VotingButtonsSV: View {
     @State private var loadingDownVote = false
     
     //Votes
-    @State private var upVotes: Int = 0
-    @State private var downVotes: Int = 0
-    @State private var totalVotes: Int = 0
-    @State private var upVotersUIDsArray: [String] = []
-    @State private var downVotersUIDsArray: [String] = []
+//    @State private var upVotes: Int = 0
+//    @State private var downVotes: Int = 0
+//    @State private var totalVotes: Int = 0
+//    @State private var upVotersUIDsArray: [String] = []
+//    @State private var downVotersUIDsArray: [String] = []
+    @Binding var upVotes: Int
+    @Binding var downVotes: Int
+    @Binding var totalVotes: Int
+    @Binding var upVotersUIDsArray: [String]
+    @Binding var downVotersUIDsArray: [String] 
     
     var showVoteNumbers: Bool = false
     @Binding var showSideOptions: Bool
@@ -113,17 +118,17 @@ struct VotingButtonsSV: View {
             
         }
         .preferredColorScheme(.dark)
-        .onAppear{ getVotingProperties() }
-        .onChange(of: vlPost) { _, _ in getVotingProperties() }
+//        .onAppear{ getVotingProperties() }
+//        .onChange(of: vlPost) { _, _ in getVotingProperties() }
     }
     
-    private func getVotingProperties() {
-        upVotes = vlPost?.upVotes ?? 0
-        downVotes = vlPost?.downVotes ?? 0
-        totalVotes = vlPost?.totalVotes ?? 0
-        upVotersUIDsArray = vlPost?.upVotersUIDsArray ?? []
-        downVotersUIDsArray = vlPost?.downVotersUIDsArray ?? []
-    }
+//    private func getVotingProperties() {
+//        upVotes = vlPost?.upVotes ?? 0
+//        downVotes = vlPost?.downVotes ?? 0
+//        totalVotes = vlPost?.totalVotes ?? 0
+//        upVotersUIDsArray = vlPost?.upVotersUIDsArray ?? []
+//        downVotersUIDsArray = vlPost?.downVotersUIDsArray ?? []
+//    }
     
     //MARK: - UPVOTE func
     private func upVote() {

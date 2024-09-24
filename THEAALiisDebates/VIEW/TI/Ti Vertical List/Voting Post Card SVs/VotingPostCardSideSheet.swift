@@ -17,6 +17,12 @@ struct VotingPostCardSideSheet: View {
     @Binding var tiChainLink: ChainLink?
     @Binding var vlPost: Post?
     
+    //Votes
+    @Binding var upVotes: Int
+    @Binding var downVotes: Int
+    @Binding var totalVotes: Int
+    @Binding var upVotersUIDsArray: [String]
+    @Binding var downVotersUIDsArray: [String]
 
     @ObservedObject private var cardVM = VotingCardViewModel()
     @Binding var showSideSheet: Bool
@@ -143,7 +149,15 @@ struct VotingPostCardSideSheet: View {
                 .frame(width: width * 0.15, height: width * 0.5625 * 0.85)
                 
                 //MARK: - Right Column
-                VotingButtonsSV(ti: $ti, chainLink: $tiChainLink, vlPost: $vlPost, showVoteNumbers: true, showSideOptions: $showSideSheet)
+//                VotingButtonsSV(ti: $ti, chainLink: $tiChainLink, vlPost: $vlPost, showVoteNumbers: true, showSideOptions: $showSideSheet)
+                VotingButtonsSV(ti: $ti, chainLink: $tiChainLink, vlPost: $vlPost,
+                                upVotes: $upVotes,
+                                downVotes: $downVotes,
+                                totalVotes: $totalVotes,
+                                upVotersUIDsArray: $upVotersUIDsArray,
+                                downVotersUIDsArray: $downVotersUIDsArray,
+                                showVoteNumbers: true,
+                                showSideOptions: $showSideSheet)
                 
             }
             .foregroundColor(.primary)

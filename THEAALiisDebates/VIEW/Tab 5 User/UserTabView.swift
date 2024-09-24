@@ -16,9 +16,6 @@ struct UserTabView: View {
     @AppStorage("log_status") var logStatus: Bool = false
     
     @State var currentUser: UserModel? = nil
-    @State var userName       = ""
-    @State var currentUserBio = ""
-//    @State var userProfilePicData: Data?
     
 //    @Environment(\.dismiss) var dismiss
 //    @State var showImagePicker = false
@@ -35,16 +32,27 @@ struct UserTabView: View {
                 // - Name & Bio
                 VStack(spacing: 15) {
                     Text("Your UID:     " + currentUserUID)
-                    Text(currentUserName != "" ? currentUserName : "No Name")
-                        .foregroundColor(currentUserName != "" ? .primary : .secondary)
-                        .font(.title)
                     
-                    Text("Future Feature")
-                        .foregroundColor(.secondary)
+                    //display Name && Label
+                    if currentUser != nil {
+                        Text(currentUser?.displayName ?? "No Name")
+                            .foregroundColor(currentUser!.displayName != "" ? .primary : .secondary)
+                            .font(.title)
+                        
+                        //label
+                        ( Text( UserFunctions().userLabel(user: currentUser) + " ") + Text(Image(systemName: UserFunctions().userLabelIcon(user: currentUser)) ) )
+                            .foregroundStyle(.gray)
+                            .font(.system(size: width * 0.05, weight: .regular))
+                            .padding(.trailing, width * 0.01)
+                    }
+                    
+                    
                 }
-
+                
                 // -
-                UserBioAndButtons(bio: currentUserBio)
+                if currentUser != nil {
+                    UserBioAndButtons(bio: currentUser!.bio)
+                }
                 
                 Divider()
                 
@@ -52,25 +60,24 @@ struct UserTabView: View {
                 UserViewTabsBar()
                 
                 // - Posts Array
-                LazyVStack {
-                    ScrollView(showsIndicators: false) {
-                        if currentUser != nil {
-                            ForEach(0 ..< currentUser!.createdTIsIDs.count, id: \.self) { i in
+                ScrollView(showsIndicators: false) {
+                    if currentUser != nil {
+                        
+                        ForEach(0 ..< currentUser!.createdTIsIDs.count, id: \.self) { i in
+                            
+                            ZStack(alignment: .topLeading) {
+                                Text("\(i + 1)")
+                                    .font(.title)
                                 
-                                //                            DebateCard() //TODO
-                                //                            VotingCell()///for Public Questions Tab!
-                                ///
-//                                UserPostedDebateCard()
-                                ZStack(alignment: .topLeading) {
-                                    Text("\(i + 1)")
-                                        .font(.title)
-                                    
-                                    TiCard(ti: nil, tiID: currentUser!.createdTIsIDs[i])
-                                }
-                                
+                                TiCard(ti: nil, tiID: currentUser!.createdTIsIDs[i])
                             }
                         }
                     }
+                    
+                    Rectangle()
+                        .frame(height: 50)
+                        .foregroundStyle(.clear)
+                    
                 }
                 
                 Spacer()

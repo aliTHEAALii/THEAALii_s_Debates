@@ -22,10 +22,10 @@ struct UserBioAndButtons: View {
                 //Edit
                 EditUserInfoButton()
 
-                
-                FutureFeatureButton()
-                
-                FutureFeatureButton()
+                                
+//                Rectangle()
+//                    .frame(width: width * 0.15, height: width * 0.3)
+//                    .foregroundStyle(.clear)
 
             }
         }
@@ -36,7 +36,9 @@ struct UserBioAndButtons: View {
 
 struct UserBioAndButtons_Previews: PreviewProvider {
     static var previews: some View {
-        UserBioAndButtons()
-            .previewLayout(.sizeThatFits)
+        UserTabView()
+
+//        UserBioAndButtons()
+//            .previewLayout(.sizeThatFits)
     }
 }

@@ -66,7 +66,7 @@ struct TiVerticalListView: View {
                                     isAdmin: TiViewModel().isAdmin(ti: ti, currentUserUID: currentUserUID)
                                 )
                                 .onAppear {
-                                    if post == verticalListPosts.last {
+                                    if post == verticalListPosts.last && !isFetching {
                                         fetchVerticalListPosts(tiID: ti!.id, chainLinkID: tiChainLink.id)
                                     }
                                 }
@@ -74,9 +74,7 @@ struct TiVerticalListView: View {
 //                        }
                     }
                 }
-            } else {
-                ProgressView()
-            }
+            } else { ProgressView() }
         }
     }
     
@@ -91,7 +89,7 @@ struct TiVerticalListView: View {
                 verticalListPosts.append(contentsOf: vlPosts)
                 lastDocument = lastDoc
             case .failure:
-                verticalListPosts = []
+                verticalListPosts.append(contentsOf: [])
             }
             isFetching = false
         }

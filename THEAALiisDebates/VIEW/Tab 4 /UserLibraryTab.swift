@@ -16,7 +16,7 @@ struct UserLibraryTab: View {
     
     var body: some View {
         
-        NavigationView {
+        NavigationStack {
             
             VStack(spacing: 0) {
                 
@@ -24,11 +24,26 @@ struct UserLibraryTab: View {
                 
                 if savedTIsSelected == true {
                     if currentUser != nil {
-                        List(0..<currentUser!.observingTIsIDs.count, id: \.self) { i in
+//                        List(0..<currentUser!.observingTIsIDs.count, id: \.self) { i in
+//                            
+//                            SavedTICell(index: i, tiID: currentUser!.observingTIsIDs[i])
+//                            //.listRowSeparator(.hidden) // Hide separators between rows
+//                            //.padding(.vertical, 0) // Remove vertical padding
+//                        }
+//                        .listStyle(PlainListStyle())
+//                        .navigationTitle("Saved TIs")
+//                        .onDelete {
+//                            
+//                        }
+                        List {
+                            ForEach(0..<currentUser!.observingTIsIDs.count, id: \.self) { i in
+                                
+                                SavedTICell(index: i, tiID: currentUser!.observingTIsIDs[i])
+                                //.listRowSeparator(.hidden) // Hide separators between rows
+                                //.padding(.vertical, 0) // Remove vertical padding
+                            }
+                            .onDelete(perform: <#T##Optional<(IndexSet) -> Void>##Optional<(IndexSet) -> Void>##(IndexSet) -> Void#>)
                             
-                            SavedTICell(index: i, tiID: currentUser!.observingTIsIDs[i])
-                            //.listRowSeparator(.hidden) // Hide separators between rows
-                            //.padding(.vertical, 0) // Remove vertical padding
                         }
                         .listStyle(PlainListStyle())
                         .navigationTitle("Saved TIs")
@@ -46,6 +61,9 @@ struct UserLibraryTab: View {
                         }
                         .listStyle(PlainListStyle())
                         .navigationTitle("Saved Users")
+                        .refreshable {
+                            
+                        }
                     }
                     
                     //MARK: - Saved Users
@@ -59,6 +77,22 @@ struct UserLibraryTab: View {
                     } catch { print("❌ Error Couldn't get user for Library Tab❌") }
                 }
             }
+        }
+    }
+    
+    //MARK: - Functions
+    func deleteTiFromSavedTIs(at offset: IndexSet, tiID: String, currentUserUID: String) async {
+        Task {
+            await UserManager.shared.updateObservingTIs(tiUID: tiID, currentUserUID: currentUserUID, addOrRemove: .remove)
+        }
+    }
+    func deleteUserFromSavedUsers(userUID: String, currentUserUID: String) {
+        
+    }
+    
+    func fetchUser() async throws {
+        if currentUser == nil {
+            currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
         }
     }
 }

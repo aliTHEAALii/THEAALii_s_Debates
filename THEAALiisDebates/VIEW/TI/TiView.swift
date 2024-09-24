@@ -21,6 +21,7 @@ struct TiView: View {
     var vmTi = TiViewModel()
     var vmCC = ControlCenterViewModel()
     
+    @State private var showPickIntroPostVideoButton: Bool = false
     @Binding var showTiView: Bool
     
     var body: some View {
@@ -114,6 +115,8 @@ struct TiView: View {
             switch result{
             case .success(let post):
                 tiPost = post
+                showPickIntroPostVideoButtonFunc()
+                
             case .failure(_): //error
                 tiPost = nil
             }
@@ -128,6 +131,7 @@ struct TiView: View {
                 
             case .success(let gottenChainLink):
                 tiChainLink = gottenChainLink
+                showPickIntroPostVideoButtonFunc()
                 
             case .failure(_):
                 tiChainLink = nil
@@ -138,16 +142,31 @@ struct TiView: View {
 
     
     //TODO: if selected Index == intro Post index
-    var showPickIntroPostVideoButton: Bool {
-        guard selectedChainLinkIndex == vmTi.introPostIndex(ti: ti) else { return false }
-        guard currentUserUID == ti?.creatorUID else { return false }
+//    var showPickIntroPostVideoButton: Bool {
+//        guard selectedChainLinkIndex == vmTi.introPostIndex(ti: ti) else { return false }
+//        guard currentUserUID == ti?.creatorUID else { return false }
+//        
+//        if tiPost != nil {
+//            let hasVideo = tiPost!.type == .video
+//            return !hasVideo
+//        } else {
+//            return false
+//        }
+//    }
+    func showPickIntroPostVideoButtonFunc() {
+        guard selectedChainLinkIndex == vmTi.introPostIndex(ti: ti) else {
+            showPickIntroPostVideoButton = false; return
+
+        }
+        guard currentUserUID == ti?.creatorUID else {
+            showPickIntroPostVideoButton = false; return
+        }
         
-        let hasVideo = tiPost?.type == .video
-        
-        if hasVideo {
-            return false
+        if tiPost != nil {
+            let hasVideo = tiPost!.type == .video
+            showPickIntroPostVideoButton = !hasVideo
         } else {
-            return true
+            showPickIntroPostVideoButton = false
         }
     }
 }
@@ -155,5 +174,5 @@ struct TiView: View {
 #Preview {
     TiView(ti: nil, showTiView: .constant(true))
     
-//    TIView()
+    //TIView()
 }

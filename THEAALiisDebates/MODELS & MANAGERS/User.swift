@@ -200,20 +200,73 @@ final class UserManager {
     
     
     //3. - Update
+//    func updateSavedUsers(currentUserId: String, userIdForArray: String, addOrRemove: AddOrRemove) async throws {
+//        if addOrRemove == .add {
+//            try await userDocument(userUID: currentUserId).updateData([UserModel.CodingKeys.savedUsersUIDs.rawValue : FieldValue.arrayUnion( [userIdForArray] )] )
+//        } else {
+//            try await userDocument(userUID: currentUserId).updateData([UserModel.CodingKeys.savedUsersUIDs.rawValue : FieldValue.arrayRemove([userIdForArray])])
+//
+//        }
+//    }
     func updateSavedUsers(currentUserId: String, userIdForArray: String, addOrRemove: AddOrRemove) async throws {
-        if addOrRemove == .add {
-            try await userDocument(userUID: currentUserId).updateData([UserModel.CodingKeys.savedUsersUIDs.rawValue : FieldValue.arrayUnion([userIdForArray])] )
-        } else {
-            try await userDocument(userUID: currentUserId).updateData([UserModel.CodingKeys.savedUsersUIDs.rawValue : FieldValue.arrayRemove([userIdForArray])])
-
+        do {
+            // Ensure document exists or create it if needed
+            let userDoc = userDocument(userUID: currentUserId)
+            
+            // Choose the operation based on addOrRemove
+            if addOrRemove == .add {
+                // Add the userIdForArray to the savedUsersUIDs array
+                try await userDoc.setData([UserModel.CodingKeys.savedUsersUIDs.rawValue : FieldValue.arrayUnion([userIdForArray])], merge: true)
+            } else {
+                // Remove the userIdForArray from the savedUsersUIDs array
+                try await userDoc.setData([UserModel.CodingKeys.savedUsersUIDs.rawValue : FieldValue.arrayRemove([userIdForArray])], merge: true)
+            }
+        } catch {
+            // Handle any errors that occur during the update
+            print("Error updating saved users: \(error.localizedDescription)")
+            throw error // Re-throw to handle elsewhere if necessary
         }
     }
     
-    func updateObservingTIs(tiUID: String, currentUserUID: String, addOrRemove: AddOrRemove) async throws {
-        if addOrRemove == .add {
-            try await userDocument(userUID: currentUserUID).updateData([UserModel.CodingKeys.observingTIsIDs.rawValue : FieldValue.arrayUnion([tiUID])])
-        } else {
-            try await userDocument(userUID: currentUserUID).updateData([UserModel.CodingKeys.observingTIsIDs.rawValue : FieldValue.arrayRemove([tiUID])])
+    func updateFollowingUsers(currentUserUID: String, userUIDForArray: String, addOrRemove: AddOrRemove) async throws {
+        do {
+            // Ensure document exists or create it if needed
+            let currentUserDoc = userDocument(userUID: currentUserUID)
+            let userDoc = userDocument(userUID: userUIDForArray)
+
+            
+            // Choose the operation based on addOrRemove
+            if addOrRemove == .add {
+                // Add the userIdForArray to the savedUsersUIDs array
+                try await currentUserDoc.setData([UserModel.CodingKeys.followingUIDs.rawValue : FieldValue.arrayUnion([userUIDForArray])], merge: true)
+                try await userDoc.setData([UserModel.CodingKeys.followersUIDs.rawValue : FieldValue.arrayUnion([currentUserUID])], merge: true)
+
+            } else {
+                // Remove the userIdForArray from the savedUsersUIDs array
+                try await currentUserDoc.setData([UserModel.CodingKeys.followingUIDs.rawValue : FieldValue.arrayRemove([userUIDForArray])], merge: true)
+                try await userDoc.setData([UserModel.CodingKeys.followersUIDs.rawValue : FieldValue.arrayRemove([currentUserUID])], merge: true)
+
+            }
+        } catch {
+            // Handle any errors that occur during the update
+            print("Error updating saved users: \(error.localizedDescription)")
+            throw error // Re-throw to handle elsewhere if necessary
+        }
+    }
+
+    @MainActor // Ensures it's running on the main thread for UI updates or isolated properly
+    func updateObservingTIs(tiUID: String, currentUserUID: String, addOrRemove: AddOrRemove) async {
+        do {
+            if addOrRemove == .add {
+                //                try await userDocument(userUID: currentUserUID).updateData([UserModel.CodingKeys.observingTIsIDs.rawValue : FieldValue.arrayUnion([tiUID])])
+                try await userDocument(userUID: currentUserUID).setData([UserModel.CodingKeys.createdTIsIDs.rawValue : FieldValue.arrayUnion([tiUID])], merge: true)
+            } else {
+//                try await userDocument(userUID: currentUserUID).updateData([UserModel.CodingKeys.observingTIsIDs.rawValue : FieldValue.arrayRemove([tiUID])])
+                try await userDocument(userUID: currentUserUID).setData([UserModel.CodingKeys.observingTIsIDs.rawValue : FieldValue.arrayRemove([tiUID])], merge: true)
+
+            }
+        } catch {
+            print("🆘 Error updating observing TIs \(error.localizedDescription) ❌")
         }
     }
     

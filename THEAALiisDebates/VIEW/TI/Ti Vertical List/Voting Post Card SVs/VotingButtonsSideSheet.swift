@@ -146,7 +146,7 @@ struct VotingButtonsSideSheet: View {
             }
             .preferredColorScheme(.dark)
             .onAppear{ getVotingProperties() }
-        .onChange(of: vlPost) { _, _ in getVotingProperties() }
+            .onChange(of: vlPost) { _, _ in getVotingProperties() }
         }
     }
     

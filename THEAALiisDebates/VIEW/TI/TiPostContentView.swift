@@ -81,7 +81,7 @@ struct ImageView: View {
                     .frame(width: width * scale, height: width * 0.5625 * scale)
                 
                 
-            } placeholder: { LoadingView() }
+            } placeholder: { ProgressView() }
         }
         .background(Color.gray.opacity(0.15))
         .frame(width: width * scale, height: width * 0.5625 * scale)
