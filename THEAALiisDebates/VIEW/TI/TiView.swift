@@ -88,7 +88,7 @@ struct TiView: View {
         fetchTiPost()
         
 #if DEBUG
-        TIManager.shared.getTi(tiID: TestingModels().tiFromDBID2) { result in
+        TIManager.shared.getTi(tiID: TestingModels().tiFromDBID4) { result in
             switch result {
             case .success(let gottenTi):
                 ti = gottenTi

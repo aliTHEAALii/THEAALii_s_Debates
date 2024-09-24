@@ -34,6 +34,8 @@ struct VerticalListControlBar: View {
                 Spacer()
 
                 ChainLinkVLAccessButton(ti: $ti, tiChainLink: $tiChainLink)
+                    .opacity(0.5)
+                    .disabled(true)
                 
                 Spacer()
 
@@ -41,7 +43,7 @@ struct VerticalListControlBar: View {
                 
                 Spacer()
                 
-                Text("Vertical")
+                Text("Vertical List")
                     .foregroundColor(.secondary)
                     .frame(width: width * 0.3)
                 

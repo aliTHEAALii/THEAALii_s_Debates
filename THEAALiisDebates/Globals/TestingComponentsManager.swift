@@ -14,6 +14,9 @@ final class TestingModels {
     //MARK: - TITs
     var tiFromDBID1 = "A194AC04-93FB-49D1-8F7A-DE1F9F468F79"
     var tiFromDBID2 = "2A01BA5E-E8E1-4588-857F-DEE0A8A3FB8B"
+    var tiFromDBID3 = "2D449F13-A21E-4CCF-BC66-D873BFB41735"
+    var tiFromDBID4 = "75C67989-003A-4190-8C6C-996EC89713F1"
+    var tiFromDBID5 = "CB62521F-AE75-4D1C-960B-8079DFB81EA7"
 
     
     func tiFromFB(completion: @escaping (TI?) -> Void) {

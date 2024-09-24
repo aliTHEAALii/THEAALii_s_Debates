@@ -255,10 +255,10 @@ final class UserManager {
     }
 
     @MainActor // Ensures it's running on the main thread for UI updates or isolated properly
-    func updateObservingTIs(tiUID: String, currentUserUID: String, addOrRemove: AddOrRemove) async {
+    func updateObservingTIs(tiUID: String, currentUserUID: String, addOrRemove: AddOrRemove) async throws {
         do {
             if addOrRemove == .add {
-                //                try await userDocument(userUID: currentUserUID).updateData([UserModel.CodingKeys.observingTIsIDs.rawValue : FieldValue.arrayUnion([tiUID])])
+//                                try await userDocument(userUID: currentUserUID).updateData([UserModel.CodingKeys.observingTIsIDs.rawValue : FieldValue.arrayUnion([tiUID])])
                 try await userDocument(userUID: currentUserUID).setData([UserModel.CodingKeys.createdTIsIDs.rawValue : FieldValue.arrayUnion([tiUID])], merge: true)
             } else {
 //                try await userDocument(userUID: currentUserUID).updateData([UserModel.CodingKeys.observingTIsIDs.rawValue : FieldValue.arrayRemove([tiUID])])

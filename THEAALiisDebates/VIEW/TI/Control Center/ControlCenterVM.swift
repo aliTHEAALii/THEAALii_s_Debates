@@ -16,19 +16,29 @@ final class ControlCenterViewModel {
         
         if ti.tiType == .d1 {
             tiChain = [ti.introPostID] + ti.rightSideChain
+            
         } else if ti.tiType == .d2 {
             tiChain = ( ti.leftSideChain?.reversed() ?? [] ) + [ti.introPostID] + ti.rightSideChain
         }
+        
         return tiChain
     }
     
     
     //CCMap for post order tag
     func order(ti: TI, index: Int) -> Int {
-        if index < ti.leftSideChain?.count ?? 0 {
-            return (ti.leftSideChain?.count ?? 0) - index
+        if ti.tiType == .d1 {
+            return index
+        } else if ti.tiType == .d2 {
+            
+            
+            if index < ti.leftSideChain?.count ?? 0 {
+                return (ti.leftSideChain?.count ?? 0) - index
+            }
+            return index - (ti.leftSideChain?.count ?? 0)
+        } else {
+            return 0
         }
-        return index - (ti.leftSideChain?.count ?? 0)
     }
     
 

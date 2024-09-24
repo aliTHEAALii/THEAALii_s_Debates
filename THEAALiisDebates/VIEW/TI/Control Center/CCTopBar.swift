@@ -103,70 +103,73 @@ struct CCIndicatorCircles: View {
     var body: some View {
         
         ScrollViewReader { proxy in
-
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 0) {
-                
-                //For Centering scrollView content
-                RoundedRectangle(cornerRadius: 8)
-                    .foregroundStyle(.black)
-                    .frame(width: blackRectangleWidth, height: width * 0.05)
-                
-                ForEach(0..<ccVM.tiChain(ti: ti).count, id: \.self) { i in
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 0) {
                     
-                    //MARK: - Intro C
-                    if i == introPostIndex {
-                        ZStack {
-                            TiCircleIcon(scale: 0.4, tiType: ti!.tiType,
-                                   showTriangle: selectedChainLink == i ? true : false )
-                            .id(i)
-                        }
-                        .frame(width: width * 0.1)
+                    //Left Rectangle : For Centering scrollView content
+                    RoundedRectangle(cornerRadius: 8)
+                        .foregroundStyle(.clear)
+                        .frame(width: leftRectangleWidth, height: width * 0.05)
+                    
+                    ForEach(0..<ccVM.tiChain(ti: ti).count, id: \.self) { i in
                         
-                    //MARK: - Triangle C
-                    } else if i == selectedChainLink {
-                        ZStack {
-                            TiTriangle(scale: 0.15, stroke: 5,
-                                       color: Color.ADColors.green)
-                            .offset(y: -(width * 0.0025))
-                        }
-                        .frame(width: width * 0.1)
-                        
-                        //MARK: - Regular Circles C
-                    } else {
-                        //MARK: - Circles
-                        ZStack {
-                            Circle()
-                                .stroke(lineWidth: 0.5)
-                                .foregroundStyle(.secondary)
-                                .frame(width: width * 0.075)
-                            
-                            if ti != nil {
-                                Text("\(ccVM.order(ti: ti!, index: i))")
-                                //                                    .fontWeight(.medium)
-                                    .foregroundStyle(expandTiControls ? .secondary : .primary)
+                        //MARK: - Intro C
+                        if i == introPostIndex {
+                            ZStack {
+                                TiCircleIcon(scale: 0.4, tiType: ti!.tiType,
+                                             showTriangle: selectedChainLink == i ? true : false )
+                                .id(i)
                             }
+                            .frame(width: width * 0.1)
+                            
+                            //MARK: - Triangle C
+                        } else if i == selectedChainLink {
+                            ZStack {
+                                TiTriangle(scale: 0.15, stroke: 5,
+                                           color: Color.ADColors.green)
+                                .offset(y: -(width * 0.0025))
+                            }
+                            .frame(width: width * 0.1)
+                            
+                            //MARK: - Regular Circles C
+                        } else {
+                            ZStack {
+                                Circle()
+                                    .stroke(lineWidth: 0.5)
+                                    .foregroundStyle(.secondary)
+                                    .frame(width: width * 0.075)
+                                
+                                if ti != nil {
+                                    Text("\(ccVM.order(ti: ti!, index: i))")
+                                    //                                    .fontWeight(.medium)
+                                        .foregroundStyle(expandTiControls ? .secondary : .primary)
+                                }
+                            }
+                            .frame(width: width * 0.1)
                         }
-                        .frame(width: width * 0.1)
+                    }
+                    
+                    //Right Rectangle : For Centering scrollView content
+                    if ti?.tiType == .d2 {
+                        RoundedRectangle(cornerRadius: 8)
+                            .foregroundStyle(.clear)
+                            .frame(width: rightRectangleWidth, height: width * 0.05)
                     }
                 }
+                .padding(.horizontal, width * 0.002)
             }
-            .padding(.horizontal, width * 0.002)
+            .onAppear{ proxy.scrollTo(ccVM.introPostIndex(ti: ti), anchor: .center) }
+            .onChange(of: selectedChainLink) { _, _ in proxy.scrollTo(selectedChainLink) }
+            .onChange(of: tiChain) { _, _ in proxy.scrollTo(ccVM.introPostIndex(ti: ti), anchor: .center) }
         }
-        .onAppear{ proxy.scrollTo(ccVM.introPostIndex(ti: ti), anchor: .center) }
-        .onChange(of: selectedChainLink) { _, _ in proxy.scrollTo(selectedChainLink) }
-        .onChange(of: tiChain) { _, _ in proxy.scrollTo(ccVM.introPostIndex(ti: ti), anchor: .center) }
-    }
-        
         .frame(maxWidth: width * 0.69, minHeight: width * 0.15)
     }
     
-    var introPostIndex: Int {
-        return ti?.leftSideChain?.count ?? 0
-    }
-
+    var introPostIndex: Int { TiViewModel().introPostIndex(ti: ti) }
+    
     //For centering scrollView content
-    var blackRectangleWidth: CGFloat {
+    var leftRectangleWidth: CGFloat {
         
         //return width * CGFloat(tiChainsCount) * 0.1 * 0.5     //Pushes to the Middle\\
         
@@ -175,6 +178,9 @@ struct CCIndicatorCircles: View {
         } else {
             return 0
         }
+    }
+    var rightRectangleWidth: CGFloat {
+        width * 0.1 - leftRectangleWidth
     }
     
 }

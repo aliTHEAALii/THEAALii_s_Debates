@@ -42,7 +42,7 @@ struct CCMap: View {
                             Rectangle()
                                 .foregroundStyle(.clear)
                                 .frame(width: width * 0.02, height: width * 0.5625 * 0.22)
-                        }
+                        }//Black Rectangle
                         
                         //ti Chain
                         ForEach(0..<tiChain.count, id: \.self) { i in
