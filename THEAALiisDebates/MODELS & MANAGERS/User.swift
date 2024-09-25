@@ -200,6 +200,19 @@ final class UserManager {
     
     
     //3. - Update
+    func updateName(userUID: String, name: String) async throws {
+        do {
+            
+            try await userDocument(userUID: userUID).setData([ UserModel.CodingKeys.displayName.rawValue: name ], merge: true)
+            
+        } catch { print("🆘🛜🔺Error updating user name: \(error)❌") }
+    }
+    func updateBio(userUID: String, bio: String) async throws {
+        do {
+            try await userDocument(userUID: userUID).setData([UserModel.CodingKeys.bio.rawValue : bio], merge: true)
+            
+        } catch { print("🆘🛜🔺Error updating user bio: \(error)❌") }
+    }
 //    func updateSavedUsers(currentUserId: String, userIdForArray: String, addOrRemove: AddOrRemove) async throws {
 //        if addOrRemove == .add {
 //            try await userDocument(userUID: currentUserId).updateData([UserModel.CodingKeys.savedUsersUIDs.rawValue : FieldValue.arrayUnion( [userIdForArray] )] )
@@ -208,10 +221,10 @@ final class UserManager {
 //
 //        }
 //    }
-    func updateSavedUsers(currentUserId: String, userIdForArray: String, addOrRemove: AddOrRemove) async throws {
+    func updateSavedUsers(currentUserUID: String, userIdForArray: String, addOrRemove: AddOrRemove) async throws {
         do {
             // Ensure document exists or create it if needed
-            let userDoc = userDocument(userUID: currentUserId)
+            let userDoc = userDocument(userUID: currentUserUID)
             
             // Choose the operation based on addOrRemove
             if addOrRemove == .add {
@@ -273,7 +286,9 @@ final class UserManager {
     func addTiToCreated(tiID: String, currentUserUID: String) async throws {
         Task {
             do {
-                try await userDocument(userUID: currentUserUID).updateData([UserModel.CodingKeys.createdTIsIDs.rawValue : FieldValue.arrayUnion([tiID])])
+//                try await userDocument(userUID: currentUserUID).updateData([UserModel.CodingKeys.createdTIsIDs.rawValue : FieldValue.arrayUnion([tiID])])
+                try await userDocument(userUID: currentUserUID).setData([UserModel.CodingKeys.createdTIsIDs.rawValue : FieldValue.arrayUnion([tiID])], merge: true)
+
                 print("🟢 Ti added to user's created Tis IDs")
 
             } catch {

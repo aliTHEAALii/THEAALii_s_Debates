@@ -29,6 +29,7 @@ struct UserTabView: View {
                 // - Pick Your Profile Pic
                 PickProfileImageButton()
                 
+                
                 // - Name & Bio
                 VStack(spacing: 15) {
                     Text("Your UID:     " + currentUserUID)

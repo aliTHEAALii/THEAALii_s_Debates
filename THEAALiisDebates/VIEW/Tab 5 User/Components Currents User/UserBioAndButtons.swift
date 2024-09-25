@@ -10,7 +10,7 @@ import SwiftUI
 struct UserBioAndButtons: View {
     
     @Binding var currentUser: UserModel?
-    var bio: String = ""
+    @State var bio: String
     
     var body: some View {
         
@@ -21,7 +21,7 @@ struct UserBioAndButtons: View {
             VStack(spacing: 0) {
                 
                 //Edit
-                EditUserInfoButton(currentUser: $currentUser)
+                EditUserInfoButton(currentUser: $currentUser, bio: $bio)
 
 //                Rectangle()
 //                    .frame(width: width * 0.15, height: width * 0.3)

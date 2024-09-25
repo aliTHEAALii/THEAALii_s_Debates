@@ -74,7 +74,7 @@ struct SaveUserButton: View {
         if userSaved {
             print("🍌 🫒 2 🫒 🍌")
             isLoading = true
-            try await UserManager.shared.updateSavedUsers(currentUserId: currentUser.userUID ,userIdForArray: user.userUID, addOrRemove: (.remove))
+            try await UserManager.shared.updateSavedUsers(currentUserUID: currentUser.userUID ,userIdForArray: user.userUID, addOrRemove: (.remove))
             
             print("🍌 🫒 saved user remove! 🫒 🍌")
             
@@ -85,7 +85,7 @@ struct SaveUserButton: View {
         } else {
             print("🍌 🫒 3 🫒 🍌")
             isLoading = true
-            try await UserManager.shared.updateSavedUsers(currentUserId: currentUser.userUID ,userIdForArray: user.userUID ,addOrRemove: (!userSaved ? .add : .remove))
+            try await UserManager.shared.updateSavedUsers(currentUserUID: currentUser.userUID ,userIdForArray: user.userUID ,addOrRemove: (!userSaved ? .add : .remove))
             print("🍌 🫒 saved user add! 🫒 🍌")
             
             currentUser.savedUsersUIDs.append(user.userUID)

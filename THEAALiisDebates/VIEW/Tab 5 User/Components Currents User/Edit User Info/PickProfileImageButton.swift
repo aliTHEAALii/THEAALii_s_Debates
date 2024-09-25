@@ -54,7 +54,7 @@ struct PickProfileImageButton: View {
             }
         }//Z
         .foregroundColor(.secondary)
-        .frame(width: width, height: width * 0.75)
+//        .frame(width: width, height: width * 0.75)
         //MARK: Pick Image
         .photosPicker(isPresented: $showImagePicker, selection: $selectedPhoto)
         .onChange(of: selectedPhoto) { newValue , _ in

@@ -196,7 +196,7 @@ struct UserLibraryTab: View {
         Task {
             do {
                 isLoading = true
-                try await UserManager.shared.updateSavedUsers(currentUserId: currentUserUID, userIdForArray: userUID, addOrRemove: .remove)
+                try await UserManager.shared.updateSavedUsers(currentUserUID: currentUserUID, userIdForArray: userUID, addOrRemove: .remove)
                 savedUsersUIDs.remove(object: userUID)
                 isLoading = false
             } catch {
