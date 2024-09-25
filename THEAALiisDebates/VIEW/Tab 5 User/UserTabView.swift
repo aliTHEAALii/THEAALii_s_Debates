@@ -49,9 +49,9 @@ struct UserTabView: View {
                     
                 }
                 
-                // -
+                // -Bio & Buttons
                 if currentUser != nil {
-                    UserBioAndButtons(bio: currentUser!.bio)
+                    UserBioAndButtons(currentUser: $currentUser, bio: currentUser!.bio)
                 }
                 
                 Divider()

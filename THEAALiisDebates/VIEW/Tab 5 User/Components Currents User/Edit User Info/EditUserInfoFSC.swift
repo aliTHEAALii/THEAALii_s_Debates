@@ -9,6 +9,59 @@ import SwiftUI
 import Firebase
 import FirebaseStorage
 
+
+//MARK: - Edit User Info Button
+struct EditUserInfoButton: View {
+    
+    @Binding var currentUser: UserModel?
+    @State private var showEditingFSC = false
+    
+    var body: some View {
+        
+        Button {
+            showEditingFSC.toggle()
+        } label: {
+            Image(systemName: "gearshape")
+                .font(.system(size: width * 0.1, weight: .thin))
+                .frame(width: width * 0.15, height: width * 0.15)
+                .foregroundColor(.primary)
+            
+        }
+        .fullScreenCover(isPresented: $showEditingFSC) {
+            ZStack(alignment: .topTrailing) {
+                if currentUser != nil {
+                EditUserInfoFSC(currentUser: currentUser!, showEditingFSC: $showEditingFSC)
+                }
+
+                
+                Button {
+                    showEditingFSC = false
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: width * 0.1, height: width * 0.1)
+                            .foregroundColor(.black)
+                        
+                        RoundedRectangle(cornerRadius: 10)
+                            .strokeBorder(lineWidth: 0.7)
+                            .frame(width: width * 0.1, height: width * 0.1)
+                            .foregroundColor(.white)
+                        
+                        Image(systemName: "xmark")
+                            .font(.system(size: width * 0.075, weight: .thin))
+                            .foregroundColor(.primary)
+                    }
+                    .padding(.trailing)
+                    
+                }
+                
+                
+            }
+        }
+    }
+}
+
+
 struct EditUserInfoFSC: View {
     
     @ObservedObject var vmEdit = EditUserInfoViewModel()
@@ -17,9 +70,8 @@ struct EditUserInfoFSC: View {
     @AppStorage("user_name") var currentUserName: String = ""
     @AppStorage("user_Pic") var currentUserProfilePicData: Data?
     @AppStorage("log_status") var logStatus: Bool = false
-
     
-    @State var user: UserModel
+    @State var currentUser: UserModel
     @Environment(\.dismiss) var dismiss
     @Binding var showEditingFSC : Bool
     
@@ -28,9 +80,7 @@ struct EditUserInfoFSC: View {
     @State private var showError = false
     
     //Keyboard Focus State
-    enum Field {
-        case userName, userBio
-    }
+    enum Field { case userName, userBio }
     @FocusState private var focusField: Field?
     
     var body: some View {
@@ -46,13 +96,13 @@ struct EditUserInfoFSC: View {
                         .strokeBorder(lineWidth: 0.5)
                         .frame(width: width * 0.9, height: width * 0.13)
                     
-                    if currentUserName == "" {
+                    if currentUser.displayName == "" {
                         Text("Enter Name")
                             .foregroundColor(.secondary)
                     }
                     
-                    //                TextEditor(text: $currentUserName)
-                    TextField("", text: $currentUserName)
+//                    TextEditor(text: $currentUserName)
+                    TextField(currentUser.displayName, text: $currentUser.displayName)
                         .multilineTextAlignment(.center)
                         .scrollContentBackground(.hidden)
                         .frame(width: width * 0.8, height: width * 0.1, alignment: .center)
@@ -67,18 +117,17 @@ struct EditUserInfoFSC: View {
                         .frame(width: width * 0.9, height: width * 0.25)
                     
                     //FIXME: - BIO from database
-                    if user.bio == "" {
-                        Text("Enter Bio")
-                            .foregroundColor(.secondary)
-                    }
-                    
-                    TextEditor(text: $user.bio)
-                        .multilineTextAlignment(.leading)
-                        .scrollContentBackground(.hidden)
-                        .frame(width: width * 0.85, height: width * 0.25, alignment: .top)
-                        .submitLabel(.return)
-                        .focused($focusField, equals: .userBio)
-                    
+                        if currentUser.bio == "" {
+                            Text("Enter Bio")
+                                .foregroundColor(.secondary)
+                        }
+                    TextField(currentUser.bio, text: $currentUser.bio)
+//                        TextEditor(text: $currentUser.bio)
+                            .multilineTextAlignment(.leading)
+                            .scrollContentBackground(.hidden)
+                            .frame(width: width * 0.85, height: width * 0.25, alignment: .top)
+                            .submitLabel(.return)
+                            .focused($focusField, equals: .userBio)
                 }
                 .frame(width: width * 0.8, height: width * 0.25, alignment: .top)
                 
@@ -179,58 +228,10 @@ struct EditUserInfoFSC: View {
 
 struct EditUserInfoFSC_Previews: PreviewProvider {
     static var previews: some View {
-        EditUserInfoFSC(user: TestingModels().user1, showEditingFSC: .constant(true))
+        EditUserInfoFSC(currentUser: TestingModels().user1, showEditingFSC: .constant(true))
         
-        EditUserInfoButton()
+        EditUserInfoButton(currentUser: .constant(TestingModels().user1))
             .preferredColorScheme(.dark)
-    }
-}
-
-//MARK: - Edit User Info Button
-struct EditUserInfoButton: View {
-    
-    @State private var showEditingFSC = false
-    
-    var body: some View {
-        
-        Button {
-            showEditingFSC.toggle()
-        } label: {
-            Image(systemName: "gearshape")
-                .font(.system(size: width * 0.1, weight: .thin))
-                .frame(width: width * 0.15, height: width * 0.15)
-                .foregroundColor(.primary)
-            
-        }
-        .fullScreenCover(isPresented: $showEditingFSC) {
-            ZStack(alignment: .topTrailing) {
-                
-                EditUserInfoFSC(user: TestingModels().user1, showEditingFSC: $showEditingFSC)
-                
-                Button {
-                    showEditingFSC = false
-                } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .frame(width: width * 0.1, height: width * 0.1)
-                            .foregroundColor(.black)
-                        
-                        RoundedRectangle(cornerRadius: 10)
-                            .strokeBorder(lineWidth: 0.7)
-                            .frame(width: width * 0.1, height: width * 0.1)
-                            .foregroundColor(.white)
-                        
-                        Image(systemName: "xmark")
-                            .font(.system(size: width * 0.075, weight: .thin))
-                            .foregroundColor(.primary)
-                    }
-                    .padding(.trailing)
-                    
-                }
-                
-                
-            }
-        }
     }
 }
 
