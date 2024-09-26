@@ -14,7 +14,9 @@ import FirebaseStorage
 struct EditUserInfoButton: View {
     
     @Binding var currentUser: UserModel?
+    @Binding var userName: String
     @Binding var bio: String
+    @Binding var imageUrlString: String?
     @State private var showEditingFSC = false
     
     var body: some View {
@@ -31,7 +33,7 @@ struct EditUserInfoButton: View {
         .fullScreenCover(isPresented: $showEditingFSC) {
             ZStack(alignment: .topTrailing) {
                 if currentUser != nil {
-                    EditUserInfoFSC(currentUser: currentUser!, bio: $bio, showEditingFSC: $showEditingFSC)
+                    EditUserInfoFSC(currentUser: currentUser!, userName: $userName, bio: $bio, imageUrlString: $imageUrlString, showEditingFSC: $showEditingFSC)
                 }
 
                 
@@ -54,8 +56,13 @@ struct EditUserInfoFSC: View {
     @AppStorage("log_status") var logStatus: Bool = false
     
     @State var currentUser: UserModel
+    @Binding var userName: String
     @Binding var bio: String
+    @Binding var imageUrlString: String?
+
+    @State private var originalUserName: String = ""
     @State private var originalBio: String = ""
+    
     @Environment(\.dismiss) var dismiss
     @Binding var showEditingFSC : Bool
     
@@ -77,7 +84,9 @@ struct EditUserInfoFSC: View {
                     Spacer()
                     
                     Button {
+                        userName = originalUserName
                         bio = originalBio
+                        
                         showEditingFSC = false
                     } label: {
                         ZStack {
@@ -100,37 +109,39 @@ struct EditUserInfoFSC: View {
                 }//-Close Button -//
                 
                 
-                PickProfileImageButton()
+                PickProfileImageButton(currentUser: $currentUser, imageUrlString: $imageUrlString)
+                    .padding(.bottom)
                 
-                
+                //Name
                 ZStack {
                     
                     RoundedRectangle(cornerRadius: 8)
                         .strokeBorder(lineWidth: 0.5)
                         .frame(width: width * 0.9, height: width * 0.13)
                     
-                    if currentUser.displayName == "" {
+                    if userName == "" {
                         Text("Enter Name")
                             .foregroundColor(.secondary)
                     }
                     
-                    //                    TextEditor(text: $currentUserName)
-                    TextField(currentUser.displayName, text: $currentUser.displayName)
+
+                    TextField(userName, text: $userName)
                         .multilineTextAlignment(.center)
                         .scrollContentBackground(.hidden)
                         .frame(width: width * 0.8, height: width * 0.1, alignment: .center)
                         .submitLabel(.next)
                         .focused($focusField, equals: .userName)
                         .onSubmit { focusField = .userBio }
-                }
+                }//- Name -//
                 
+                //Bio
                 ZStack {
                     RoundedRectangle(cornerRadius: 8)
                         .strokeBorder(lineWidth: 0.5)
                         .frame(width: width * 0.9, height: width * 0.25)
                     
                     //FIXME: - BIO from database
-                    if currentUser.bio == "" {
+                    if bio == "" {
                         Text("Enter Bio")
                             .foregroundColor(.secondary)
                     }
@@ -140,10 +151,9 @@ struct EditUserInfoFSC: View {
                         .frame(width: width * 0.85, height: width * 0.22, alignment: .top)
                         .submitLabel(.return)
                         .focused($focusField, equals: .userBio)
-
-                    // Remove .submitLabel(.return) as it's not valid for TextEditor
                 }
                 .frame(width: width * 0.8, height: width * 0.25, alignment: .top)
+                //- Bio -//
                 
                 
                 //MARK: - Save Info Button
@@ -206,9 +216,8 @@ struct EditUserInfoFSC: View {
                         .foregroundColor(.secondary)
                         .padding(.bottom)
                 }
-                
             }
-            .onAppear { originalBio = bio }
+            .onAppear { originalBio = bio; originalUserName = userName }
             .background(Color.black)
             .preferredColorScheme(.dark)
             .onTapGesture { focusField = nil }
@@ -216,22 +225,22 @@ struct EditUserInfoFSC: View {
                 
             }
         }
-        
     }
     
     //MARK: - Functions
     
     func saveInfo() {
         Task {
-//            do {
-                try await UserManager.shared.updateName(userUID: currentUser.userUID, name: currentUser.displayName)
+            do {
+                try await UserManager.shared.updateName(userUID: currentUser.userUID, name: userName)
                 try await UserManager.shared.updateBio(userUID: currentUser.userUID, bio: bio)
-                
+            
+                currentUser.displayName = userName
                 currentUser.bio = bio
                 showEditingFSC = false
-//            } catch {
-//                
-//            }
+            } catch {
+                
+            }
         }
     }
     
@@ -254,17 +263,15 @@ struct EditUserInfoFSC: View {
         }
     }
     
-    func setError() async {
-        
-    }
+    func setError() async {  }
 }
 
 struct EditUserInfoFSC_Previews: PreviewProvider {
     static var previews: some View {
-        EditUserInfoFSC(currentUser: TestingModels().user1, bio: .constant("Green & Blue"), showEditingFSC: .constant(true))
+        EditUserInfoFSC(currentUser: TestingModels().user1, userName: .constant("user name"), bio: .constant("Green & Blue"), imageUrlString: .constant("meaw"), showEditingFSC: .constant(true))
         
-        EditUserInfoButton(currentUser: .constant(TestingModels().user1), bio: .constant("Green & Blue"))
-            .preferredColorScheme(.dark)
+//        EditUserInfoButton(currentUser: .constant(TestingModels().user1), bio: .constant("Green & Blue"), imageUrlString: .constant(TestingImagesVideos().imageURL))
+//            .preferredColorScheme(.dark)
     }
 }
 

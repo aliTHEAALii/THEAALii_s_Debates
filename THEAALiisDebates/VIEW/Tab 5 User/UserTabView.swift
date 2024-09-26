@@ -15,7 +15,9 @@ struct UserTabView: View {
     @AppStorage("user_Pic"  ) var currentUserProfilePicData: Data?
     @AppStorage("log_status") var logStatus: Bool = false
     
+    @State private var userName: String = ""
     @State var currentUser: UserModel? = nil
+    @State private var imageUrlString: String? = nil
     
 //    @Environment(\.dismiss) var dismiss
 //    @State var showImagePicker = false
@@ -27,17 +29,61 @@ struct UserTabView: View {
             VStack(spacing: 0) {
                 
                 // - Pick Your Profile Pic
-                PickProfileImageButton()
+//                PickProfileImageButton()
+//                .padding()
+
+//                if let currentUserProfilePicData, let image = UIImage(data: currentUserProfilePicData) {
+//                    
+//                    ImageView()
+//                    ZStack {
+//                        
+//                        Image(uiImage: image)
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fill)
+//                            .frame(width: width * 0.6, height: width * 0.6)
+//                            .clipShape(Circle())
+//                        
+//                        Circle()
+//                            .stroke()
+//                            .foregroundColor(.white)
+//                            .frame(width: width * 0.6, height: width * 0.6)
+//                    }
+//                    
+//                } else { PersonIcon() }
+                ZStack {
+                    if imageUrlString != nil {
+                        
+                        AsyncImage(url: URL(string: imageUrlString!)) { image in
+                            
+                            image.resizable()
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: width * 0.6, height: width * 0.6)
+                                .clipShape(Circle())
+                            
+                            
+                        } placeholder: { ProgressView() }
+                    } else { PersonIcon() }
+                    
+                    Circle()
+                        .stroke(lineWidth: 1)
+                        .foregroundColor(.white)
+                        .frame(width: width * 0.6, height: width * 0.6)
+                }
+                .padding()
+//                .background(Color.gray.opacity(0.15))
+//                .frame(width: width * scale, height: width * 0.5625 * scale)
                 
                 
                 // - Name & Bio
                 VStack(spacing: 15) {
-                    Text("Your UID:     " + currentUserUID)
+                    
+//                    Text("Your UID:     " + currentUserUID)
                     
                     //display Name && Label
                     if currentUser != nil {
-                        Text(currentUser?.displayName ?? "No Name")
-                            .foregroundColor(currentUser!.displayName != "" ? .primary : .secondary)
+                        Text(userName)
+                            .foregroundColor(userName != "" ? .primary : .secondary)
                             .font(.title)
                         
                         //label
@@ -52,7 +98,7 @@ struct UserTabView: View {
                 
                 // -Bio & Buttons
                 if currentUser != nil {
-                    UserBioAndButtons(currentUser: $currentUser, bio: currentUser!.bio)
+                    UserBioAndButtons(currentUser: $currentUser, userName: $userName, bio: currentUser!.bio, imageUrlString: $imageUrlString)
                 }
                 
                 Divider()
@@ -85,12 +131,16 @@ struct UserTabView: View {
             }
         }
         .task {
-            if currentUser == nil {
-                do {
-                    currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
-                } catch { print("❌ Error Couldn't get user for Library Tab❌") }
+            do {
+                currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
+                userName = currentUser?.displayName ?? "No Name"
+                imageUrlString = currentUser?.profileImageURLString
+            } catch {
+                print("❌ Error Couldn't get user for Library Tab❌")
+                // Handle error gracefully, e.g., show an error message to the user
             }
         }
+
     }
 }
 

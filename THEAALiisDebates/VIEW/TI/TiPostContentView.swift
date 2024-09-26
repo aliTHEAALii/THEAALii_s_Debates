@@ -62,6 +62,7 @@ struct TiPostContentView: View {
 }
 
 
+//MARK: - Iamge View
 struct ImageView: View {
     
     var imageURL: URL? = nil

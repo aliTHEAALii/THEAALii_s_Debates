@@ -137,7 +137,6 @@
 		2FD05EC12C6DB6D40082C277 /* PickVideoButtonNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD05EC02C6DB6D40082C277 /* PickVideoButtonNew.swift */; };
 		2FD05EC32C6EFC470082C277 /* PostVotingMethodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD05EC22C6EFC470082C277 /* PostVotingMethodes.swift */; };
 		2FD05EC52C6FCA250082C277 /* VotingButtonsSideSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD05EC42C6FCA250082C277 /* VotingButtonsSideSheet.swift */; };
-		2FD05EC72C8A96830082C277 /* VotingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD05EC62C8A96830082C277 /* VotingVM.swift */; };
 		2FD05EC92C8B8B560082C277 /* PostVotesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD05EC82C8B8B560082C277 /* PostVotesModel.swift */; };
 		2FD05ECB2C8BA9320082C277 /* NonAdminVotingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD05ECA2C8BA9320082C277 /* NonAdminVotingButtons.swift */; };
 		2FD05ECD2C8CEB3D0082C277 /* AdminVotingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD05ECC2C8CEB3D0082C277 /* AdminVotingButtons.swift */; };
@@ -276,7 +275,6 @@
 		2FD05EC02C6DB6D40082C277 /* PickVideoButtonNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickVideoButtonNew.swift; sourceTree = "<group>"; };
 		2FD05EC22C6EFC470082C277 /* PostVotingMethodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVotingMethodes.swift; sourceTree = "<group>"; };
 		2FD05EC42C6FCA250082C277 /* VotingButtonsSideSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingButtonsSideSheet.swift; sourceTree = "<group>"; };
-		2FD05EC62C8A96830082C277 /* VotingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingVM.swift; sourceTree = "<group>"; };
 		2FD05EC82C8B8B560082C277 /* PostVotesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVotesModel.swift; sourceTree = "<group>"; };
 		2FD05ECA2C8BA9320082C277 /* NonAdminVotingButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonAdminVotingButtons.swift; sourceTree = "<group>"; };
 		2FD05ECC2C8CEB3D0082C277 /* AdminVotingButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminVotingButtons.swift; sourceTree = "<group>"; };
@@ -691,7 +689,6 @@
 			isa = PBXGroup;
 			children = (
 				2F6CA3F82C2D1824003EF603 /* VerticalListVM.swift */,
-				2FD05EC62C8A96830082C277 /* VotingVM.swift */,
 				2F6CA3FA2C2D9882003EF603 /* TiVerticalListView.swift */,
 				2FA063542C5430FF00DCE5CC /* VerticalListControlBar.swift */,
 				2F4F87892C31A55E0018D2A5 /* VotingPostCard.swift */,
@@ -933,7 +930,6 @@
 				2FD05ED22C9A96240082C277 /* FollowUserButton.swift in Sources */,
 				2F690CEC2BC192B200A31760 /* FeedTabView.swift in Sources */,
 				2F690CBD2BC18EA200A31760 /* TIViewOld.swift in Sources */,
-				2FD05EC72C8A96830082C277 /* VotingVM.swift in Sources */,
 				2F690C9E2BC17E7C00A31760 /* UserFSC.swift in Sources */,
 				2F690C9C2BC17E6700A31760 /* UserButton.swift in Sources */,
 				2F6CA3E92C22B885003EF603 /* ControlCenter.swift in Sources */,

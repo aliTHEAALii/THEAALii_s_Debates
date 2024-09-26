@@ -65,8 +65,8 @@ struct iiView: View {
                 
                 Spacer()
                 
-                FollowTiButton(ti: $ti)
-                    .padding(.trailing, width * 0.001)
+//                FollowTiButton(currentUser: $currentUser, ti: $ti)
+//                    .padding(.trailing, width * 0.001)
             }
             
             Spacer()

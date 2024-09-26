@@ -193,8 +193,9 @@ struct CCMapPostSV: View {
                         
                         Spacer()
                         
+                        
                         if chainLink != nil {
-                            UserButton(userUID: chainLink?.creatorUID, scale: 0.5)
+                            UserButton(userUID: chainLink!.creatorUID, scale: 0.5)
                                 .frame(height: width * 0.05)
                         }
                     }

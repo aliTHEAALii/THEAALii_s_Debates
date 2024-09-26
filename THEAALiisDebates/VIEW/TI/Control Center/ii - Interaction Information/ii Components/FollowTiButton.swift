@@ -10,7 +10,8 @@ import SwiftUI
 struct FollowTiButton: View {
     
     @AppStorage("current_user_uid") var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
-
+    @Binding var currentUser: UserModel?
+    
     @Binding var ti: TI?
     
     var body: some View {
@@ -59,8 +60,8 @@ struct FollowTiButton: View {
     }
     
     var notFollowingTi: Bool {
-        guard ti != nil else { return false }
-        if ti!.tiObserversUIDs.contains(currentUserUID) { return false }
+        guard ti != nil, currentUser != nil else { return false }
+        if ti!.tiObserversUIDs.contains(currentUserUID) || currentUser!.observingTIsIDs.contains(ti!.id) { return false }
         return true
     }
     

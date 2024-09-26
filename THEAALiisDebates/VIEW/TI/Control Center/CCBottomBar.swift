@@ -10,7 +10,7 @@ import SwiftUI
 struct CCBottomBar: View {
     
     @AppStorage("current_user_uid") var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
-    
+    @Binding var currentUser: UserModel?
     @Binding var ti: TI?
     @Binding var tiChain: [String]
     
@@ -30,7 +30,7 @@ struct CCBottomBar: View {
                         CCAddToChainButton(rightOrLeft: .left, ti: $ti, tiChainLink: .constant(nil), tiChain: $tiChain)
                     } else {
                         
-                        FollowTiButton(ti: $ti)
+                        FollowTiButton(currentUser: $currentUser, ti: $ti)
                         
                     }
                 } else {
@@ -55,8 +55,8 @@ struct CCBottomBar: View {
                     CCAddToChainButton(rightOrLeft: .right, ti: $ti, tiChainLink: .constant(nil), tiChain: $tiChain)
                 } else {
                     
-                    FollowTiButton(ti: $ti)
-                    
+                    FollowTiButton(currentUser: $currentUser, ti: $ti)
+
                 }
             } else {
                 Rectangle()

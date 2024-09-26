@@ -13,9 +13,11 @@ import Firebase
 
 struct PickProfileImageButton: View {
     
-    @AppStorage("current_user_uid") var currentUserID: String = ""
+    @AppStorage("current_user_uid") var currentUserUID: String = ""
     @AppStorage("user_Pic") var currentUserProfilePicData: Data?
     
+    @Binding var currentUser: UserModel
+    @Binding var imageUrlString: String?
     //    @State var userName = ""
     //    @State var currentUserBio = ""
     //    @State var userProfilePicData: Data?
@@ -24,6 +26,8 @@ struct PickProfileImageButton: View {
     @State var showImagePicker = false
     @State var selectedPhoto: PhotosPickerItem?
     
+    @State private var isLoading: Bool = false
+    
     //MARK: View
     var body: some View {
         
@@ -31,35 +35,67 @@ struct PickProfileImageButton: View {
         ZStack() {
             
             Button {
-                showImagePicker.toggle()
+                if !isLoading {
+                    showImagePicker.toggle()
+                }
             } label: {
                 
-                if let currentUserProfilePicData, let image = UIImage(data: currentUserProfilePicData) {
-                    
-                    ZStack {
+                
+//                if let currentUserProfilePicData, let image = UIImage(data: currentUserProfilePicData) {
+//                    
+//                    ZStack {
+//                        
+//                        Image(uiImage: image)
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fill)
+//                            .frame(width: width * 0.6, height: width * 0.6)
+//                            .clipShape(Circle())
+//                        
+//                        Circle()
+//                            .stroke()
+//                            .foregroundColor(.white)
+//                            .frame(width: width * 0.6, height: width * 0.6)
+//                    }
+//                    
+//                } else { PersonIcon() }
+                ZStack {
+
+                    if !isLoading {
                         
-                        Image(uiImage: image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: width * 0.6, height: width * 0.6)
-                            .clipShape(Circle())
-                        
-                        Circle()
-                            .stroke()
-                            .foregroundColor(.white)
+                        if imageUrlString != nil {
+                            
+                            AsyncImage(url: URL(string: imageUrlString!)) { image in
+                                
+                                image.resizable()
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: width * 0.6, height: width * 0.6)
+                                    .clipShape(Circle())
+                                
+                                
+                            } placeholder: { ProgressView() }
+                        } else { PersonIcon() }
+                    } else {
+                        ProgressView()
                             .frame(width: width * 0.6, height: width * 0.6)
                     }
                     
-                } else { PersonIcon() }
+                    Circle()
+                        .stroke(lineWidth: 1)
+                        .foregroundColor(.white)
+                        .frame(width: width * 0.6, height: width * 0.6)
+                }
+                .padding()
             }
         }//Z
         .foregroundColor(.secondary)
 //        .frame(width: width, height: width * 0.75)
         //MARK: Pick Image
         .photosPicker(isPresented: $showImagePicker, selection: $selectedPhoto)
-        .onChange(of: selectedPhoto) { newValue , _ in
+        .onChange(of: selectedPhoto) { oldValue , newValue in
             //extracting uiImage from photoItem
             if let newValue {
+                isLoading = true
                 Task {
                     do {
                         guard let imageData = try await newValue.loadTransferable(type: Data.self) else { return }
@@ -82,9 +118,19 @@ struct PickProfileImageButton: View {
 //                        print("Profile Image URL: -----------\(downloadImageURL)")
 //                        //TODO: - Update User Info
 //                        let _ = try  await Firestore.firestore().collection("Users").document(currentUserUID).updateData(["profileImageURL" : "\(downloadImageURL)"])
+                        print("✅1 About to update  User profile pic Info")
+                        if let imageUrlString = await ImageManager.shared.saveImage(imageData: imageData, thumbnailFor: .user, thumbnailForTypeId: currentUserUID) {
+                            print("✅2 entered saved image to Firestore")
+                            try await UserManager.shared.updateProfileImage(userUID: currentUserUID, imageUrlString: imageUrlString)
+                            print("✅3 Successfully saved image to Firestore")
+                            self.imageUrlString = imageUrlString
+                            isLoading = false
+                        }
+                        isLoading = false
                         
                     } catch {
                         print("❌🤬📸Error: selecting image failed\(error.localizedDescription)")
+                        isLoading = false
                     }
                 }
             }
@@ -102,7 +148,7 @@ struct PickProfileImageButton: View {
 //        let imageName = UUID().uuidString //name of the image document
         
         let storage = Storage.storage()
-        let storageReference = storage.reference().child("Profile_Images").child(currentUserID)
+        let storageReference = storage.reference().child("Profile_Images").child(currentUserUID)
         
         guard let resizedImage = image.jpegData(compressionQuality: 0.2) else {
             print("😡📸 couldn't resize Image")
@@ -131,7 +177,7 @@ struct PickProfileImageButton: View {
         
         //Save to the User document
         let db = Firestore.firestore()
-        let userReference = db.collection("Users").document(currentUserID)
+        let userReference = db.collection("Users").document(currentUserUID)
         
         do {
 //            try await userReference.updateData(["profile_image_url" : imageURLString])
@@ -151,6 +197,6 @@ struct PickProfileImageButton_Previews: PreviewProvider {
     static var previews: some View {
         UserTabView()
             .preferredColorScheme(.dark)
-        PickProfileImageButton()
+//        PickProfileImageButton( currentUser: .constant(TestingModels().user1))
     }
 }

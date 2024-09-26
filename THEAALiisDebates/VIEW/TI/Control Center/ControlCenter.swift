@@ -11,6 +11,7 @@ import SwiftUI
 struct ControlCenter: View {
     
     @AppStorage("current_user_uid") var currentUserUID: String = "ooo"
+    @State var currentUser: UserModel?
     
     @Binding var ti: TI?
     @Binding var tiChain: [String]
@@ -44,7 +45,7 @@ struct ControlCenter: View {
                         //MARK: - Control Center Bottom(interaction) Bar
                  //b b
                         
-                        CCBottomBar(ti: $ti, tiChain: $tiChain)
+                        CCBottomBar(currentUser: $currentUser, ti: $ti, tiChain: $tiChain)
                         
                     }
                     .frame(width: width, height: width * 0.55)                 //b b
@@ -62,6 +63,11 @@ struct ControlCenter: View {
             
         }// - ZStack - //
         .preferredColorScheme(.dark)
+        .task {
+            do {
+                currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
+            } catch { print("Error fetching user: \(error)") }
+        }
     }
     
     

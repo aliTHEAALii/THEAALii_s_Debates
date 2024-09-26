@@ -321,6 +321,10 @@ struct AdminVotingButtons: View {
             if vlPost!.type == .video, vlPost!.videoURL != nil {
                 try await VideoManager.shared.deleteVideo(videoID: vlPost!.id)
                 print("🟣11 deleteVLPost")
+                if vlPost?.imageURL != nil {
+                    try await ImageManager.shared.deleteImage(imageID: vlPost!.id, thumbnailFor: .post)
+
+                }
                 
             } else if vlPost!.type == .image, vlPost!.imageURL != nil {
                 print("🟣22 deleteVLPost")
@@ -329,6 +333,7 @@ struct AdminVotingButtons: View {
                 print("🟣33 deleteVLPost")
 
             }
+            
             await PostManager.shared.deleteVLPost(tiID: ti!.id, chainLinkID: tiChainLink!.id, postID: vlPost!.id)
             
             isLoading = false

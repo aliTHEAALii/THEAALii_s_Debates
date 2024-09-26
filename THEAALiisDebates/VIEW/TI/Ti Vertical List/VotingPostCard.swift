@@ -71,18 +71,13 @@ struct VotingPostCard: View {
                     
                     if ti != nil, vlPost != nil {
                         
-//                        VotingButtonsSV(ti: $ti, chainLink: $chainLink, vlPost: $vlPost,
-//                                        //votes
-//                                        upVotes: $upVotes, downVotes: $downVotes, totalVotes: $totalVotes,
-//                                        upVotersUIDsArray: $upVotersUIDsArray,
-//                                        downVotersUIDsArray: $downVotersUIDsArray,
-//                                        showSideOptions: $showSideOptions)
                         if isAdmin {
-                            NonAdminVotingButtons(ti: $ti, chainLink: $chainLink, vlPost: $vlPost, showVoteNumbersBinding: $showSideOptions)
+                            
+                            AdminVotingButtons(ti: $ti, tiChain: $tiChain, tiChainLink: $chainLink, vlPost: $vlPost)
                             
                         } else if !isAdmin {
-                            AdminVotingButtons(ti: $ti, tiChain: $tiChain, tiChainLink: $chainLink, vlPost: $vlPost)
-
+                            
+                            NonAdminVotingButtons(ti: $ti, chainLink: $chainLink, vlPost: $vlPost, showVoteNumbersBinding: $showSideOptions)
                         }
                     } else {
                         ProgressView()
@@ -90,29 +85,9 @@ struct VotingPostCard: View {
                     }
                 }
                 .frame(width: width, alignment: .leading)
-//                .offset(x: showSideOptions ? width * -0.68 : width * -0.42) //MARK: -Delete
 
                 
-                //MARK: Side Options
-                if isAdmin , ti != nil, chainLink != nil, vlPost != nil {
-                    //Admin Side Sheet
-//                    VotingPostCardSideSheet(isAdmin: isAdmin, ti: $ti, tiChain: $tiChain, 
-//                                            tiChainLink: $chainLink, vlPost: $vlPost,
-//                                            //votes
-//                                            upVotes: $upVotes, downVotes: $downVotes, totalVotes: $totalVotes,
-//                                            upVotersUIDsArray: $upVotersUIDsArray,
-//                                            downVotersUIDsArray: $downVotersUIDsArray,
-//                                            //view
-//                                            showSideSheet: $showSideOptions, isLoading: $isLoading)
-//                        .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
-                    
-                    
-                } else if !isAdmin , ti != nil, chainLink != nil, vlPost != nil {
-                    //Non-Admin Side Sheet
-                    VotingButtonsSideSheet(ti: $ti, chainLink: $chainLink, vlPost: $vlPost, showVoteNumbers: true, showSideOptions: $showSideOptions)
-                        .offset(x: showSideOptions ? width * 0.42 : width * 0.68)
-                    
-                }
+
             }
             .frame(height: width * 0.5625 * 1)
             
@@ -246,3 +221,27 @@ struct VotingPostCard: View {
 //                }
 //            }
 //            .frame(height: width * 0.5625 * 0.85)
+
+
+
+
+//MARK: Side Options
+//                if isAdmin , ti != nil, chainLink != nil, vlPost != nil {
+//                    //Admin Side Sheet
+////                    VotingPostCardSideSheet(isAdmin: isAdmin, ti: $ti, tiChain: $tiChain,
+////                                            tiChainLink: $chainLink, vlPost: $vlPost,
+////                                            //votes
+////                                            upVotes: $upVotes, downVotes: $downVotes, totalVotes: $totalVotes,
+////                                            upVotersUIDsArray: $upVotersUIDsArray,
+////                                            downVotersUIDsArray: $downVotersUIDsArray,
+////                                            //view
+////                                            showSideSheet: $showSideOptions, isLoading: $isLoading)
+////                        .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
+//
+//
+//                } else if !isAdmin , ti != nil, chainLink != nil, vlPost != nil {
+//                    //Non-Admin Side Sheet
+//                    VotingButtonsSideSheet(ti: $ti, chainLink: $chainLink, vlPost: $vlPost, showVoteNumbers: true, showSideOptions: $showSideOptions)
+//                        .offset(x: showSideOptions ? width * 0.42 : width * 0.68)
+//
+//                }

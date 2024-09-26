@@ -52,7 +52,7 @@ struct TiCard: View {
                         
                     } else if ti?.tiType == .d1 {
                         if let ti {
-                            TiMapRectD1(ti: ti, cornerRadius: 8, rectWidth: width * 0.5, rectHeight: width * 0.085, stroke: 0.5)
+                            TiMapRectD1(ti: ti, cornerRadius: 8, rectWidth: width * 0.525, rectHeight: width * 0.085, stroke: 0.5)
                         }
                     }
                 }
@@ -431,7 +431,7 @@ struct TiMapRectD1: View {
     let ti: TI
     
     var cornerRadius: CGFloat = 16
-    var rectWidth: CGFloat = width * 0.55
+    var rectWidth: CGFloat = width * 0.7
     var rectHeight: CGFloat = width * 0.1
     var stroke: CGFloat = 1
     var color: Color = .white
@@ -450,26 +450,29 @@ struct TiMapRectD1: View {
                 
                 ZStack {
                     
-                    if ti.rightSideChain.count > 3 {
-                        ForEach(0..<4) { i in
-                            
-                            CircleForTiCard(number:ti.rightSideChain.count - (3 - i))
-                        }
-                        
-                    } else if ti.rightSideChain.count <= 3 && !ti.rightSideChain.isEmpty {
-                        ForEach(0..<3) { i in
-                            
-                            if (i + 1) <= ti.rightSideChain.count {
+                    //right Circles
+                    HStack(spacing: 0) {
+                        if ti.rightSideChain.count > 5 {
+                            ForEach(0..<6) { i in
                                 
-                                CircleForTiCard(number: i + 1, color: Color.secondary)
+                                CircleForTiCard(number: ti.rightSideChain.count - (3 - i))
+                                    .padding(.horizontal, 1)
+
                                 
-                            } else {
-                                //blank circle for space
-                                CircleForTiCard(number: nil, color: .clear)
+                            }
+                        } else if ti.rightSideChain.count <= 5 && !ti.rightSideChain.isEmpty {
+                            ForEach(0..<6) { i in
+                                
+                                if (i + 1) <= ti.rightSideChain.count {
+                                    CircleForTiCard(number: i + 1)
+                                        .padding(.horizontal, 1)
+                                } //else {
+                                    //blank circle for space
+//                                    CircleForTiCard(number: nil, color: .clear)
+//                                }
                             }
                         }
-                    }
-                    
+                    }//.frame(width: width * 0.4 * scale)
                     
                     TiMapRectangleShape(cornerRadius: cornerRadius )
                         .stroke(lineWidth: stroke )

@@ -199,7 +199,7 @@ final class UserManager {
 //        }
     
     
-    //3. - Update
+    //MARK: - 3. - Update
     func updateName(userUID: String, name: String) async throws {
         do {
             
@@ -212,6 +212,11 @@ final class UserManager {
             try await userDocument(userUID: userUID).setData([UserModel.CodingKeys.bio.rawValue : bio], merge: true)
             
         } catch { print("🆘🛜🔺Error updating user bio: \(error)❌") }
+    }
+    func updateProfileImage(userUID: String, imageUrlString: String) async throws {
+        do {
+            try await userDocument(userUID: userUID).setData([UserModel.CodingKeys.profileImageURLString.rawValue : imageUrlString], merge: true)
+        } catch { print("🆘🛜🔺Error updating user profile image: \(error)❌") }
     }
 //    func updateSavedUsers(currentUserId: String, userIdForArray: String, addOrRemove: AddOrRemove) async throws {
 //        if addOrRemove == .add {
@@ -272,7 +277,7 @@ final class UserManager {
         do {
             if addOrRemove == .add {
 //                                try await userDocument(userUID: currentUserUID).updateData([UserModel.CodingKeys.observingTIsIDs.rawValue : FieldValue.arrayUnion([tiUID])])
-                try await userDocument(userUID: currentUserUID).setData([UserModel.CodingKeys.createdTIsIDs.rawValue : FieldValue.arrayUnion([tiUID])], merge: true)
+                try await userDocument(userUID: currentUserUID).setData([UserModel.CodingKeys.observingTIsIDs.rawValue : FieldValue.arrayUnion([tiUID])], merge: true)
             } else {
 //                try await userDocument(userUID: currentUserUID).updateData([UserModel.CodingKeys.observingTIsIDs.rawValue : FieldValue.arrayRemove([tiUID])])
                 try await userDocument(userUID: currentUserUID).setData([UserModel.CodingKeys.observingTIsIDs.rawValue : FieldValue.arrayRemove([tiUID])], merge: true)

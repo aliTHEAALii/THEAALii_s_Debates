@@ -171,7 +171,8 @@ struct CCIndicatorCircles: View {
     //For centering scrollView content
     var leftRectangleWidth: CGFloat {
         
-        //return width * CGFloat(tiChainsCount) * 0.1 * 0.5     //Pushes to the Middle\\
+        //return width * CGFloat(tiChainsCount) * 0.1 * 0.5
+        //Pushes to the Middle\\
         
         if ccVM.tiChain(ti: ti).count < 7 {
             return width * CGFloat(7 - ccVM.tiChain(ti: ti).count) * 0.1 * 0.5
@@ -180,7 +181,7 @@ struct CCIndicatorCircles: View {
         }
     }
     var rightRectangleWidth: CGFloat {
-        width * 0.1 - leftRectangleWidth
+        return max(0, width * 0.1 - leftRectangleWidth)
     }
     
 }
