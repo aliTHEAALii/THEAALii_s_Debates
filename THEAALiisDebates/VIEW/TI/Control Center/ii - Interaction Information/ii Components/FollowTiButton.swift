@@ -14,82 +14,126 @@ struct FollowTiButton: View {
     
     @Binding var ti: TI?
     
+    @Binding var notFollowingTi: Bool
+    @State private var isLoading: Bool = false
+    
     var body: some View {
         //MARK: Follow Button
         
-        if ti != nil {
-            Button {
-                
-                if notFollowingTi {
-                    followTi(ti: ti, userUID: currentUserUID, addOrRemove: .add)
-                } else {
-                    followTi(ti: ti, userUID: currentUserUID, addOrRemove: .remove)
-                }
-                
-            } label: {
-                if notFollowingTi {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(lineWidth: 1)
-                            .foregroundStyle(.gray)
-                            .frame(width: width * 0.15, height: width * 0.15)
+        ZStack {
+            if ti != nil {
+                if !isLoading {
+                    Button {
                         
-                        Text("Follow Ti")
-                            .foregroundStyle(Color.ADColors.green)
-                            .multilineTextAlignment(.center)
-                            .frame(width: width * 0.15, height: width * 0.15)
-
+                        Task {
+                            if notFollowingTi {
+                                await followTi(ti: ti, userUID: currentUserUID, addOrRemove: .add)
+                                
+                                
+                            } else {
+                                await followTi(ti: ti, userUID: currentUserUID, addOrRemove: .remove)
+                            }
+                        }
+                        
+                    } label: {
+                        if notFollowingTi {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(lineWidth: 1)
+                                    .foregroundStyle(.gray)
+                                    .frame(width: width * 0.15, height: width * 0.15)
+                                
+                                Text("Follow Ti")
+                                    .foregroundStyle(Color.ADColors.green)
+                                    .multilineTextAlignment(.center)
+                                    .frame(width: width * 0.15, height: width * 0.15)
+                                
+                            }
+                        } else {
+                            ZStack {
+                                Text("Following Ti")
+                                    .font(.caption)
+                                    .foregroundStyle(.gray)
+                                    .multilineTextAlignment(.center)
+                                    .frame(width: width * 0.15, height: width * 0.15)
+                                
+                            }
+                        }
                     }
                 } else {
-                    ZStack {
-                        Text("Following Ti")
-                            .font(.caption)
-                            .foregroundStyle(.gray)
-                            .multilineTextAlignment(.center)
-                            .frame(width: width * 0.15, height: width * 0.15)
-
-                    }
+                    ProgressView()
+                        .frame(width: width * 0.15, height: width * 0.15)
                 }
+            } else {
+                Rectangle()
+                    .foregroundStyle(.clear)
+                    .frame(width: width * 0.15, height: width * 0.15)
             }
-            
-        } else {
-            Rectangle()
-                .foregroundStyle(.clear)
-                .frame(width: width * 0.15)
+        }
+        .onAppear {
+            isLoading = true
+            notFollowingTi = notFollowingTiFunc()
+            isLoading = false
         }
     }
     
-    var notFollowingTi: Bool {
+    func notFollowingTiFunc() -> Bool {
         guard ti != nil, currentUser != nil else { return false }
+        
         if ti!.tiObserversUIDs.contains(currentUserUID) || currentUser!.observingTIsIDs.contains(ti!.id) { return false }
+        
         return true
+        
+//        guard ti != nil, currentUser != nil else { return false }
+//        
+//        if ti!.tiObserversUIDs.contains(currentUserUID) || currentUser!.observingTIsIDs.contains(ti!.id) { return false }
+//        
+//        return true
     }
     
-    private func followTi(ti: TI?, userUID: String, addOrRemove: AddOrRemove) {
+    private func followTi(ti: TI?, userUID: String, addOrRemove: AddOrRemove) async {
         guard ti != nil else { return }
         
+        isLoading = true
         Task {
             if addOrRemove == .add {
                 do {
                     try await UserManager.shared.updateObservingTIs(tiUID: ti!.id, currentUserUID: currentUserUID, addOrRemove: .add)
+                    
                     try await TIManager.shared.updateObserversUIDs(tiUID: ti!.id, currentUserUID: currentUserUID, addOrRemove: .add)
                 
                     self.ti!.tiObserversUIDs.append(currentUserUID)
-                    print("🟢🧸success Observing Ti: \(ti!.id) 🚦 userUID: \(currentUserUID)")
+                    print("🟢🧸success Observing \(notFollowingTi) Ti: \(ti!.id) 🚦 userUID: \(currentUserUID)")
+                    
+                    notFollowingTi = false
+                    isLoading = false
+                    
+                    print("🟢111🧸success Observing \(notFollowingTi) Ti: \(ti!.id) 🚦 userUID: \(currentUserUID)")
+
                 } catch {
                     print("🔴Error Observing Ti: \(error.localizedDescription)🔴")
+                    notFollowingTi = true
+                    isLoading = false
                     return
                 }
                 
             } else { //remove
                 do {
                     try await UserManager.shared.updateObservingTIs(tiUID: ti!.id, currentUserUID: currentUserUID, addOrRemove: .remove)
+                    
                     try await TIManager.shared.updateObserversUIDs(tiUID: ti!.id, currentUserUID: currentUserUID, addOrRemove: .remove)
                     
                     self.ti!.tiObserversUIDs.remove(object: currentUserUID)
-                    print("🟢🔪success removing Observing Ti   \(ti!.id) 🚦 userUID: \(currentUserUID)")
+                    print("🟢🔪success removing Observing \(notFollowingTi) Ti   \(ti!.id) 🚦 userUID: \(currentUserUID)")
+                    
+                    notFollowingTi = true
+                    isLoading = false
+                    print("🟢222🧸success removing \(notFollowingTi) Ti: \(ti!.id) 🚦 userUID: \(currentUserUID)")
+
                 } catch {
                     print("🔴Error removing Observing Ti: \(error.localizedDescription)🔴")
+                    notFollowingTi = false
+                    isLoading = false
                     return
                 }
             }

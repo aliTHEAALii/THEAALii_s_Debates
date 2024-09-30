@@ -18,7 +18,7 @@ struct ControlCenter: View {
     
     @Binding var selectedChainLink: Int
     
-    @State private var expandTiControls: Bool = false
+    @State private var expandTiControls: Bool = true
     
     var body: some View {
         

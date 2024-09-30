@@ -470,6 +470,9 @@ final class TIManager {
         }
     
     // - 3. Update
+    func updateTiThumbnail(tiID: String, thumbnailUrlString: String) async throws {
+        try await TIDocument(tiID: tiID).setData([ TI.CodingKeys.thumbnailURL.rawValue : thumbnailUrlString ], merge: true)
+    }
     
     //MARK: add post to chain
     func addToChain(tiID: String, cLinkID: String, rightOrLeft: LeftOrRight) async throws {
@@ -498,7 +501,8 @@ final class TIManager {
     }
     
     //FIXME: - This is all wrong (Edit Admins) Obsolete
-    //MARK: Edit Admins
+    //MARK: Edit (Admins - Teams)
+    
     func editAdmins(tiID: String, userUID: String, addOrRemove: AddOrRemove) async throws {
         
         if addOrRemove == .add {
@@ -510,33 +514,43 @@ final class TIManager {
     }
     
     func newAdmins(tiID: String, adminsUIDsArray: [String]) async throws {
-        try await TIDocument(tiID: tiID).updateData([ TI.CodingKeys.tiAdminsUIDs.rawValue : adminsUIDsArray ])
+        try await TIDocument(tiID: tiID).setData([ TI.CodingKeys.tiAdminsUIDs.rawValue : adminsUIDsArray ], merge: true)
     }
 
-    
+    func newLv1Teams(tiID: String, lv1TeamUIDsArray: [String], leftOrRight: LeftOrRight) async throws {
+        if leftOrRight == .right {
+            
+        try await TIDocument(tiID: tiID).setData([ TI.CodingKeys.rsLevel1UsersUIDs.rawValue : lv1TeamUIDsArray ], merge: true)
+        } else if leftOrRight == .left {
+            try await TIDocument(tiID: tiID).setData([ TI.CodingKeys.lsLevel1UsersUIDs.rawValue : lv1TeamUIDsArray ], merge: true)
+        }
+
+    }
     func editLv1Teams(tiID: String, userUID: String, chainDirection: LeftOrRight , addOrRemove: AddOrRemove) async throws {
         
-        var adminsData = [String: Any]()
+        var level1TeamData = [String: Any]()
         
-        //FIXME: Removing Admins ??????? (remove
         if chainDirection == .right {
             
             if addOrRemove == .add {
-                adminsData = [ TI.CodingKeys.rsLevel1UsersUIDs.rawValue : FieldValue.arrayUnion([userUID])  ]
+                level1TeamData = [ TI.CodingKeys.rsLevel1UsersUIDs.rawValue : FieldValue.arrayUnion([userUID])  ]
+                
             } else if addOrRemove == .remove {
-                adminsData = [ TI.CodingKeys.rsLevel1UsersUIDs.rawValue : FieldValue.arrayRemove([userUID]) ]
+                level1TeamData = [ TI.CodingKeys.rsLevel1UsersUIDs.rawValue : FieldValue.arrayRemove([userUID]) ]
             }
+            
             
         } else if chainDirection == .left {
             
             if addOrRemove == .add {
-                adminsData = [ TI.CodingKeys.lsLevel1UsersUIDs.rawValue : FieldValue.arrayUnion([userUID])  ]
+                level1TeamData = [ TI.CodingKeys.lsLevel1UsersUIDs.rawValue : FieldValue.arrayUnion([userUID])  ]
+                
             } else if addOrRemove == .remove {
-                adminsData = [ TI.CodingKeys.lsLevel1UsersUIDs.rawValue : FieldValue.arrayRemove([userUID]) ]
+                level1TeamData = [ TI.CodingKeys.lsLevel1UsersUIDs.rawValue : FieldValue.arrayRemove([userUID]) ]
             }
         }
         
-        try await TIDocument(tiID: tiID).updateData(adminsData)
+        try await TIDocument(tiID: tiID).setData(level1TeamData, merge: true)
     }
     
     func updateObserversUIDs(tiUID: String, currentUserUID: String, addOrRemove: AddOrRemove) async throws {

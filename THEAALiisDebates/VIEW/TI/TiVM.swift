@@ -51,8 +51,10 @@ final class TiViewModel: ObservableObject {
     
     func isAdmin(ti: TI?, currentUserUID: String) -> Bool {
         guard let ti = ti else { return false }
+        
+        if ti.creatorUID == currentUserUID          { return true }
         if ti.tiAdminsUIDs.contains(currentUserUID) { return true }
-        if ti.creatorUID == currentUserUID { return true }
+        
         return false
     }
     

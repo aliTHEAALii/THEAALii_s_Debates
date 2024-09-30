@@ -14,6 +14,8 @@ struct CCBottomBar: View {
     @Binding var ti: TI?
     @Binding var tiChain: [String]
     
+    @State private var notFollowingTi: Bool = true
+    
     var body: some View {
         
         //MARK: - Control Center Bottom(interaction) Bar
@@ -30,7 +32,7 @@ struct CCBottomBar: View {
                         CCAddToChainButton(rightOrLeft: .left, ti: $ti, tiChainLink: .constant(nil), tiChain: $tiChain)
                     } else {
                         
-                        FollowTiButton(currentUser: $currentUser, ti: $ti)
+                        FollowTiButton(currentUser: $currentUser, ti: $ti, notFollowingTi: $notFollowingTi)
                         
                     }
                 } else {
@@ -47,7 +49,7 @@ struct CCBottomBar: View {
             
             
             //( Interaction Info ) Button
-            iiButton(ti: $ti)
+            iiButton( currentUser: $currentUser, ti: $ti)
             
             //Right Side                                        //width * 0.15
             if ti != nil {
@@ -55,7 +57,7 @@ struct CCBottomBar: View {
                     CCAddToChainButton(rightOrLeft: .right, ti: $ti, tiChainLink: .constant(nil), tiChain: $tiChain)
                 } else {
                     
-                    FollowTiButton(currentUser: $currentUser, ti: $ti)
+                    FollowTiButton(currentUser: $currentUser, ti: $ti, notFollowingTi: $notFollowingTi)
 
                 }
             } else {
@@ -68,6 +70,8 @@ struct CCBottomBar: View {
                 .frame(width: width * 0.2)      //u
         }
         .frame(width: width, height: width * 0.25)
+        .onAppear{
+            notFollowingTi = ControlCenterViewModel().notFollowingTiFunc(currentUserUID: currentUserUID, ti: ti, currentUser: currentUser) }
     }
     
     

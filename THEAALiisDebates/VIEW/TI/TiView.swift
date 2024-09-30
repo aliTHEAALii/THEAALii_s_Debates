@@ -52,19 +52,21 @@ struct TiView: View {
             }
             
             
-            //Add Intro Video Button
-            if ti != nil, tiPost != nil {
-                if showPickIntroPostVideoButton {
-                    PickIntroVideoButton(tiID: ti!.id, introPost: $tiPost)
-                        .padding()
-                }
-            }
+
             
             ScrollView(showsIndicators: false) {
                 LazyVStack(spacing: 0){
                     
                     //CC
                     ControlCenter(ti: $ti, tiChain: $tiChain, selectedChainLink: $selectedChainLinkIndex)
+                    
+                    //Add Intro Video Button
+                    if ti != nil, tiPost != nil {
+                        if showPickIntroPostVideoButton {
+                            PickIntroVideoButton(tiID: ti!.id, introPost: $tiPost)
+                                .padding()
+                        }
+                    }
                     
                     //Selected Post Info
                     TiPostInfo(ti: $ti, tiPost: $tiPost)
@@ -87,22 +89,22 @@ struct TiView: View {
         getChainLink()
         fetchTiPost()
         
-//#if DEBUG
-//        TIManager.shared.getTi(tiID: TestingModels().tiFromDBID4) { result in
-//            switch result {
-//            case .success(let gottenTi):
-//                ti = gottenTi
-//                tiChain = vmCC.tiChain(ti: ti)
-//                selectedChainLinkIndex = vmCC.introPostIndex(ti: ti)
-//                getChainLink()
-//                fetchTiPost()
-//                
-//            case .failure(_):
-//                ti = nil
-//                tiPost = nil
-//            }
-//        }
-//#endif
+#if DEBUG
+        TIManager.shared.getTi(tiID: TestingModels().tiFromDBID2) { result in
+            switch result {
+            case .success(let gottenTi):
+                ti = gottenTi
+                tiChain = vmCC.tiChain(ti: ti)
+                selectedChainLinkIndex = vmCC.introPostIndex(ti: ti)
+                getChainLink()
+                fetchTiPost()
+                
+            case .failure(_):
+                ti = nil
+                tiPost = nil
+            }
+        }
+#endif
         
         
     }

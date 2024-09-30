@@ -28,6 +28,7 @@ struct TiPostInfo: View {
                         
                         //Post Description
                         DescriptionSV(descriptionTitle: "Post Description", text: tiPost!.text ?? "")
+//                            .offset(x: width * -5)
                         
                         // - Post Buttons
                         VStack(spacing: 0) {
@@ -36,7 +37,14 @@ struct TiPostInfo: View {
                             UserButton(userUID: tiPost!.creatorUID)
                             
                             //Comments
-                            CommentsButton()
+//                            CommentsButton()
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "circle")
+                                    .foregroundStyle(.gray)
+                                    .frame(width: width * 0.15, height: width * 0.15)
+                            }
                             
                             //Expand SideSheet PlaceHolder
                             Rectangle()
@@ -58,6 +66,7 @@ struct TiPostInfo: View {
                         .foregroundColor(.gray.opacity(0.2))
                         .frame(width: width, height: width * 0.65)
                     Text("No Post")
+                    ProgressView()
                 }
             }
         }

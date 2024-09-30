@@ -14,6 +14,7 @@ struct iiEditTiAdminsBar: View {
     
     @State private var currentUser: UserModel?
     @Binding var ti: TI?
+    
     @State var tiAdminsUIDs: [String] = []
     
     @State private var showEditAdmins = false
@@ -41,7 +42,7 @@ struct iiEditTiAdminsBar: View {
                         
                     } else {
                         ForEach(tiAdminsUIDs, id: \.self) { adminUID in
-
+                            
                             
                             UserButton(userUID: adminUID)
                                 .padding(.leading, width * 0.02)
@@ -52,91 +53,24 @@ struct iiEditTiAdminsBar: View {
             }
             
             //MARK: Edit Admins Button ----
-            Button {
-                showEditAdmins.toggle()
-            } label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(lineWidth: width * 0.001)
-                        .frame(width: width * 0.12, height: width * 0.12)
-                    
-                    Text("Edit")
-                }
-                .frame(width: width * 0.15, height: width * 0.15)
-                .foregroundStyle(.white)
-            }
-            
-            
-            
-            
-
-            //MARK: - Full Screen Cover
-            .fullScreenCover(isPresented: $showEditAdmins) {
+            if TiViewModel().isAdmin(ti: ti, currentUserUID: currentUserUID) {
                 
-                FSCHeaderSV(showFSC: $showEditAdmins, text: "Edit Admins")
-                
-                Divider()
-                
-                //Admins
-                HStack(spacing: 10) {
-                    
-                    if ti != nil {
-                        //Admins
-                        ForEach(tiAdminsUIDs, id: \.self) { adminUID in
-                            
-                            //MARK: - Vertical edit
-                            VStack(spacing: 10) {
-                                
-                                
-                                UserButton(userUID: adminUID)
-                                
-                                //MARK: - Remove Admin button
-                                Button {
-                                    Task { await addOrRemoveAdmin(adminUID: adminUID, remove: true) }
-                                    print("🟠 remove admin pressed 🟠")
-                                } label: {
-                                    Image(systemName: "minus.circle")
-                                        .foregroundStyle(.red)
-                                }
-                            }
-                        }
+                Button {
+                    showEditAdmins.toggle()
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(lineWidth: width * 0.001)
+                            .frame(width: width * 0.12, height: width * 0.12)
+                        
+                        Text("Edit")
                     }
-                }
-                .frame(width: width * 0.85, height: width * 0.25, alignment: .leading)
-                
-                Divider()
-                
-                //MARK: - Your saved users
-                Text("Your Saved Users")
+                    .frame(width: width * 0.15, height: width * 0.15)
                     .foregroundStyle(.white)
-                    .font(.title)
-                
-                //AddOrRemove Saved Users
-                if currentUser != nil {
-                    Text(currentUser?.userUID ?? "no user yet")
                 }
-                if currentUser != nil, !currentUser!.savedUsersUIDs.isEmpty {
-                    
-                    ForEach(currentUser!.savedUsersUIDs, id: \.self) { savedUserUID in
-                        HStack {
-                            
-                            AddRemoveCTiAdminCell(
-                                currentUser: .constant(currentUser!),
-                                tiAdminsUIDs: $tiAdminsUIDs,
-                                userUID: savedUserUID
-                            )
-                        }
-                        .frame(width: width, height: width * 0.15, alignment: .trailing)
-                    }
-                } else {
-                    
-                    Spacer()
-                    Text("No Saved Users")
-                    Spacer()
-                }
-                
-                Spacer()
-            }
+            } else { Spacer() }
+            
+            
         }
         .frame(width: width, height: width * 0.2)
         .onAppear { Task { await fetchUser(); await fetchTI() } }
@@ -149,7 +83,73 @@ struct iiEditTiAdminsBar: View {
                 }
             }
         }
-//        .onChange(of: tiAdminsUIDs) { _, _ in ti!.tiAdminsUIDs = tiAdminsUIDs }
+        //MARK: - Full Screen Cover
+        .fullScreenCover(isPresented: $showEditAdmins) {
+            
+            FSCHeaderSV(showFSC: $showEditAdmins, text: "Edit Admins")
+            
+            Divider()
+            
+            //Admins
+            HStack(spacing: 10) {
+                
+                if ti != nil {
+                    //Admins
+                    ForEach(tiAdminsUIDs, id: \.self) { adminUID in
+                        
+                        //MARK: - Vertical edit
+                        VStack(spacing: 10) {
+                            
+                            
+                            UserButton(userUID: adminUID)
+                            
+                            //MARK: - Remove Admin button
+                            Button {
+                                Task { await addOrRemoveAdmin(adminUID: adminUID, remove: true) }
+                                print("🟠 remove admin pressed 🟠")
+                            } label: {
+                                Image(systemName: "minus.circle")
+                                    .foregroundStyle(.red)
+                            }
+                        }
+                    }
+                }
+            }
+            .frame(width: width * 0.85, height: width * 0.25, alignment: .leading)
+            
+            Divider()
+            
+            //MARK: - Your saved users
+            Text("Your Saved Users")
+                .foregroundStyle(.white)
+                .font(.title)
+            
+            //AddOrRemove Saved Users
+            if currentUser != nil {
+                Text(currentUser?.userUID ?? "no user yet")
+            }
+            if currentUser != nil, !currentUser!.savedUsersUIDs.isEmpty {
+                
+                ForEach(currentUser!.savedUsersUIDs, id: \.self) { savedUserUID in
+                    HStack {
+                        
+                        AddRemoveCTiAdminCell(
+                            currentUser: .constant(currentUser!),
+                            tiAdminsUIDs: $tiAdminsUIDs,
+                            userUID: savedUserUID
+                        )
+                    }
+                    .frame(width: width, height: width * 0.15, alignment: .trailing)
+                }
+            } else {
+                
+                Spacer()
+                Text("No Saved Users")
+                Spacer()
+            }
+            
+            Spacer()
+        }
     }
     
     //MARK: - Function ----

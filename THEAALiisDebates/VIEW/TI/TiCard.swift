@@ -36,7 +36,8 @@ struct TiCard: View {
                                     .frame(width: width, height: width * 0.5625)
                                 
                             } placeholder: {
-                                LoadingView()
+//                                LoadingView()
+                                ProgressView()
                                     .frame(width: width, height: width * 0.5625)
                             }
                         } else {

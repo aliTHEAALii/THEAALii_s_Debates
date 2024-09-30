@@ -1,3 +1,11 @@
+//
+//  ImageView.swift
+//  THEAALiisDebates
+//
+//  Created by Ali Kadhum on 9/29/24.
+//
+import SwiftUI
+
 //MARK: - Image View
 struct ImageView: View {
     
@@ -5,24 +13,26 @@ struct ImageView: View {
     var imageUrlString: String? = nil
     
     var scale: CGFloat = 1
-
+    
     
     var body: some View {
         
         ZStack {
-            
-            AsyncImage(url: thumbnailURL) { image in
+            if thumbnailURL != nil {
                 
-                image.resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: width * scale, height: width * 0.5625 * scale)
-                
-                
-            } placeholder: { ProgressView() }
+                AsyncImage(url: thumbnailURL) { image in
+                    
+                    image.resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: width * scale, height: width * 0.5625 * scale)
+                    
+                    
+                } placeholder: { ProgressView() }
+            }
         }
         .background(Color.gray.opacity(0.15))
         .frame(width: width * scale, height: width * 0.5625 * scale)
-
+        
     }
     
     private var thumbnailURL: URL? {
@@ -36,5 +46,10 @@ struct ImageView: View {
             return URL(string: imageUrlString)
         }
     }
+    
+}
 
+
+#Preview {
+    TiCard(ti: nil, tiID: TestingModels().tiFromDBID2)
 }

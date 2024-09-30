@@ -56,4 +56,12 @@ final class ControlCenterViewModel {
         if ti.creatorUID == currentUserUID { return true }
         return false
     }
+    
+    func notFollowingTiFunc(currentUserUID: String, ti: TI?, currentUser: UserModel?) -> Bool {
+        guard ti != nil, currentUser != nil else { return false }
+        
+        if ti!.tiObserversUIDs.contains(currentUserUID) || currentUser!.observingTIsIDs.contains(ti!.id) { return false }
+        
+        return true
+    }
 }

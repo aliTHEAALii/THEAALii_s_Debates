@@ -54,9 +54,9 @@ struct SideSheet: View {
                         Button {
                             
                         } label: {
-                            //                        Image(systemName: "circle")
-                            //                            .frame(width: width * 0.15, height: width * 0.15)
-                            FutureFeatureButton()
+                            Image(systemName: "circle")
+                                .frame(width: width * 0.15, height: width * 0.15)
+                            //                            FutureFeatureButton()
                         }
                         
                         // - LC middle B
@@ -77,6 +77,7 @@ struct SideSheet: View {
                         
                     }
                     .frame(width: width * 0.15, height: width * 0.15)
+                    .foregroundStyle(.gray)
                     
                     //MARK: - Right Column
                     VStack(spacing: 0) {
@@ -112,6 +113,7 @@ struct SideSheet: View {
                         
                     }
                     .frame(width: width * 0.15, height: width * 0.15)
+                    .foregroundStyle(.gray)
                     
                 }
                 .foregroundColor(.primary)

@@ -157,13 +157,17 @@ struct PickThumbnailSV: View {
 //    }
 }
 
-struct PickThumbnailSV_Previews: PreviewProvider {
-    static var previews: some View {
-        
-//        CreateTIFSC(showFSC: .constant(true), selectedTabIndex: .constant(2))
-        CreateDebateFSC(selectedTabIndex: .constant(2), showFullScreenCover: .constant(true))
-        
-        //        PickThumbnailSV(imageURL: .constant(TestingComponents().imageURLStringDesignnCode), buttonText: "TIT Thumbnail")
-        //        PickThumbnailSV(imageURL: .constant(nil), buttonText: "TIT Thumbnail")
-    }
+//struct PickThumbnailSV_Previews: PreviewProvider {
+//    static var previews: some View {
+//        
+////        CreateTIFSC(showFSC: .constant(true), selectedTabIndex: .constant(2))
+//        CreateDebateFSC(selectedTabIndex: .constant(2), showFullScreenCover: .constant(true))
+//        
+//        //        PickThumbnailSV(imageURL: .constant(TestingComponents().imageURLStringDesignnCode), buttonText: "TIT Thumbnail")
+//        //        PickThumbnailSV(imageURL: .constant(nil), buttonText: "TIT Thumbnail")
+//    }
+//}
+
+#Preview {
+    CCAddToChain(leftOrRight: .right, ti: .constant(TestingModels().testTI0), tiChainLink: .constant(nil), tiChain: .constant(["ii"]), showAddPostFSC: .constant(true))
 }

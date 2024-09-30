@@ -43,7 +43,7 @@ struct VerticalListControlBar: View {
                 
                 Spacer()
                 
-                Text("Vertical List")
+                Text("Vertical")
                     .foregroundColor(.secondary)
                     .frame(width: width * 0.3)
                 

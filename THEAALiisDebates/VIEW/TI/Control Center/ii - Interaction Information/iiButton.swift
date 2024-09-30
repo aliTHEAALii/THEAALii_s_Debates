@@ -9,8 +9,10 @@ import SwiftUI
 
 struct iiButton: View {
     
+    @Binding var currentUser : UserModel?
     @Binding var ti : TI?
-    @State private var iiShowFSC = false
+    
+    @State private var iiShowFSC = true
     
     var body: some View {
         
@@ -43,11 +45,27 @@ struct iiButton: View {
         .fullScreenCover(isPresented: $iiShowFSC) {
             VStack(spacing: 0) {
                 FSCHeaderSV(showFSC: $iiShowFSC, text: "Interaction Information")
-                iiView(ti: $ti)
+                iiView(currentUser: $currentUser, ti: $ti)
             }
         }
+        
+
+    }
+    
+    func iiButtonPressed() async {
+        if ti == nil { return }
+        Task {
+            await getTi()
+            iiShowFSC.toggle()
+        }
+    }
+    
+    func getTi() async {
+        do {
+            ti = try await TIManager.shared.fetchTI(tiID: ti!.id)
+        } catch { print("❌ Couldn't fetch Ti: \(error.localizedDescription) ❌") }
     }
 }
-#Preview {
-    iiButton(ti: .constant(TestingModels().testTI0))
-}
+//#Preview {
+//    iiButton(ti: .constant(TestingModels().testTI0), currentUser: .constant(TestingModels().user1))
+//}

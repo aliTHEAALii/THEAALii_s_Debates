@@ -11,6 +11,9 @@
 		2F12323D2C0A61E4009481D8 /* ChainLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F12323C2C0A61E4009481D8 /* ChainLink.swift */; };
 		2F1232412C10D773009481D8 /* TiPostInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1232402C10D773009481D8 /* TiPostInfo.swift */; };
 		2F1232452C111E88009481D8 /* PickThumbnailButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1232442C111E88009481D8 /* PickThumbnailButton.swift */; };
+		2F16B1832CA650C600BB419C /* TiPostUserButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F16B1822CA650A500BB419C /* TiPostUserButton.swift */; };
+		2F16B1852CA8B40300BB419C /* PickNewThumbnailBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F16B1842CA8B3F300BB419C /* PickNewThumbnailBar.swift */; };
+		2F16B1882CA9F2AD00BB419C /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F16B1872CA9F2AD00BB419C /* ImageView.swift */; };
 		2F3534022BD8AEC800DE5E7A /* CreateTIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3534012BD8AEC800DE5E7A /* CreateTIViewModel.swift */; };
 		2F3534082BDB34F000DE5E7A /* CTiStep1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3534072BDB34F000DE5E7A /* CTiStep1.swift */; };
 		2F35340A2BDB3ABF00DE5E7A /* CTiStep2D2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3534092BDB3ABF00DE5E7A /* CTiStep2D2.swift */; };
@@ -126,6 +129,7 @@
 		2F6CA3F62C271BD0003EF603 /* CCMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6CA3F52C271BD0003EF603 /* CCMap.swift */; };
 		2F6CA3F92C2D1824003EF603 /* VerticalListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6CA3F82C2D1824003EF603 /* VerticalListVM.swift */; };
 		2F6CA3FB2C2D9882003EF603 /* TiVerticalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6CA3FA2C2D9882003EF603 /* TiVerticalListView.swift */; };
+		2F6F14B82CAA10DD00545C5E /* TeamsSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6F14B72CAA10DD00545C5E /* TeamsSV.swift */; };
 		2FA063532C5333E100DCE5CC /* FollowTiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA063522C5333E100DCE5CC /* FollowTiButton.swift */; };
 		2FA063552C5430FF00DCE5CC /* VerticalListControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA063542C5430FF00DCE5CC /* VerticalListControlBar.swift */; };
 		2FA063572C54957600DCE5CC /* TiPostContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA063562C54957600DCE5CC /* TiPostContentView.swift */; };
@@ -153,6 +157,9 @@
 		2F12323C2C0A61E4009481D8 /* ChainLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainLink.swift; sourceTree = "<group>"; };
 		2F1232402C10D773009481D8 /* TiPostInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiPostInfo.swift; sourceTree = "<group>"; };
 		2F1232442C111E88009481D8 /* PickThumbnailButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickThumbnailButton.swift; sourceTree = "<group>"; };
+		2F16B1822CA650A500BB419C /* TiPostUserButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiPostUserButton.swift; sourceTree = "<group>"; };
+		2F16B1842CA8B3F300BB419C /* PickNewThumbnailBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickNewThumbnailBar.swift; sourceTree = "<group>"; };
+		2F16B1872CA9F2AD00BB419C /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		2F3534012BD8AEC800DE5E7A /* CreateTIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTIViewModel.swift; sourceTree = "<group>"; };
 		2F3534072BDB34F000DE5E7A /* CTiStep1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTiStep1.swift; sourceTree = "<group>"; };
 		2F3534092BDB3ABF00DE5E7A /* CTiStep2D2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTiStep2D2.swift; sourceTree = "<group>"; };
@@ -264,6 +271,7 @@
 		2F6CA3F52C271BD0003EF603 /* CCMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCMap.swift; sourceTree = "<group>"; };
 		2F6CA3F82C2D1824003EF603 /* VerticalListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListVM.swift; sourceTree = "<group>"; };
 		2F6CA3FA2C2D9882003EF603 /* TiVerticalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiVerticalListView.swift; sourceTree = "<group>"; };
+		2F6F14B72CAA10DD00545C5E /* TeamsSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsSV.swift; sourceTree = "<group>"; };
 		2FA063522C5333E100DCE5CC /* FollowTiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowTiButton.swift; sourceTree = "<group>"; };
 		2FA063542C5430FF00DCE5CC /* VerticalListControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListControlBar.swift; sourceTree = "<group>"; };
 		2FA063562C54957600DCE5CC /* TiPostContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiPostContentView.swift; sourceTree = "<group>"; };
@@ -304,6 +312,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F16B1862CA9F28C00BB419C /* Sub Views */ = {
+			isa = PBXGroup;
+			children = (
+				2F16B1872CA9F2AD00BB419C /* ImageView.swift */,
+			);
+			path = "Sub Views";
+			sourceTree = "<group>";
+		};
 		2F3534112BE0877800DE5E7A /* Create TI Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -462,6 +478,7 @@
 		2F690C782BC177E200A31760 /* Global Views */ = {
 			isa = PBXGroup;
 			children = (
+				2F16B1862CA9F28C00BB419C /* Sub Views */,
 				2F690C792BC1781000A31760 /* TiCircleIcon.swift */,
 				2FBA0CDA2C42AE8F00BA4907 /* IconDoubleTriangle.swift */,
 				2F690D172BC6738E00A31760 /* D1Icon.swift */,
@@ -544,6 +561,7 @@
 				2F6CA3F72C2D17DF003EF603 /* Ti Vertical List */,
 				2F1232442C111E88009481D8 /* PickThumbnailButton.swift */,
 				2F1232402C10D773009481D8 /* TiPostInfo.swift */,
+				2F16B1822CA650A500BB419C /* TiPostUserButton.swift */,
 				2F690CCC2BC1905500A31760 /* AddTIVideoButton.swift */,
 				2F690CCE2BC1906E00A31760 /* AddVideoFSC.swift */,
 				2F690CB12BC1883100A31760 /* Response List */,
@@ -709,6 +727,8 @@
 		2FBA0CDF2C45B55500BA4907 /* ii Components */ = {
 			isa = PBXGroup;
 			children = (
+				2F6F14B72CAA10DD00545C5E /* TeamsSV.swift */,
+				2F16B1842CA8B3F300BB419C /* PickNewThumbnailBar.swift */,
 				2FBA0CE02C45B58200BA4907 /* PickIntroVideoButton.swift */,
 				2F5684992C5EDEDB00071CAE /* iiEditTiAdminsBar.swift */,
 				2FA063522C5333E100DCE5CC /* FollowTiButton.swift */,
@@ -828,6 +848,7 @@
 				2F690C522BC09C8000A31760 /* GoogleLoginButton.swift in Sources */,
 				2FD05EC12C6DB6D40082C277 /* PickVideoButtonNew.swift in Sources */,
 				2F690CFB2BC193FF00A31760 /* TITCard.swift in Sources */,
+				2F16B1832CA650C600BB419C /* TiPostUserButton.swift in Sources */,
 				2F690CBB2BC18E2300A31760 /* VotingSVOld.swift in Sources */,
 				2F690CCD2BC1905500A31760 /* AddTIVideoButton.swift in Sources */,
 				2F690CAD2BC1860500A31760 /* Post.swift in Sources */,
@@ -856,6 +877,7 @@
 				2FD05EC92C8B8B560082C277 /* PostVotesModel.swift in Sources */,
 				2F6CA3F92C2D1824003EF603 /* VerticalListVM.swift in Sources */,
 				2F690CB52BC18DC900A31760 /* ResponseListSV.swift in Sources */,
+				2F16B1882CA9F2AD00BB419C /* ImageView.swift in Sources */,
 				2F690C842BC1796D00A31760 /* CloseButton.swift in Sources */,
 				2F12323D2C0A61E4009481D8 /* ChainLink.swift in Sources */,
 				2F690CE42BC191D900A31760 /* LibraryTabView.swift in Sources */,
@@ -900,6 +922,7 @@
 				2F690C4F2BC09C4A00A31760 /* SignInAppleHelper.swift in Sources */,
 				2F6CA3F02C22BEE4003EF603 /* TiVM.swift in Sources */,
 				2F690D042BC194A800A31760 /* ResponseArrayTopBarSV.swift in Sources */,
+				2F6F14B82CAA10DD00545C5E /* TeamsSV.swift in Sources */,
 				2F690D182BC6738E00A31760 /* D1Icon.swift in Sources */,
 				2F690CB92BC18E1100A31760 /* AdminResponseSideSheet.swift in Sources */,
 				2F3534082BDB34F000DE5E7A /* CTiStep1.swift in Sources */,
@@ -926,6 +949,7 @@
 				2F6CA3DD2C1E36BE003EF603 /* CCAddToChain.swift in Sources */,
 				2FD05ED42C9A964A0082C277 /* SaveUserButton.swift in Sources */,
 				2F35340C2BDB3AD700DE5E7A /* CTiStep3.swift in Sources */,
+				2F16B1852CA8B40300BB419C /* PickNewThumbnailBar.swift in Sources */,
 				2FD05ECD2C8CEB3D0082C277 /* AdminVotingButtons.swift in Sources */,
 				2FD05ED22C9A96240082C277 /* FollowUserButton.swift in Sources */,
 				2F690CEC2BC192B200A31760 /* FeedTabView.swift in Sources */,
