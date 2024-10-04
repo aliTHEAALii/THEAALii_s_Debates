@@ -9,10 +9,10 @@ import SwiftUI
 
 struct CreateTI: View {
     
-    @AppStorage("current_user_uid") var currentUserUID: String = ""
-//    var currentUser: UserModel? {
-//        return UserVM().getUser(userUID: currentUserUID)
-//    }
+    @AppStorage("current_user_uid") var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
+    //    var currentUser: UserModel? {
+    //        return UserVM().getUser(userUID: currentUserUID)
+    //    }
     @State var currentUser: UserModel? = nil
     
     // - //
@@ -20,7 +20,7 @@ struct CreateTI: View {
     
     //TI
     let tiID = UUID().uuidString
-    @State private var tiInteractionType: TIType = .d1
+    @State private var tiInteractionType: TIType = .d2
     @State private var tiAdminsUIDs: [String] = []
     @State private var verticalListAccess: VerticalListAccess = .open
     
@@ -93,7 +93,7 @@ struct CreateTI: View {
                 }
             }
             .frame(width: width, height: width * 0.08)
-                .padding(.bottom, 5)
+            .padding(.bottom, 5)
             
             
             //MARK: - Body ( Input )
@@ -125,7 +125,9 @@ struct CreateTI: View {
                         thumbnailForTypeID: tiID,
                         tiTitle: $tiTitle,
                         leftUser: $leftUser,
-                        rightUser: $rightUser
+                        rightUser: $rightUser,
+                        leftTeam: $leftTeam,
+                        rightTeam: $rightTeam
                     )
                 }
                 
@@ -230,15 +232,15 @@ struct CreateTI: View {
         if tiInteractionType == .d1 {
             
             isLoading = true
-
+            
             let _ = await vm.createD1Ti(id: tiID, title: tiTitle, description: tiDescription,
-                                           tiThumbnailData: tiThumbnailData,
-                                           creatorUID: currentUserUID, 
-                                           tiAdminsUIDs: tiAdminsUIDs,
-                                           rsLevel1UsersUIDs: nil,
-                                           rsLevel2UsersUIDs: nil,
-                                           rsLevel3UsersUIDs: nil,
-                                           rsVerticalListAccess: verticalListAccess
+                                        tiThumbnailData: tiThumbnailData,
+                                        creatorUID: currentUserUID, 
+                                        tiAdminsUIDs: tiAdminsUIDs,
+                                        rsLevel1UsersUIDs: rightTeam,
+                                        rsLevel2UsersUIDs: nil,
+                                        rsLevel3UsersUIDs: nil,
+                                        rsVerticalListAccess: verticalListAccess
             ) { success in
                 if success {
                     showFSC = false
@@ -254,7 +256,7 @@ struct CreateTI: View {
             
             //TODO: vm.createD2Ti
             isLoading = true
-
+            
             //extra security 
             guard let _ = rightUser?.userUID , let _ = leftUser?.userUID else {
                 print("Error = right of left user is nil" + " ❌❌🚪🔥")
@@ -262,31 +264,31 @@ struct CreateTI: View {
                 return
             }
             let _ = await vm.createD2TiOld(id: tiID, title: tiTitle, description: tiDescription,
-                                        tiThumbnailData: tiThumbnailData,
-                                        creatorUID: currentUserUID, tiAdminsUIDs: tiAdminsUIDs,
-                                        //right
-                                        rsUserUID: rightUser!.userUID, //FIXME: userUID
-                                        rsLevel1UsersUIDs: nil,
-                                        rsLevel2UsersUIDs: nil,
-                                        rsLevel3UsersUIDs: nil,
-                                        rsVerticalListAccess: verticalListAccess,
-                                        //left
-                                        lsUserUID: leftUser!.userUID, //FIXME: userUID
-                                        lsLevel1UsersUIDs: nil,
-                                        lsLevel2UsersUIDs: nil,
-                                        lsLevel3UsersUIDs: nil,
-                                        lsVerticalListAccess: verticalListAccess) { success in
+                                           tiThumbnailData: tiThumbnailData,
+                                           creatorUID: currentUserUID, tiAdminsUIDs: tiAdminsUIDs,
+                                           //right
+                                           rsUserUID: rightUser!.userUID, //FIXME: userUID
+                                           rsLevel1UsersUIDs: rightTeam,
+                                           rsLevel2UsersUIDs: nil,
+                                           rsLevel3UsersUIDs: nil,
+                                           rsVerticalListAccess: verticalListAccess,
+                                           //left
+                                           lsUserUID: leftUser!.userUID, //FIXME: userUID
+                                           lsLevel1UsersUIDs: leftTeam,
+                                           lsLevel2UsersUIDs: nil,
+                                           lsLevel3UsersUIDs: nil,
+                                           lsVerticalListAccess: verticalListAccess) { success in
                 
-                    if success {
-                        showFSC = false
-                        selectedTabIndex = 4
-                        print("success = \(success)" + " ✅✅🚪🔥")
-                        
-                    }
+                if success {
+                    showFSC = false
+                    selectedTabIndex = 4
+                    print("success = \(success)" + " ✅✅🚪🔥")
+                    
+                }
             }
             
             isLoading = false
-
+            
         }
     }
 }
@@ -334,37 +336,37 @@ final class TiCreatingVM {
             //            TITChainLModel(id: <#T##String#>, videoId: <#T##String#>, videoTitle: <#T##String#>, videoThumbnail: <#T##String?#>, responseList: <#T##[String]#>)
             
             
-//            let ti = TI(
-//                id: tiID, title: tiTitle, description: "No TI Description Yet",
-//                thumbnailURL: "",
-//                introPostID: introChLink.id,
-//                creatorUID: currentUserUID,
-//                tiAdminsUIDs: tiAdmins,
-//                dateCreated: Date.now, tiType: tiType,
-//                rightChain: [], leftChain: [],
-//                responseListAccess: verticalListAccess
-//            )
+            //            let ti = TI(
+            //                id: tiID, title: tiTitle, description: "No TI Description Yet",
+            //                thumbnailURL: "",
+            //                introPostID: introChLink.id,
+            //                creatorUID: currentUserUID,
+            //                tiAdminsUIDs: tiAdmins,
+            //                dateCreated: Date.now, tiType: tiType,
+            //                rightChain: [], leftChain: [],
+            //                responseListAccess: verticalListAccess
+            //            )
             
             Task {
-//                do {
-//                    try await TIManager.shared.createTI(ti: ti)
-//                    try await PostManager.shared.createTI(tiID: ti.id, post: post)
-//                    try await TITChainLinkManager.shared.createTITChainLink(TITid: tiID, TITChainLink: introChLink)
-                    
-                    
-                    //                    (titId: ti.id, titCL: introChLink)
-                    //                try await TITVideoManager.shared.createTitVideo(titID: tit.id, titVideo: titVideo)
-                    //                try await TITChainLinkManager.shared.createTITChainLink(TITid: tit.id, TITChainLink: titChainLink)
-                    
-                    //                try await TITManager.shared.addToChain(titId: tit.id, chainId: titChainLink.id)
-                    
-//                } catch {
-//                    print("❌❌❌ Error: Couldn't Create TI ❌❌❌")
-//                }
+                //                do {
+                //                    try await TIManager.shared.createTI(ti: ti)
+                //                    try await PostManager.shared.createTI(tiID: ti.id, post: post)
+                //                    try await TITChainLinkManager.shared.createTITChainLink(TITid: tiID, TITChainLink: introChLink)
+                
+                
+                //                    (titId: ti.id, titCL: introChLink)
+                //                try await TITVideoManager.shared.createTitVideo(titID: tit.id, titVideo: titVideo)
+                //                try await TITChainLinkManager.shared.createTITChainLink(TITid: tit.id, TITChainLink: titChainLink)
+                
+                //                try await TITManager.shared.addToChain(titId: tit.id, chainId: titChainLink.id)
+                
+                //                } catch {
+                //                    print("❌❌❌ Error: Couldn't Create TI ❌❌❌")
+                //                }
             }
             
         } else if tiType == .d2 {
-//
+            //
         }
     }
 }

@@ -69,8 +69,9 @@ struct UserButton: View {
                                 AsyncImage(url: URL(string: user!.profileImageURLString!), scale: 1 * scale) { image in
                                     image
                                         .resizable()
-                                        .clipShape(Circle())
                                         .scaledToFit()
+                                        .clipShape(Circle())
+
                                     
                                     
                                 } placeholder: {ProgressView() }
