@@ -32,6 +32,9 @@ struct CreateTI: View {
     @State private var leftUser : UserModel?    = nil
     @State private var rightUser: UserModel?    = nil
     
+    @State var leftTeam : [String] = []
+    @State var rightTeam: [String] = []
+    
     //INTRO Post
     @State private var introUnitType: PostType = .video
     @State private var introPostThumbnailData: Data? = nil
@@ -52,7 +55,7 @@ struct CreateTI: View {
         
         VStack {
             
-            //Top bar
+            //1. Top bar
             HStack(spacing: 0) {
                 Text("Create a THEAALii Interaction")
                     .font(.title2).foregroundColor(.ADColors.green)
@@ -61,9 +64,7 @@ struct CreateTI: View {
                 //Close Button
                 Button {
                     Task {
-                        //                        isLoading.toggle()
                         closeButtonPressed()
-                        //                        showFSC.toggle()
                     }
                 } label: {
                     Image(systemName: "xmark")
@@ -73,7 +74,7 @@ struct CreateTI: View {
                 }
             }// top bar - //
             
-            //Step Indicators
+            //2. Step Indicators
             HStack(spacing: 20) {
                 ForEach(0..<3) { i in
                     
@@ -90,8 +91,9 @@ struct CreateTI: View {
                         .foregroundStyle(indexStep == i ? Color.ADColors.green : .white)
                     }
                 }
-            }.frame(width: width, height: width * 0.08)
-                .padding(.bottom, width * 0.1)
+            }
+            .frame(width: width, height: width * 0.08)
+                .padding(.bottom, 5)
             
             
             //MARK: - Body ( Input )

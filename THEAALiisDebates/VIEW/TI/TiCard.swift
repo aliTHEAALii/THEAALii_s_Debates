@@ -24,10 +24,11 @@ struct TiCard: View {
             
             VStack(spacing: 0) {
                 
-                // - Thumbnail
                 ZStack(alignment: .bottom) {
-                    VStack(spacing: 0) {
-                        
+                    
+                    //1. - Thumbnail && Teams
+                    ZStack(alignment: .bottom) {
+                        //Thumbnail
                         if let thumbnailURL = ti?.thumbnailURL {
                             AsyncImage(url: URL(string: thumbnailURL)) { image in
                                 image
@@ -36,16 +37,55 @@ struct TiCard: View {
                                     .frame(width: width, height: width * 0.5625)
                                 
                             } placeholder: {
-//                                LoadingView()
                                 ProgressView()
                                     .frame(width: width, height: width * 0.5625)
                             }
                         } else {
                             ImageView(imageUrlString: ti?.thumbnailURL)
                         }
+                        
+                        //Team
+                        if ti?.tiType == .d2 {
+                            HStack {
+                                //Left Side
+                                VStack(spacing: 25) {
+                                    
+                                    ForEach(ti!.lsLevel1UsersUIDs?.reversed() ?? [], id: \.self) { userUID in
+                                        UserButton(userUID: userUID)
+                                    }
+                                }
+                                .frame(height: width * 0.45, alignment: .bottom)
+                                .padding(.bottom, 25)
+                                
+                                Spacer()
+                                
+                                //Right Side
+                                VStack(spacing: 25) {
+                                    ForEach(ti!.rsLevel1UsersUIDs?.reversed() ?? [], id: \.self) { userUID in
+                                        UserButton(userUID: userUID)
+                                    }
+                                }
+                                .frame(height: width * 0.45, alignment: .bottom)
+                                .padding(.bottom, 25)
+                            }
+                        } else if ti?.tiType == .d1 {
+                            HStack {
+                                Spacer()
+                                
+                                //Right Side
+                                VStack(spacing: 25) {
+                                    ForEach(ti!.rsLevel1UsersUIDs?.reversed() ?? [], id: \.self) { userUID in
+                                        UserButton(userUID: userUID)
+                                    }
+                                }
+                                .frame(height: width * 0.5625, alignment: .bottom)
+                                .padding(.bottom)
+                            }
+                        }
                     }
                     .padding(.bottom, ti?.tiType == .d2 ? width * 0.14 : width * 0.085)
                     
+                    //2. - Users Bar
                     if ti?.tiType == .d2 {
                         if let ti {
                             D2IconBarNew(ti: ti)

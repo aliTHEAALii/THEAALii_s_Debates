@@ -98,7 +98,7 @@ struct UserButton: View {
                             .foregroundColor(.primary)
                         
                     }
-                    .frame(width: width * 0.12 * scale)
+                    .frame(width: width * 0.12 * scale, height: width * 0.12 * scale)
                     
                     //MARK: - Right Text & Label
                     if leftOrRightName == .right {

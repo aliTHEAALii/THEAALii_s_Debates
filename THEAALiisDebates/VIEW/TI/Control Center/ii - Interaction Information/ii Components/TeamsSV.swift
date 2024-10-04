@@ -21,8 +21,6 @@ struct TeamsSV: View {
     @State private var showEditTeamsFSC = false
     @State private var leftOrRight: LeftOrRight? = .left
     @State private var isLoading: Bool = false
-//    @State private var editLeftTeam: Bool  = true
-//    @State private var editRightTeam: Bool = false
     
     var body: some View {
         
@@ -37,11 +35,19 @@ struct TeamsSV: View {
                             print("🔵 ooo")
                             
                             showEditTeamsFSC = true
-                            //                        editLeftTeam = true
                             leftOrRight = .left
                         } label: {
-                            Text("No Left Team")
-                                .foregroundStyle(.gray)
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(lineWidth: 0.5)
+                                    .padding(.horizontal)
+                                    .frame(height: width * 0.1)
+
+                                
+                                Text("No Left Team")
+                                    .foregroundStyle(.gray)
+                            }
+                            .foregroundStyle(.white)
                         }
                         
                         
@@ -51,13 +57,20 @@ struct TeamsSV: View {
                             print("🔵 1pppp")
                             
                             showEditTeamsFSC = true
-                            //                        editLeftTeam = true
                             leftOrRight = .left
                             print("🔵 1pppp \(showEditTeamsFSC)")
                             
                         } label: {
-                            Text("Left Team")
-                                .foregroundStyle(.white)
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(lineWidth: 0.5)
+                                    .padding(.horizontal)
+                                    .frame(height: width * 0.1)
+
+
+                                Text("Left Team")
+                            }
+                            .foregroundStyle(.white)
                         }
                         .padding(.bottom)
                         
@@ -77,26 +90,43 @@ struct TeamsSV: View {
                         Button {
                             
                             showEditTeamsFSC = true
-                            //                        editRightTeam = true
                             leftOrRight = .right
                             print("🔵 1uuuuu \(showEditTeamsFSC)")
                             
                         } label: {
-                            Text("No Right Team")
-                                .foregroundStyle(.gray)
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(lineWidth: 0.5)
+                                    .padding(.horizontal)
+                                    .frame(height: width * 0.1)
+
+                                
+                                
+                                Text("No Right Team")
+                                    .foregroundStyle(.gray)
+                            }
+                            .foregroundStyle(.white)
                         }
                     } else {
                         Button {
                             print("🔵 1yyyyy")
                             
                             showEditTeamsFSC = true
-                            //                        editRightTeam = true
                             leftOrRight = .right
                             print("🔵 1yyyy \(showEditTeamsFSC)")
                             
                         } label: {
-                            Text("Right Team")
-                                .foregroundStyle(.white)
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(lineWidth: 0.5)
+                                    .padding(.horizontal)
+                                    .frame(height: width * 0.1)
+
+                                
+                                
+                                Text("Right Team")
+                            }
+                            .foregroundStyle(.white)
                         }
                         .padding(.bottom)
                         
@@ -129,9 +159,6 @@ struct TeamsSV: View {
                                 
                                 //Remove team member button
                                 Button {
-                                    //Task { await addOrRemoveAdmin(adminUID: adminUID, remove: true) }
-                                    //print("🟠 remove admin pressed 🟠")
-                                    
                                     if leftOrRight == .left {
                                         leftTeam.remove(object: teamMemberUID)
                                         
@@ -188,12 +215,8 @@ struct TeamsSV: View {
             .onChange(of: showEditTeamsFSC) { _, newValue in
                 
                 if newValue == false {
-                    //                editLeftTeam = false
-                    //                editRightTeam = false
-                    
                     Task {
                         do {
-//                            isLoading = true
                             if leftOrRight == .left {
                                 try await TIManager.shared.newLv1Teams(tiID: ti!.id, lv1TeamUIDsArray: leftTeam, leftOrRight: .left)
                                 
@@ -201,16 +224,16 @@ struct TeamsSV: View {
                                 try await TIManager.shared.newLv1Teams(tiID: ti!.id, lv1TeamUIDsArray: rightTeam, leftOrRight: .right)
                                 
                             }
+                            
                             leftOrRight = nil
-//                            isLoading = false
                             
                         } catch {
                             leftOrRight = nil
-//                            isLoading = false
                         }
                     }
                 }
             }
+            
         } else { ProgressView() }
     }
     
@@ -232,14 +255,12 @@ struct TeamsSV: View {
     
     private func onAppear() {
         Task {
-//            isLoading = true
             await fetchUser()
             await getTi()
             print("👹 \(ti?.lsLevel1UsersUIDs ?? []) pppp")
             print("👹 \(ti?.rsLevel1UsersUIDs ?? []) oooo")
             leftTeam = ti?.lsLevel1UsersUIDs ?? []
             rightTeam = ti?.rsLevel1UsersUIDs ?? []
-//            isLoading = false
         }
         
     }
@@ -308,7 +329,7 @@ struct AddRemoveTeamMemberCell: View {
             print("🟣 1")
             if addOrRemove == .add {
                 print("🟣 2")
-
+                guard leftTeam.count < 3 else { return }
                 leftTeam.append(userUID)
                 
             } else if addOrRemove == .remove {
@@ -322,7 +343,8 @@ struct AddRemoveTeamMemberCell: View {
 
             if addOrRemove == .add {
                 print("🔵 2")
-
+                
+                guard rightTeam.count < 3 else { return }
                 rightTeam.append(userUID)
                 
             } else if addOrRemove == .remove {
@@ -333,6 +355,7 @@ struct AddRemoveTeamMemberCell: View {
         }
         
     }
+    
     var addOrRemove: AddOrRemove {
         
         if leftOrRight == .left {
@@ -351,9 +374,7 @@ struct AddRemoveTeamMemberCell: View {
             
             return .remove
             
-            
         }
-        
         
         return .add
     }
