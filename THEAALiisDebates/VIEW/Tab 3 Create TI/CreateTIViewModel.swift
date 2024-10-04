@@ -83,7 +83,21 @@ final class CreateTIVM: ObservableObject {
 }
 
 
-//MARK: - Here -
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 final class CreateTiVM {
     
     //MARK: - Create D1 Ti
@@ -118,7 +132,7 @@ final class CreateTiVM {
         
         let d1Ti = TI(ID: id, title: title, description: description,
                       thumbnailURL: thumbnailURLString, creatorUID: creatorUID, tiAdminsUIDs: tiAdminsUIDs,
-                      rsLevel1UsersUIDs: rsLevel1UsersUIDs, rsLevel2UsersUIDs: rsLevel2UsersUIDs, rsLevel3UsersUIDs: rsLevel3UsersUIDs, rsVerticalListAccess: rsVerticalListAccess)
+                      rsLevel1UsersUIDs: rsLevel1UsersUIDs, rsLevel2UsersUIDs: rsLevel2UsersUIDs, rsLevel3UsersUIDs: rsLevel3UsersUIDs, rsVerticalListAccess: rsVerticalListAccess) //Right Side
         Task {
             do {
                 try await TIManager.shared.createTI(ti: d1Ti)
@@ -196,8 +210,8 @@ final class CreateTiVM {
         let introChainLink = ChainLink(id: id, title: "INTRO", thumbnailURL: thumbnailURLString, creatorUID: creatorUID, addedFromVerticalListed: false)
         
         let d2Ti = TI(ID: id, title: title, description: description, thumbnailURL: thumbnailURLString, creatorUID: creatorUID, tiAdminsUIDs: tiAdminsUIDs,
-                       rsUserUID: rsUserUID, rsLevel1UsersUIDs: rsLevel1UsersUIDs, rsLevel2UsersUIDs: rsLevel2UsersUIDs, rsLevel3UsersUIDs: rsLevel3UsersUIDs, rsVerticalListAccess: rsVerticalListAccess,
-                       lsUserUID: lsUserUID, lsLevel1UsersUIDs: lsLevel1UsersUIDs, lsLevel2UsersUIDs: lsLevel2UsersUIDs, lsLevel3UsersUIDs: lsLevel3UsersUIDs, lsVerticalListAccess: lsVerticalListAccess)
+                       rsUserUID: rsUserUID, rsLevel1UsersUIDs: rsLevel1UsersUIDs, rsLevel2UsersUIDs: rsLevel2UsersUIDs, rsLevel3UsersUIDs: rsLevel3UsersUIDs, rsVerticalListAccess: rsVerticalListAccess, //Right Side
+                       lsUserUID: lsUserUID, lsLevel1UsersUIDs: lsLevel1UsersUIDs, lsLevel2UsersUIDs: lsLevel2UsersUIDs, lsLevel3UsersUIDs: lsLevel3UsersUIDs, lsVerticalListAccess: lsVerticalListAccess) //Left Side
         Task {
             do {
                 try await TIManager.shared.createTI(ti: d2Ti)

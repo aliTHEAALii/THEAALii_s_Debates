@@ -20,7 +20,7 @@ struct CreateTI: View {
     
     //TI
     let tiID = UUID().uuidString
-    @State private var tiInteractionType: TIType = .d2
+    @State private var tiInteractionType: TIType = .d1
     @State private var tiAdminsUIDs: [String] = []
     @State private var verticalListAccess: VerticalListAccess = .open
     
@@ -48,7 +48,7 @@ struct CreateTI: View {
     
     @State private var isLoading = false
     
-    @State var indexStep = 0
+    @State var indexStep = 1
     
     //MARK: View
     var body: some View {
@@ -112,7 +112,8 @@ struct CreateTI: View {
                         tiThumbnailData: $tiThumbnailData,
                         thumbnailForTypeID: tiID,
                         tiTitle: $tiTitle,
-                        rightUser: $rightUser
+                        rightUser: $rightUser,
+                        rightTeam: $rightTeam
                     )
                     
                 } else if tiInteractionType == .d2 {
@@ -235,7 +236,7 @@ struct CreateTI: View {
             
             let _ = await vm.createD1Ti(id: tiID, title: tiTitle, description: tiDescription,
                                         tiThumbnailData: tiThumbnailData,
-                                        creatorUID: currentUserUID, 
+                                        creatorUID: currentUserUID,
                                         tiAdminsUIDs: tiAdminsUIDs,
                                         rsLevel1UsersUIDs: rightTeam,
                                         rsLevel2UsersUIDs: nil,
@@ -257,7 +258,7 @@ struct CreateTI: View {
             //TODO: vm.createD2Ti
             isLoading = true
             
-            //extra security 
+            //extra security
             guard let _ = rightUser?.userUID , let _ = leftUser?.userUID else {
                 print("Error = right of left user is nil" + " ❌❌🚪🔥")
                 isLoading = false

@@ -37,7 +37,7 @@ struct CTiStep2D2: View {
         ZStack {
             VStack(spacing: width * 0.07) {
                 
-                CTiPickTeamBar(currentUser: currentUser, leftTeam: $leftTeam, rightTeam: $rightTeam)
+                CTiPickTeamBar(currentUser: currentUser, tiInteractionType: $tiInteractionType, leftTeam: $leftTeam, rightTeam: $rightTeam)
                 
                 //Thumbnail & Users
                 ZStack(alignment: .bottom) {
@@ -141,44 +141,55 @@ struct CTiStep2D2: View {
 
 
 
-//MARK: - CTiPickTeamBar
+//MARK: - CTi Pick Team Bar
 struct CTiPickTeamBar: View {
     
     let currentUser: UserModel?
     @State var showEditTeamsFSC: Bool = false
     @State var leftOrRight: LeftOrRight? = nil
     
+    @Binding var tiInteractionType: TIType
+
     @Binding var leftTeam: [String]
     @Binding var rightTeam: [String]
     
     var body: some View {
         HStack {
-            Button {
-                print("🔵 1pppp")
-                
-                showEditTeamsFSC = true
-                leftOrRight = .left
-                print("🔵 1pppp \(showEditTeamsFSC)")
-                
-            } label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(lineWidth: 0.5)
-                        .padding(.horizontal)
-                        .frame(height: width * 0.1)
+            
+            if tiInteractionType == .d2 {
+                Button {
+                    print("🔵 1pppp")
                     
+                    showEditTeamsFSC = true
+                    leftOrRight = .left
+                    print("🔵 1pppp \(showEditTeamsFSC)")
                     
-                    Text("Left Team")
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(lineWidth: 0.5)
+                            .padding(.horizontal)
+                            .frame(height: width * 0.1)
+                        
+                        
+                        Text("Left Team")
+                    }
+                    .foregroundStyle(.white)
                 }
-                .foregroundStyle(.white)
+                //                    .padding(.bottom)
+                
+            } else if tiInteractionType == .d1 {
+                Rectangle()
+                    .foregroundStyle(.clear)
+                    .frame(width: width * 0.5, height: width * 0.1)
             }
-            //                    .padding(.bottom)
             
             Button {
                 print("🔵 1yyyyy")
                 
                 showEditTeamsFSC = true
                 leftOrRight = .right
+                
                 print("🔵 1yyyy \(showEditTeamsFSC)")
                 
             } label: {
@@ -187,7 +198,6 @@ struct CTiPickTeamBar: View {
                         .stroke(lineWidth: 0.5)
                         .padding(.horizontal)
                         .frame(height: width * 0.1)
-                    
                     
                     
                     Text("Right Team")
