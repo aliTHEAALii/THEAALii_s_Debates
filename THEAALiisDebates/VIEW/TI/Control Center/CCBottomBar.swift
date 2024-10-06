@@ -53,7 +53,9 @@ struct CCBottomBar: View {
             
             //Right Side                                        //width * 0.15
             if ti != nil {
-                if hasAdminAccess {
+//                if hasAdminAccess {
+                    if TiViewModel().isAdmin(ti: ti, currentUserUID: currentUserUID) {
+
                     CCAddToChainButton(rightOrLeft: .right, ti: $ti, tiChainLink: .constant(nil), tiChain: $tiChain)
                 } else {
                     

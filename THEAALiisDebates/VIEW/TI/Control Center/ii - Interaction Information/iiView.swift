@@ -20,97 +20,101 @@ struct iiView: View {
     var body: some View {
         
         if ti != nil {
-            VStack(spacing: 0) {
+            ScrollView(.vertical, showsIndicators: true) {
                 
-                // 1. Top
-                D2IconBarNew(ti: ti!)
-                
-                Divider()
-                    .padding(.top, 3)
-                
-                // 1.5 Teams
-                TeamsSV(tiID: ti!.id)
-                
-                Divider()
-                    .padding(.top)
-                
-                // 2. Title
-                Text(ti?.title ?? "")
-                    .font(.title)
-                    .padding()
-                
-                // 2. Thumbnail
-                
-                
-                
-                
-                
-                
-                //5. Votes (Up - Total - Down)
-                
-                //6. Description
-                if ((ti?.description.isEmpty) != nil)  || ti!.description == "" {
-                    Text("No Description")
-                        .multilineTextAlignment(.center)
-                        .foregroundStyle(.gray)
-                        .padding()
+                VStack(spacing: 0) {
                     
-                } else {
-                    Text(ti?.description ?? "No Description")
-                        .multilineTextAlignment(.center)
-                        .padding()
-                }
-                
-                if !TiViewModel().isAdmin(ti: ti, currentUserUID: currentUserUID) {
+                    // 1. Top
+                    D2IconBarNew(ti: ti!)
                     
-                    PickNewThumbnailBar(thumbnailFor: .TI, thumbnailForTypeId: ti?.id ?? "", thumbnailUrlString: ti?.thumbnailURL, buttonText: "Thumbnail")
-                        .padding(.vertical)
+                    Divider()
+                        .padding(.top, 3)
                     
-                }
-//                else {
-//                    ZStack {
-//                        RoundedRectangle(cornerRadius: 8)
-//                            .stroke(lineWidth: 1)
-//                            .frame(width: width * 0.22, height: width * 0.5625 * 0.22)
-//                        
-//                        ImageView(imageUrlString: ti?.thumbnailURL, scale: 0.22)
-//                    }
-//                }
-                
-                // 3. Creator
-                HStack(spacing: 0) {
-                    Text("Ti Creator:")
+                    // 1.5 Teams
+                    TeamsSV(tiID: ti!.id)
                     
-                    Spacer() //FIXME: bug
+                    Divider()
+//                        .padding(.top)
                     
-                    UserButton(userUID: ti?.creatorUID, horizontalName: true)
-                        .padding(.trailing, 2)
-                }
-                .frame(height: width * 0.15)
-                
-                Divider()
-                
-                //4. Admins
-                iiEditTiAdminsBar(ti: $ti)
-                
-                //5. Followers
-                HStack {
+                    // 2. Title
+                    Text(ti?.title ?? "")
+                        .font(.title)
+                        .padding(.bottom)
                     
-                    Text("Ti Followers:   \(ti?.tiObserversUIDs.count ?? 0)")
+                    // 2. Thumbnail
+                    
+                    
+                    
+                    
+                    
+                    
+                    //5. Votes (Up - Total - Down)
+                    
+                    //6. Description
+                    if ((ti?.description.isEmpty) != nil)  || ti!.description == "" {
+                        Text("No Description")
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(.gray)
+                            .padding()
+                        
+                    } else {
+                        Text(ti?.description ?? "No Description")
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    }
+                    
+                    if !TiViewModel().isAdmin(ti: ti, currentUserUID: currentUserUID) {
+                        
+                        PickNewThumbnailBar(thumbnailFor: .TI, thumbnailForTypeId: ti?.id ?? "", thumbnailUrlString: ti?.thumbnailURL, buttonText: "Thumbnail")
+                            .padding(.vertical)
+                        
+                    }
+                    //                else {
+                    //                    ZStack {
+                    //                        RoundedRectangle(cornerRadius: 8)
+                    //                            .stroke(lineWidth: 1)
+                    //                            .frame(width: width * 0.22, height: width * 0.5625 * 0.22)
+                    //                        
+                    //                        ImageView(imageUrlString: ti?.thumbnailURL, scale: 0.22)
+                    //                    }
+                    //                }
+                    
+                    // 3. Creator
+                    HStack(spacing: 0) {
+                        Text("Ti Creator:")
+                        
+                        Spacer() //FIXME: bug
+                        
+                        UserButton(userUID: ti?.creatorUID, horizontalName: true)
+                            .padding(.trailing, 2)
+                    }
+                    .frame(height: width * 0.15)
+                    
+                    Divider()
+                    
+                    //4. Admins
+                    iiEditTiAdminsBar(ti: $ti)
+                    
+                    //5. Followers
+                    HStack {
+                        
+                        Text("Ti Followers:   \(ti?.tiObserversUIDs.count ?? 0)")
+                        
+                        Spacer()
+                        
+                        FollowTiButton(currentUser: $currentUser, ti: $ti, notFollowingTi: $notFollowingTi)
+                            .padding(.trailing, width * 0.001)
+                    }
+                    
+                    //6.
                     
                     Spacer()
-                    
-                    FollowTiButton(currentUser: $currentUser, ti: $ti, notFollowingTi: $notFollowingTi)
-                        .padding(.trailing, width * 0.001)
                 }
-                
-                //6.
-                
-                Spacer()
+                .preferredColorScheme(.dark)
+                .onAppear{
+                    notFollowingTi = ControlCenterViewModel().notFollowingTiFunc(currentUserUID: currentUserUID, ti: ti, currentUser: currentUser) }
             }
-            .preferredColorScheme(.dark)
-            .onAppear{
-                notFollowingTi = ControlCenterViewModel().notFollowingTiFunc(currentUserUID: currentUserUID, ti: ti, currentUser: currentUser) }
+            .frame(width: width)
             
         } else { ProgressView() }
     }

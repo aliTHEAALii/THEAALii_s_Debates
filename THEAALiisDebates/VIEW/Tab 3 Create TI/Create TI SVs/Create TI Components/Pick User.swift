@@ -11,7 +11,7 @@ import SwiftUI
 struct PickUserButton: View {
     
     
-    let currentUser: UserModel?
+    @Binding var currentUser: UserModel?
     @Binding var pickedUser: UserModel?
     
     @State private var showPickUserFSC = false
@@ -31,13 +31,13 @@ struct PickUserButton: View {
                 .font(.title2)
                 .padding(.vertical, width * 0.15)
             
-            if let currentUser {
+            if currentUser != nil {
                 
-                PickTiUserCell(savedUserUID: currentUser.userUID, pickedUser: $pickedUser, showPickUserFSC: $showPickUserFSC)
+                PickTiUserCell(savedUserUID: currentUser!.userUID, pickedUser: $pickedUser, showPickUserFSC: $showPickUserFSC)
                 
                 Divider()
                 
-                ForEach(currentUser.savedUsersUIDs, id: \.self) { savedUserUID in
+                ForEach(currentUser!.savedUsersUIDs, id: \.self) { savedUserUID in
                     
                     if pickedUser?.userUID == savedUserUID {
                         
@@ -110,14 +110,12 @@ struct PickTiUserIcon: View {
 
 
 
-//MARK: - Cell
+//MARK: - Pick Cell
 struct PickTiUserCell: View {
     
     var savedUserUID: String
-    var savedUser: UserModel? {
 
-        return UserVM().getUser(userUID: savedUserUID)
-    }
+    @State var savedUser: UserModel?
     @Binding var pickedUser: UserModel?
     
     @Binding var showPickUserFSC: Bool
@@ -127,23 +125,35 @@ struct PickTiUserCell: View {
         
         HStack(spacing: 0) {
             
-            
-            Button {
-
-                pickedUser = savedUser
-                showPickUserFSC = false
+            if savedUser == nil {
+                ProgressView()
+            } else {
+                Button {
+                    
+                    pickedUser = savedUser
+                    showPickUserFSC = false
+                    
+                } label: {
+                    Image(systemName: "plus.circle")
+                        .font(.title)
+                        .foregroundColor(.ADColors.green)
+                }
+                .padding()
                 
-            } label: {
-                Image(systemName: "plus.circle")
-                    .font(.title)
-                    .foregroundColor(.ADColors.green)
+                Spacer()
+                
+                UserButton(user: savedUser, horizontalName: true)
             }
-            .padding()
-            
-            Spacer()
-            
-            UserButton(userUID: savedUserUID, horizontalName: true)
         }
         .frame(height: width * 0.15)
+        .onAppear{ Task { await getSavedUser() } }
+    }
+    
+    func getSavedUser() async {
+        do {
+            savedUser = try await UserManager.shared.getUser(userId: savedUserUID)
+        } catch {
+            
+        }
     }
 }

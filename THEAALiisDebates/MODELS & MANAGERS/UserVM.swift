@@ -14,20 +14,20 @@ final class UserVM: ObservableObject {
     @Published var user: UserModel? = nil
     
     
-    func getUser(userUID: String?) -> UserModel? {
+    func getUser(userUID: String?) async -> UserModel? {
         guard let userUID else { return nil }
         
-#if DEBUG
-        return TestingModels().userArray.randomElement()
-#else
+//#if DEBUG
+//        return TestingModels().userArray.randomElement()
+//#else
         do {
-            return try await UserManager.shared.getUser(userId: userUID ?? "")
+            return try await UserManager.shared.getUser(userId: userUID)
         } catch {
             print("🏀🟠🏀 Couln't get User From userUID")
             print(error.localizedDescription)
             return nil
         }
-#endif
+//#endif
 
     }
     

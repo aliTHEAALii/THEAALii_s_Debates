@@ -13,6 +13,7 @@ struct CCTopBar: View {
     @Binding var tiChain: [String]
     
     @Binding var selectedChainLink: Int
+    @Binding var introPostIndex: Int
     
     var vm = ControlCenterViewModel()
     
@@ -43,7 +44,7 @@ struct CCTopBar: View {
             } label: {
                 
                 if ti != nil {
-                    CCIndicatorCircles(ti: $ti, tiChain: $tiChain, selectedChainLink: $selectedChainLink, expandTiControls: $expandTiControls)
+                    CCIndicatorCircles(ti: $ti, tiChain: $tiChain, selectedChainLink: $selectedChainLink, introPostIndex: $introPostIndex, expandTiControls: $expandTiControls)
                 }
             }
             .foregroundStyle(.white)
@@ -95,6 +96,7 @@ struct CCIndicatorCircles: View {
     @Binding var tiChain: [String]
     
     @Binding var selectedChainLink: Int
+    @Binding var introPostIndex: Int
     
     private let ccVM = ControlCenterViewModel()
     
@@ -112,7 +114,8 @@ struct CCIndicatorCircles: View {
                         .foregroundStyle(.clear)
                         .frame(width: leftRectangleWidth, height: width * 0.05)
                     
-                    ForEach(0..<ccVM.tiChain(ti: ti).count, id: \.self) { i in
+//                    ForEach(0..<ccVM.tiChain(ti: ti).count, id: \.self) { i in
+                    ForEach(0 ..< tiChain.count, id: \.self) { i in
                         
                         //MARK: - Intro C
                         if i == introPostIndex {
@@ -166,7 +169,7 @@ struct CCIndicatorCircles: View {
         .frame(maxWidth: width * 0.69, minHeight: width * 0.15)
     }
     
-    var introPostIndex: Int { TiViewModel().introPostIndex(ti: ti) }
+//    var introPostIndex: Int { TiViewModel().introPostIndex(ti: ti) }
     
     //For centering scrollView content
     var leftRectangleWidth: CGFloat {

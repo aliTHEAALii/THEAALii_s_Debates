@@ -10,7 +10,7 @@ import SwiftUI
 struct CTiStep2D2: View {
     
     @AppStorage("current_user_uid") var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
-    let currentUser: UserModel?
+    @Binding var currentUser: UserModel?
     
     let tiID: String
     @Binding var tiInteractionType: TIType
@@ -90,14 +90,14 @@ struct CTiStep2D2: View {
                         
                         
                         
-                        //MARK: Pick Left & Write User
+                        //MARK: Pick Left & Right User
                         HStack {
                             
-                            PickUserButton(currentUser: currentUser, pickedUser: $leftUser)
+                            PickUserButton(currentUser: $currentUser, pickedUser: $leftUser)
                             
                             Spacer()
                             
-                            PickUserButton(currentUser: currentUser, pickedUser: $rightUser)
+                            PickUserButton(currentUser: $currentUser, pickedUser: $rightUser)
                         }
                     }
                     .frame(height: width * 0.7)

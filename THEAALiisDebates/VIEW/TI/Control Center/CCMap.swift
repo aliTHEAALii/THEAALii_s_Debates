@@ -13,6 +13,7 @@ struct CCMap: View {
     @Binding var ti: TI?
     @Binding var tiChain: [String]
     @Binding var selectedChainLink: Int
+    @Binding var introPostIndex: Int
     
     var ccVM = ControlCenterViewModel()
     
@@ -23,7 +24,8 @@ struct CCMap: View {
             ScrollViewReader { proxy in
                 ScrollView(.horizontal, showsIndicators: false) {
                     
-                    LazyHStack(spacing: 10) {
+                    HStack(spacing: 10) {
+                        
                         
                         //Black rectangles for the scroll view (empty left & right Chain)
                         if ti?.tiType == .d2 {
@@ -47,7 +49,8 @@ struct CCMap: View {
                         //ti Chain
                         ForEach(0..<tiChain.count, id: \.self) { i in
                             
-                            if i == ControlCenterViewModel().introPostIndex(ti: ti) {
+                            //                            if i == ControlCenterViewModel().introPostIndex(ti: ti) {
+                            if i == introPostIndex {
                                 
                                 //MARK: - Center
                                 Button {
@@ -65,34 +68,44 @@ struct CCMap: View {
                             }
                         }
                         
+                        
                         //Black rectangles for the scroll view (empty left & right Chain)
-                        //                    if ti!.tiType == .d2  {
-                        //                        if ti!.rightSideChain.count < 2 {
-                        //                            if ti!.rightSideChain.count < 1 {
+                        if ti!.tiType == .d2  {
+                            if ti!.rightSideChain.count < 2 {
+                                if ti!.rightSideChain.count < 1 {
+                                    Rectangle()
+                                        .foregroundStyle(.clear)
+                                        .frame(width: width * 0.22, height: width * 0.5625 * 0.22)
+                                }
+                                
+                                Rectangle()
+                                    .foregroundStyle(.clear)
+                                    .frame(width: width * 0.11, height: width * 0.5625 * 0.22)
+                            }
+                        }
+                        //                        if ti!.tiType == .d2  {
+                        //                            ForEach(0..<numberOfRectangles, id: \.self) { _ in
                         //                                Rectangle()
                         //                                    .foregroundStyle(.clear)
                         //                                    .frame(width: width * 0.22, height: width * 0.5625 * 0.22)
                         //                            }
                         //
-                        //                            Rectangle()
-                        //                                .foregroundStyle(.clear)
-                        //                                .frame(width: width * 0.11, height: width * 0.5625 * 0.22)
                         //                        }
-                        //                    }
-                        
-                        if ti!.tiType == .d2  {
-                            ForEach(0..<numberOfRectangles, id: \.self) { _ in
-                                Rectangle()
-                                    .foregroundStyle(.clear)
-                                    .frame(width: width * 0.22, height: width * 0.5625 * 0.22)
-                            }
-                            
-                        }
                     }
                 }
                 .onAppear{ proxy.scrollTo(ccVM.introPostIndex(ti: ti), anchor: .center) }
                 .onChange(of: selectedChainLink) { _, _ in proxy.scrollTo(selectedChainLink) }
                 .onChange(of: tiChain) { _, _ in proxy.scrollTo(ccVM.introPostIndex(ti: ti), anchor: .center) }
+                //                .onChange(of: selectedChainLink) { _, _ in
+                //                    if selectedChainLink == tiChain.count - 1 {
+                //                        // If it's the last element, scroll to it with trailing anchor
+                //                        proxy.scrollTo(selectedChainLink, anchor: .trailing)
+                //                    } else {
+                //                        // Otherwise, scroll to the center
+                //                        proxy.scrollTo(selectedChainLink, anchor: .center)
+                //                    }
+                //                }
+                
                 
             }
             .frame(width: width, height: width * 0.3)
@@ -108,13 +121,14 @@ struct CCMap: View {
         return index - (ti?.leftSideChain?.count ?? 0)
     }
     
-    var numberOfRectangles:  Int {
-        guard let ti else { return 0 }
-        guard ti.tiType == .d2 else { return 0}
-        let lc = ti.leftSideChain?.count ?? 0
-        let rc = ti.rightSideChain.count
-        return abs(lc - rc)
-    }
+    //WRONG
+    //    var numberOfRectangles:  Int {
+    //        guard let ti else { return 0 }
+    //        guard ti.tiType == .d2 else { return 0 }
+    //        let lc = ti.leftSideChain?.count ?? 0
+    //        let rc = ti.rightSideChain.count
+    //        return abs(lc - rc)
+    //    }
 }
 
 #Preview {
@@ -166,14 +180,14 @@ struct CCMapPostSV: View {
                             
                         } else {
                             
-//                            Rectangle()
-//                                .foregroundColor(.gray)
-//                                .frame(width: width * 0.22, height: width * 0.5625)
+                            //                            Rectangle()
+                            //                                .foregroundColor(.gray)
+                            //                                .frame(width: width * 0.22, height: width * 0.5625)
                             Text(chainLink?.title ?? "nil")
                                 .font(.caption)
                                 .frame(width: width * 0.22, height: width * 0.5625 * 0.22 + width * 0.1)
-
-
+                            
+                            
                         }
                         
                         if chainLink?.thumbnailURL != nil {
@@ -215,7 +229,7 @@ struct CCMapPostSV: View {
                         .stroke(lineWidth: 2)
                         .foregroundStyle(Color.ADColors.green)
                 }
-
+                
             }
             .background(chainLink?.addedFromVerticalList == true ? Color.ADColors.green.opacity(0.2) : .clear )
             .clipShape(RoundedRectangle(cornerRadius: 4))

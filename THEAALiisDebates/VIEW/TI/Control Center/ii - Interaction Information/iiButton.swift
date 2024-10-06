@@ -12,7 +12,7 @@ struct iiButton: View {
     @Binding var currentUser : UserModel?
     @Binding var ti : TI?
     
-    @State private var iiShowFSC = true
+    @State private var iiShowFSC = false
     
     var body: some View {
         
@@ -37,7 +37,6 @@ struct iiButton: View {
                         Rectangle().fill(Color.primary).frame(width: 2, height: 20, alignment: .center)
                     }
                 }.foregroundColor(.primary)
-                
             }
         }
         .frame(width: width * 0.3)

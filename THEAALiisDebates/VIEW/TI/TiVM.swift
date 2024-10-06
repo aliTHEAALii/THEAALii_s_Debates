@@ -49,7 +49,24 @@ final class TiViewModel: ObservableObject {
         return 0
     }
     
+    //MARK: - Is Admin
     func isAdmin(ti: TI?, currentUserUID: String) -> Bool {
+        guard let ti = ti else { return false }
+        
+        if ti.creatorUID == currentUserUID          { return true }
+        if ti.tiAdminsUIDs.contains(currentUserUID) { return true }
+        
+        if ti.tiType == .d2 {
+            if ( (ti.lsLevel1UsersUIDs?.contains(currentUserUID)) != nil) { return true }
+            if ( (ti.rsLevel1UsersUIDs?.contains(currentUserUID)) != nil) { return true }
+            
+        } else if ti.tiType == .d1 {
+            if ((ti.rsLevel1UsersUIDs?.contains(currentUserUID)) != nil) { return true }
+        }
+        
+        return false
+    }
+    func hasAdminAccess(ti: TI?, currentUserUID: String) -> Bool {
         guard let ti = ti else { return false }
         
         if ti.creatorUID == currentUserUID          { return true }

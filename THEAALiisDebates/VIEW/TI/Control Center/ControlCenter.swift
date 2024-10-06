@@ -17,8 +17,9 @@ struct ControlCenter: View {
     @Binding var tiChain: [String]
     
     @Binding var selectedChainLink: Int
+    @State private var introPostIndex: Int = 0
     
-    @State private var expandTiControls: Bool = true
+    @State private var expandTiControls: Bool = false
     
     var body: some View {
         
@@ -30,7 +31,7 @@ struct ControlCenter: View {
                 // - Control Center Top Bar - \\
                 CCTopBar(ti: $ti,
                          tiChain: $tiChain,
-                         selectedChainLink: $selectedChainLink,
+                         selectedChainLink: $selectedChainLink, introPostIndex: $introPostIndex,
                          expandTiControls: $expandTiControls)
                                 
                 // - Expanded Controls - \\
@@ -40,7 +41,7 @@ struct ControlCenter: View {
                     
                     VStack(spacing: 0) {
                         // - MAP - \\ //height 0.3
-                        CCMap(ti: $ti, tiChain: $tiChain, selectedChainLink: $selectedChainLink)
+                        CCMap(ti: $ti, tiChain: $tiChain, selectedChainLink: $selectedChainLink, introPostIndex: $introPostIndex)
                         
                         //MARK: - Control Center Bottom(interaction) Bar
                  //b b
@@ -66,7 +67,11 @@ struct ControlCenter: View {
         .task {
             do {
                 currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
+                introPostIndex = ControlCenterViewModel().introPostIndex(ti: ti)
             } catch { print("Error fetching user: \(error)") }
+        }
+        .onChange(of: tiChain) { _, _ in
+            introPostIndex = ControlCenterViewModel().introPostIndex(ti: ti)
         }
     }
     

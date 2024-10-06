@@ -48,7 +48,7 @@ struct CreateTI: View {
     
     @State private var isLoading = false
     
-    @State var indexStep = 1
+    @State var indexStep = 0
     
     //MARK: View
     var body: some View {
@@ -106,7 +106,7 @@ struct CreateTI: View {
                 if tiInteractionType == .d1 {
                     
                     CTiStep2D1(
-                        currentUser: currentUser,
+                        currentUser: $currentUser,
                         tiID: tiID,
                         tiInteractionType: $tiInteractionType,
                         tiThumbnailData: $tiThumbnailData,
@@ -119,7 +119,7 @@ struct CreateTI: View {
                 } else if tiInteractionType == .d2 {
                     
                     CTiStep2D2(
-                        currentUser: currentUser,
+                        currentUser: $currentUser,
                         tiID: tiID,
                         tiInteractionType: $tiInteractionType,
                         tiThumbnailData: $tiThumbnailData,

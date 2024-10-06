@@ -53,7 +53,7 @@ struct iiEditTiAdminsBar: View {
             }
             
             //MARK: Edit Admins Button ----
-            if TiViewModel().isAdmin(ti: ti, currentUserUID: currentUserUID) {
+            if TiViewModel().hasAdminAccess(ti: ti, currentUserUID: currentUserUID) {
                 
                 Button {
                     showEditAdmins.toggle()
