@@ -15,12 +15,15 @@ struct AppleLoginButton: View {
     @AppStorage("user_name" ) var currentUserName: String = ""
     @AppStorage("user_Pic"  ) var currentUserProfilePicData: Data?
     @AppStorage("log_status") var logStatus: Bool = false
+    
+    @Binding var isLoading: Bool
 
     var body: some View {
         
         Button {
             Task {
                 do {
+                    isLoading = true
                     try await vm.signInApple()
 //                    showSignInView = false
 //                    currentUserUID = vm.currentUserId ?? "no User ID"
@@ -33,9 +36,11 @@ struct AppleLoginButton: View {
                     currentUserProfilePicData = await ImageManager.shared.getImage(urlString: imageString)
                     
                     logStatus = true
+                    isLoading = false
                     print("😎 Apple 🍏 signed In")
                 } catch {
                     print("❌Error: Couldn't Login with Apple")
+                    isLoading = false
                 }
             }
         } label: {
@@ -75,7 +80,7 @@ struct AppleLoginButton_Previews: PreviewProvider {
     static var previews: some View {
         LoginScreen()
         
-        AppleLoginButton()
+        AppleLoginButton(isLoading: .constant(false))
     }
 }
 

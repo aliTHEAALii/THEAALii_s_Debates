@@ -21,6 +21,9 @@ struct GoogleLoginButton: View {
     @AppStorage("user_name" ) var currentUserName: String = ""
     @AppStorage("user_Pic"  ) var currentUserProfilePicData: Data?
     @AppStorage("log_status") var logStatus: Bool = false
+    
+    @Binding var isLoading: Bool
+
         
     var body: some View {
         
@@ -28,7 +31,9 @@ struct GoogleLoginButton: View {
         Button {
             
             Task {
+                isLoading = true
                 await signInGoogleFunc()
+                isLoading = false
             }
         } label: {
             LogInButton(provider: .google)
@@ -91,7 +96,7 @@ struct GoogleLoginButton: View {
 
 struct GoogleLoginButton_Previews: PreviewProvider {
     static var previews: some View {
-        GoogleLoginButton()
+        GoogleLoginButton(isLoading: .constant(false))
     }
 }
 

@@ -246,23 +246,25 @@ struct CTiPickTeamBar: View {
             
             Divider()
             
-            Text("Your Saved Users")
-                .foregroundStyle(.white)
-                .font(.title)
-            
             //AddOrRemove Saved Users
             if currentUser != nil {
                 Text(currentUser?.userUID ?? "no user yet")
             }
-            if currentUser != nil, !currentUser!.savedUsersUIDs.isEmpty, let savedUsersUIDs = currentUser?.savedUsersUIDs {
+            
+            Text("Your Saved Users")
+                .foregroundStyle(.white)
+                .font(.title)
+            
+
+            if currentUser != nil {
                 
-                ForEach(savedUsersUIDs, id: \.self) { savedUserUID in
+                ForEach(currentUser!.savedUsersUIDs, id: \.self) { savedUserUID in
                     HStack {
-                        if savedUserUID != nil, leftOrRight != nil {
+                        if leftOrRight != nil {
                             CTiAddRemoveTeamMemberCell(currentUser: currentUser,
                                                        leftTeam: $leftTeam,
                                                        rightTeam: $rightTeam,
-                                                       savedUserUID: currentUser?.userUID ?? "no user",
+                                                       savedUserUID: savedUserUID,
                                                        leftOrRight: leftOrRight!)
                         } else { ProgressView() }
                     }

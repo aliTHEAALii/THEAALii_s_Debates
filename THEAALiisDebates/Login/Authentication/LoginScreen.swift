@@ -14,31 +14,37 @@ struct LoginScreen: View {
     @State private var emailSheet = false
     @State private var showLoadingScreen = false
     
+    @State private var isLoading: Bool = false
+    
     var body: some View {
         
         VStack(spacing: 0) {
         
-            Spacer()
-            
-            //Logo
-            Image("TheAAlii Logo")
-                .resizable()
-                .scaledToFit()
-                .frame(width: width * 0.85)
-            
-            
-            //Apple login Button
-//            AppleLogin()
-            AppleLoginButton()
-            
-            //Google login Button
-            GoogleLoginButton()
-            
-            //Email login Button
-//            EmailLoginButton(showLoadingScreen: $showLoadingScreen)
-
-//            LogInButton(provider: .anonymous)
-            Spacer()
+            if !isLoading {
+                Spacer()
+                
+                //Logo
+                Image("TheAAlii Logo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: width * 0.85)
+                
+                
+                //Apple login Button
+                //            AppleLogin()
+                AppleLoginButton(isLoading: $isLoading)
+                
+                //Google login Button
+                GoogleLoginButton(isLoading: $isLoading)
+                
+                //Email login Button
+                //            EmailLoginButton(showLoadingScreen: $showLoadingScreen)
+                
+                //            LogInButton(provider: .anonymous)
+                Spacer()
+            } else {
+                LoadingView()
+            }
             
         }
         .preferredColorScheme(.dark)

@@ -51,8 +51,9 @@ struct SaveUserButton: View {
                             .frame(width: width)
                             .padding(.top)
                         
-                        Text("You can use saved users When Adding admins to THEAALii Interactions you created")
+                        Text("You can use saved users When Editing admins & Teams in THEAALii Interactions")
                             .padding(.vertical, width * 0.1)
+                            .foregroundStyle(.white)
                         
                         Spacer()
                     }

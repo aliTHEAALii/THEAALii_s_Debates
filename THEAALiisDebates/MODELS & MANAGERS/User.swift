@@ -35,7 +35,7 @@ struct UserModel: Codable, Equatable {
     var createdTIsIDs : [String] = []
     var participatedTIsIDs : [String] = []
     
-    var savedUsersUIDs:     [String?] = []
+    var savedUsersUIDs:     [String] = []
     var observingTIsIDs  :     [String]  = []
     
     //Equatable

@@ -192,11 +192,11 @@ struct TeamsSV: View {
                     ForEach(currentUser!.savedUsersUIDs, id: \.self) { savedUserUID in
                         HStack {
                             
-                            if savedUserUID != nil, leftOrRight != nil {
+                            if leftOrRight != nil {
                                 AddRemoveTeamMemberCell(currentUser: $currentUser, ti: $ti,
                                                         leftTeam: $leftTeam,
                                                         rightTeam: $rightTeam,
-                                                        savedUserUID: savedUserUID!, leftOrRight: leftOrRight!)
+                                                        savedUserUID: savedUserUID, leftOrRight: leftOrRight!)
                                 
                             } else { ProgressView() }
                         }
