@@ -42,7 +42,7 @@ struct PickUserButton: View {
                     if pickedUser?.userUID == savedUserUID {
                         
                     } else {
-                        PickTiUserCell(savedUserUID: savedUserUID ?? "",
+                        PickTiUserCell(savedUserUID: savedUserUID,
                                        pickedUser: $pickedUser,
                                        showPickUserFSC: $showPickUserFSC)
                     }
