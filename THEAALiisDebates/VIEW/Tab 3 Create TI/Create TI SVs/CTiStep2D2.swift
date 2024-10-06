@@ -248,27 +248,38 @@ struct CTiPickTeamBar: View {
             
             //AddOrRemove Saved Users
             if currentUser != nil {
-                Text(currentUser?.userUID ?? "no user yet")
+                Text("Your Account")
+                    .font(.title2)
+                Text("Your UID: ( " + currentUser!.userUID + " )")
+                
+                CTiAddRemoveTeamMemberCell(currentUser: currentUser,
+                                           leftTeam: $leftTeam,
+                                           rightTeam: $rightTeam,
+                                           savedUserUID: currentUser!.userUID,
+                                           leftOrRight: leftOrRight!)
             }
             
+
             Text("Your Saved Users")
                 .foregroundStyle(.white)
-                .font(.title)
-            
+                .font(.title2)
+
 
             if currentUser != nil {
                 
-                ForEach(currentUser!.savedUsersUIDs, id: \.self) { savedUserUID in
-                    HStack {
-                        if leftOrRight != nil {
-                            CTiAddRemoveTeamMemberCell(currentUser: currentUser,
-                                                       leftTeam: $leftTeam,
-                                                       rightTeam: $rightTeam,
-                                                       savedUserUID: savedUserUID,
-                                                       leftOrRight: leftOrRight!)
-                        } else { ProgressView() }
+                ScrollView(.vertical, showsIndicators: false) {
+                    ForEach(currentUser!.savedUsersUIDs, id: \.self) { savedUserUID in
+                        HStack {
+                            if leftOrRight != nil {
+                                CTiAddRemoveTeamMemberCell(currentUser: currentUser,
+                                                           leftTeam: $leftTeam,
+                                                           rightTeam: $rightTeam,
+                                                           savedUserUID: savedUserUID,
+                                                           leftOrRight: leftOrRight!)
+                            } else { ProgressView() }
+                        }
+                        .frame(width: width, height: width * 0.15)
                     }
-                    .frame(width: width, height: width * 0.15)
                 }
             } else {
                 
