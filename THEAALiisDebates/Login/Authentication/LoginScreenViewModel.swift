@@ -44,6 +44,7 @@ final class LoginScreenViewModel: ObservableObject {
                 //MARK: the location of current(user & id) inside and outside [ if ]
                 currentUser = user
                 currentUserId = authDataResult.uid
+                
             }
             
             currentUser = user
@@ -67,6 +68,7 @@ final class LoginScreenViewModel: ObservableObject {
             
             currentUser = user
             currentUserId = authDataResult.uid
+            
         }
         
         currentUser = user

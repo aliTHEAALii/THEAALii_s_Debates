@@ -55,7 +55,7 @@ struct TabsBar: View {
             HStack(spacing: 0) {
                 ForEach(0..<5, id: \.self) { index in
                     
-                    Spacer()
+//                    Spacer()
                     
                     Button {
                         selectedIndex = index
@@ -71,6 +71,7 @@ struct TabsBar: View {
                             
                         } else if index == 2 {
                             CreateDebateButton(selectedTabIndex: $selectedIndex)
+                            
                         } else {
                             //Buttons(home[0], saved[3], user[4])
                             Image(systemName: icons[index])
@@ -80,8 +81,9 @@ struct TabsBar: View {
                             
                         }
                     }
+                    .frame(width: width * 0.2)
                     
-                    Spacer()
+//                    Spacer()
                     
                 }//ForEach
             }//HStack
@@ -98,5 +100,6 @@ struct TabsBar: View {
 struct TabsBar_Previews: PreviewProvider {
     static var previews: some View {
         TabsBar()
+//            .environmentObject(CurrentUser())
     }
 }

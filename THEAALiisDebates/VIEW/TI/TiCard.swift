@@ -12,7 +12,7 @@ struct TiCard: View {
     
     @State var ti: TI? = nil
     var tiID: String? = nil
-    
+        
     @State private var showTiView: Bool = false
     
     var body: some View {
@@ -139,8 +139,10 @@ struct TiCard: View {
     
     //        D2CardBar(ti: TestingModels().testTI0)
     
-    RootView(logStatus: true)
+//    RootView(logStatus: true)
     
+    TabsBar()
+
     //    TiCard2(ti: TestingModels().testTI0)
 }
 

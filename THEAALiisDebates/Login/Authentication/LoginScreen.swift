@@ -14,13 +14,14 @@ struct LoginScreen: View {
     @State private var emailSheet = false
     @State private var showLoadingScreen = false
     
+    
     @State private var isLoading: Bool = false
     
     var body: some View {
         
         VStack(spacing: 0) {
         
-            if !isLoading {
+//            if !isLoading {
                 Spacer()
                 
                 //Logo
@@ -42,9 +43,9 @@ struct LoginScreen: View {
                 
                 //            LogInButton(provider: .anonymous)
                 Spacer()
-            } else {
-                LoadingView()
-            }
+//            } else {
+//                LoadingView()
+//            }
             
         }
         .preferredColorScheme(.dark)

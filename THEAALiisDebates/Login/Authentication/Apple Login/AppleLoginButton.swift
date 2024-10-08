@@ -11,6 +11,8 @@ struct AppleLoginButton: View {
     
     @StateObject var vm = LoginScreenViewModel()
     
+    var currentUser = CurrentUser()
+    
     @AppStorage("current_user_uid"  ) var currentUserUID: String = ""
     @AppStorage("user_name" ) var currentUserName: String = ""
     @AppStorage("user_Pic"  ) var currentUserProfilePicData: Data?
@@ -28,6 +30,9 @@ struct AppleLoginButton: View {
 //                    showSignInView = false
 //                    currentUserUID = vm.currentUserId ?? "no User ID"
 //                    logStatus = true
+                    
+                    //MARK: - Current User O
+                    currentUser.setCurrentUser(currentUser: vm.currentUser)
                     
                     currentUserUID = vm.currentUserId ?? "no User ID"
                     currentUserName = vm.currentUser?.displayName ?? "No Name"

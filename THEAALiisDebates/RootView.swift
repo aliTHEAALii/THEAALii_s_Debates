@@ -29,8 +29,10 @@ import SwiftUI
 
 struct RootView: View {
     
-    @AppStorage("log_status") var logStatus: Bool = false
+    @AppStorage("current_user_uid") var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
+    @AppStorage("log_status") var logStatus: Bool = true
 
+    var currentUser =  CurrentUser()
     
     @State private var showLoginScreen = false
 
@@ -41,14 +43,26 @@ struct RootView: View {
             
             if logStatus {
                 TabsBar()
+//                    .environmentObject(currentUserO)
+
             } else {
                 LoginScreen()
+//                    .environmentObject(currentUserO)
+
             }
             
         }
         .onAppear {
             let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
             self.showLoginScreen = authUser == nil ? true : false
+            Task {
+                if authUser != nil {
+                    await currentUser.fetchCurrentUser(currentUserUID: authUser?.uid)
+                } else {
+                    await currentUser.fetchCurrentUser(currentUserUID: currentUserUID)
+                }
+
+            }
         }
     }
 }

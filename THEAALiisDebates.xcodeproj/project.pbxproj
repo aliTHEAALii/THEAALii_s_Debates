@@ -14,6 +14,7 @@
 		2F16B1832CA650C600BB419C /* TiPostUserButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F16B1822CA650A500BB419C /* TiPostUserButton.swift */; };
 		2F16B1852CA8B40300BB419C /* PickNewThumbnailBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F16B1842CA8B3F300BB419C /* PickNewThumbnailBar.swift */; };
 		2F16B1882CA9F2AD00BB419C /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F16B1872CA9F2AD00BB419C /* ImageView.swift */; };
+		2F2F8BEB2CB43D6100D1D91B /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2F8BEA2CB43D6100D1D91B /* CurrentUser.swift */; };
 		2F3534022BD8AEC800DE5E7A /* CreateTIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3534012BD8AEC800DE5E7A /* CreateTIViewModel.swift */; };
 		2F3534082BDB34F000DE5E7A /* CTiStep1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3534072BDB34F000DE5E7A /* CTiStep1.swift */; };
 		2F35340A2BDB3ABF00DE5E7A /* CTiStep2D2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3534092BDB3ABF00DE5E7A /* CTiStep2D2.swift */; };
@@ -160,6 +161,7 @@
 		2F16B1822CA650A500BB419C /* TiPostUserButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiPostUserButton.swift; sourceTree = "<group>"; };
 		2F16B1842CA8B3F300BB419C /* PickNewThumbnailBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickNewThumbnailBar.swift; sourceTree = "<group>"; };
 		2F16B1872CA9F2AD00BB419C /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		2F2F8BEA2CB43D6100D1D91B /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		2F3534012BD8AEC800DE5E7A /* CreateTIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTIViewModel.swift; sourceTree = "<group>"; };
 		2F3534072BDB34F000DE5E7A /* CTiStep1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTiStep1.swift; sourceTree = "<group>"; };
 		2F3534092BDB3ABF00DE5E7A /* CTiStep2D2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTiStep2D2.swift; sourceTree = "<group>"; };
@@ -519,12 +521,13 @@
 			isa = PBXGroup;
 			children = (
 				2F690C8B2BC17CF200A31760 /* UserTabView.swift */,
-				2FD05ECE2C9A88EF0082C277 /* UserFunctions.swift */,
-				2F690C8D2BC17D1000A31760 /* Components Currents User */,
 				2F690C9B2BC17E6700A31760 /* UserButton.swift */,
+				2FD05ECE2C9A88EF0082C277 /* UserFunctions.swift */,
 				2F690C9D2BC17E7C00A31760 /* UserFSC.swift */,
-				2FD05ED02C9A96070082C277 /* User Buttons */,
+				2F690C8D2BC17D1000A31760 /* Components Currents User */,
 				2F690D212BCAFFCB00A31760 /* New User View */,
+				2FD05ED02C9A96070082C277 /* User Buttons */,
+				2F2F8BEA2CB43D6100D1D91B /* CurrentUser.swift */,
 			);
 			path = "Tab 5 User";
 			sourceTree = "<group>";
@@ -927,6 +930,7 @@
 				2F690CB92BC18E1100A31760 /* AdminResponseSideSheet.swift in Sources */,
 				2F3534082BDB34F000DE5E7A /* CTiStep1.swift in Sources */,
 				2F690D112BC1D9EA00A31760 /* CreateTI.swift in Sources */,
+				2F2F8BEB2CB43D6100D1D91B /* CurrentUser.swift in Sources */,
 				2FD05ECB2C8BA9320082C277 /* NonAdminVotingButtons.swift in Sources */,
 				2FE9DFFD2C617815000353DC /* SearchTab.swift in Sources */,
 				2FD05EC52C6FCA250082C277 /* VotingButtonsSideSheet.swift in Sources */,

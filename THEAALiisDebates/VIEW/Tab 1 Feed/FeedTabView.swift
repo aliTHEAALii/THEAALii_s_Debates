@@ -96,6 +96,8 @@ struct FeedTabView: View {
     
     @State var interactionsFeed: [TI] = []
     
+    var currentUser = CurrentUser()
+    
     //Pagination Properties
     @State private var lastDocument: DocumentSnapshot? = nil
     @State private var isFetching = false
@@ -103,6 +105,10 @@ struct FeedTabView: View {
 
     var body: some View {
         ScrollView(showsIndicators: false) {
+            
+            
+            Text("\(currentUser.displayName) -" + (currentUser.bio))
+            Text(currentUser.currentUserUID ?? "no uid")
             
             Divider()
             
@@ -177,6 +183,9 @@ struct FeedTabView: View {
 
 struct FeedTabView_Previews: PreviewProvider {
     static var previews: some View {
-        RootView(logStatus: true)
+//        RootView(logStatus: true)
+        
+        TabsBar()
+
     }
 }

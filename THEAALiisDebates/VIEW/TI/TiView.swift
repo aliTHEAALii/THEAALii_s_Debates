@@ -11,6 +11,7 @@ import SwiftUI
 struct TiView: View {
     
     @AppStorage("current_user_uid") var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
+    var currentUser = CurrentUser()
     
     @State var ti: TI?
     @State private var tiChain: [String] = []
