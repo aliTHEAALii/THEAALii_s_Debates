@@ -10,8 +10,12 @@ import SwiftUI
 struct FollowUserButton: View {
     
     let user: UserModel
-    @State var currentUser: UserModel
+//    @State var currentUser: UserModel
     @AppStorage("current_user_uid"  ) var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
+    
+    @Environment(CurrentUser.self) var currentUser
+
+    
 //    @State private var showSavedUsersSheet = false
     @State private var followingUser = false
     @State private var isLoading = false
@@ -53,7 +57,7 @@ struct FollowUserButton: View {
         if followingUser {
             print("🍌 🫒 2 🫒 🍌")
             isLoading = true
-            try await UserManager.shared.updateFollowingUsers(currentUserUID: currentUser.userUID ,userUIDForArray: user.userUID, addOrRemove: (.remove))
+            try await UserManager.shared.updateFollowingUsers(currentUserUID: currentUser.UID ?? "No UID" ,userUIDForArray: user.userUID, addOrRemove: (.remove))
             
             print("🍌 🫒 following user remove! 🫒 🍌")
             
@@ -64,7 +68,7 @@ struct FollowUserButton: View {
         } else {
             print("🍌 🫒 3 🫒 🍌")
             isLoading = true
-            try await UserManager.shared.updateFollowingUsers(currentUserUID: currentUser.userUID ,userUIDForArray: user.userUID ,addOrRemove: (.add))
+            try await UserManager.shared.updateFollowingUsers(currentUserUID: currentUser.UID ?? "No UID",userUIDForArray: user.userUID ,addOrRemove: (.add))
             print("🍌 🫒 following user add! 🫒 🍌")
             
             currentUser.savedUsersUIDs.append(user.userUID)
@@ -76,4 +80,5 @@ struct FollowUserButton: View {
 
 #Preview {
     UserFSC(user: TestingModels().user1, showFSC: .constant(true))
+        .environment(CurrentUser().self)
 }

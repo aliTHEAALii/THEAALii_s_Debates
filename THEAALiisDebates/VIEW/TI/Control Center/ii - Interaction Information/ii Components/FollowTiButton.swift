@@ -10,8 +10,9 @@ import SwiftUI
 struct FollowTiButton: View {
     
     @AppStorage("current_user_uid") var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
-    @Binding var currentUser: UserModel?
-    
+//    @Binding var currentUser: UserModel?
+    @Environment(CurrentUser.self) var currentUser
+
     @Binding var ti: TI?
     
     @Binding var notFollowingTi: Bool
@@ -78,9 +79,9 @@ struct FollowTiButton: View {
     }
     
     func notFollowingTiFunc() -> Bool {
-        guard ti != nil, currentUser != nil else { return false }
+        guard ti != nil else { return false }
         
-        if ti!.tiObserversUIDs.contains(currentUserUID) || currentUser!.observingTIsIDs.contains(ti!.id) { return false }
+        if ti!.tiObserversUIDs.contains(currentUserUID) || currentUser.observingTIsIDs.contains(ti!.id) { return false }
         
         return true
         
@@ -103,12 +104,12 @@ struct FollowTiButton: View {
                     try await TIManager.shared.updateObserversUIDs(tiUID: ti!.id, currentUserUID: currentUserUID, addOrRemove: .add)
                 
                     self.ti!.tiObserversUIDs.append(currentUserUID)
-                    print("🟢🧸success Observing \(notFollowingTi) Ti: \(ti!.id) 🚦 userUID: \(currentUserUID)")
+                    print("🟩🧸success Observing \(notFollowingTi) Ti: \(ti!.id) 🚦 userUID: \(currentUserUID)🥦")
                     
                     notFollowingTi = false
                     isLoading = false
                     
-                    print("🟢111🧸success Observing \(notFollowingTi) Ti: \(ti!.id) 🚦 userUID: \(currentUserUID)")
+                    print("🟩🧸success Observing \(notFollowingTi) Ti: \(ti!.id) 🚦 userUID: \(currentUserUID)🥦")
 
                 } catch {
                     print("🔴Error Observing Ti: \(error.localizedDescription)🔴")
@@ -124,11 +125,11 @@ struct FollowTiButton: View {
                     try await TIManager.shared.updateObserversUIDs(tiUID: ti!.id, currentUserUID: currentUserUID, addOrRemove: .remove)
                     
                     self.ti!.tiObserversUIDs.remove(object: currentUserUID)
-                    print("🟢🔪success removing Observing \(notFollowingTi) Ti   \(ti!.id) 🚦 userUID: \(currentUserUID)")
+                    print("🟢🔪success removing Observing \(notFollowingTi) Ti   \(ti!.id) 🚦 userUID: \(currentUserUID)🥎")
                     
                     notFollowingTi = true
                     isLoading = false
-                    print("🟢222🧸success removing \(notFollowingTi) Ti: \(ti!.id) 🚦 userUID: \(currentUserUID)")
+                    print("🟢222🧸success removing \(notFollowingTi) Ti: \(ti!.id) 🚦 userUID: \(currentUserUID)🥎")
 
                 } catch {
                     print("🔴Error removing Observing Ti: \(error.localizedDescription)🔴")

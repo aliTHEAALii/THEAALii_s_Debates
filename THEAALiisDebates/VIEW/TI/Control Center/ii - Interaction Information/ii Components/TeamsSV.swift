@@ -13,7 +13,9 @@ struct TeamsSV: View {
     let tiID: String
     @State var ti: TI? = nil
     
-    @State private var currentUser: UserModel?
+//    @State private var currentUser: UserModel?
+    @Environment(CurrentUser.self) var currentUser
+
 
     @State var leftTeam : [String] = []
     @State var rightTeam: [String] = []
@@ -184,16 +186,16 @@ struct TeamsSV: View {
                     .font(.title)
                 
                 //AddOrRemove Saved Users
-                if currentUser != nil {
-                    Text(currentUser?.userUID ?? "no user yet")
-                }
-                if currentUser != nil, !currentUser!.savedUsersUIDs.isEmpty {
+//                if currentUser != nil {
+                    Text(currentUser.UID ?? "no user yet")
+//                }
+                if !currentUser.savedUsersUIDs.isEmpty {
                     
-                    ForEach(currentUser!.savedUsersUIDs, id: \.self) { savedUserUID in
+                    ForEach(currentUser.savedUsersUIDs, id: \.self) { savedUserUID in
                         HStack {
                             
                             if leftOrRight != nil {
-                                AddRemoveTeamMemberCell(currentUser: $currentUser, ti: $ti,
+                                AddRemoveTeamMemberCell(ti: $ti,
                                                         leftTeam: $leftTeam,
                                                         rightTeam: $rightTeam,
                                                         savedUserUID: savedUserUID, leftOrRight: leftOrRight!)
@@ -242,11 +244,11 @@ struct TeamsSV: View {
         return CGFloat(max(Int(width * 0.15) * ((leftTeam).count), Int(width * 0.15) * ((rightTeam).count))) + width * 0.2
     }
     
-    func fetchUser() async {
-        do {
-            self.currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
-        } catch { print("❌ Couldn't fetch User: \(error.localizedDescription) ❌") }
-    }
+//    func fetchUser() async {
+//        do {
+//            self.currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
+//        } catch { print("❌ Couldn't fetch User: \(error.localizedDescription) ❌") }
+//    }
     func getTi() async {
         do {
             ti = try await TIManager.shared.fetchTI(tiID: tiID)
@@ -255,7 +257,7 @@ struct TeamsSV: View {
     
     private func onAppear() {
         Task {
-            await fetchUser()
+//            await fetchUser()
             await getTi()
             print("👹 \(ti?.lsLevel1UsersUIDs ?? []) pppp")
             print("👹 \(ti?.rsLevel1UsersUIDs ?? []) oooo")
@@ -269,6 +271,7 @@ struct TeamsSV: View {
 
 #Preview {
     TiView(ti: nil, showTiView: .constant(true))
+        .environment(CurrentUser().self)
 }
 
 
@@ -284,7 +287,9 @@ struct TeamsSV: View {
 struct AddRemoveTeamMemberCell: View {
     
     
-    @Binding var currentUser: UserModel?
+//    @Binding var currentUser: UserModel?
+    @Environment(CurrentUser.self) var currentUser
+
     @Binding var ti: TI?
     
     @Binding var leftTeam : [String]
@@ -323,7 +328,7 @@ struct AddRemoveTeamMemberCell: View {
     func editTeamMember(tiID: String, userUID: String, leftOrRight: LeftOrRight, addOrRemove: AddOrRemove) {
 
         guard  ti != nil else { return }
-        guard TiViewModel().isAdmin(ti: ti!, currentUserUID: currentUser?.userUID ?? "no user") else { print("🟠NOT Admin🟠");return }
+        guard TiViewModel().isAdmin(ti: ti!, currentUserUID: currentUser.UID ?? "no user") else { print("🟠NOT Admin🟠"); return }
         
         if leftOrRight == .left {
             print("🟣 1")

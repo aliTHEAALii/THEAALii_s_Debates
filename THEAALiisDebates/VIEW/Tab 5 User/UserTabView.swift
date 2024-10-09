@@ -15,8 +15,10 @@ struct UserTabView: View {
     @AppStorage("user_Pic"  ) var currentUserProfilePicData: Data?
     @AppStorage("log_status") var logStatus: Bool = false
     
+    @Environment(CurrentUser.self) var currentUser
+    
     @State private var userName: String = ""
-    @State var currentUser: UserModel? = nil
+//    @State var currentUser: UserModel? = nil
     @State private var imageUrlString: String? = nil
     
 //    @Environment(\.dismiss) var dismiss
@@ -130,16 +132,16 @@ struct UserTabView: View {
                 Spacer()
             }
         }
-        .task {
-            do {
-                currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
-                userName = currentUser?.displayName ?? "No Name"
-                imageUrlString = currentUser?.profileImageURLString
-            } catch {
-                print("❌ Error Couldn't get user for Library Tab❌")
-                // Handle error gracefully, e.g., show an error message to the user
-            }
-        }
+//        .task {
+//            do {
+//                currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
+//                userName = currentUser?.displayName ?? "No Name"
+//                imageUrlString = currentUser?.profileImageURLString
+//            } catch {
+//                print("❌ Error Couldn't get user for Library Tab❌")
+//                // Handle error gracefully, e.g., show an error message to the user
+//            }
+//        }
 
     }
 }
@@ -147,6 +149,7 @@ struct UserTabView: View {
 struct UserTabView_Previews: PreviewProvider {
     static var previews: some View {
         UserTabView()
+            .environment(CurrentUser().self)
             .preferredColorScheme(.dark)
 
     }

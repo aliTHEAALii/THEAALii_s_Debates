@@ -105,6 +105,7 @@ struct TiVerticalListView: View {
 
 #Preview {
     TiView(ti: nil, showTiView: .constant(true))
+        .environment(CurrentUser().self)
 
 //    VerticalListView(ti: .constant(nil), tiChain: .constant([]), tiChainLink: .constant(nil), tiPost: .constant(nil))
 }

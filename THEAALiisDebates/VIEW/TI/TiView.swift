@@ -11,8 +11,8 @@ import SwiftUI
 struct TiView: View {
     
     @AppStorage("current_user_uid") var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
-    var currentUser = CurrentUser()
-    
+    @Environment(CurrentUser.self) var currentUser
+
     @State var ti: TI?
     @State private var tiChain: [String] = []
     @State private var selectedChainLinkIndex: Int = 0
@@ -56,7 +56,7 @@ struct TiView: View {
 
             
             ScrollView(showsIndicators: false) {
-                LazyVStack(spacing: 0){
+                VStack(spacing: 0){
                     
                     //CC
                     ControlCenter(ti: $ti, tiChain: $tiChain, selectedChainLink: $selectedChainLinkIndex)
@@ -176,6 +176,6 @@ struct TiView: View {
 
 #Preview {
     TiView(ti: nil, showTiView: .constant(true))
-    
+        .environment(CurrentUser().self)
     //TIView()
 }

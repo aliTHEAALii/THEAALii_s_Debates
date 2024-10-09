@@ -13,7 +13,9 @@ import FirebaseStorage
 //MARK: - Edit User Info Button
 struct EditUserInfoButton: View {
     
-    @Binding var currentUser: UserModel?
+//    @Binding var currentUser: UserModel?
+    @Environment(CurrentUser.self) var currentUser
+    
     @Binding var userName: String
     @Binding var bio: String
     @Binding var imageUrlString: String?
@@ -33,7 +35,7 @@ struct EditUserInfoButton: View {
         .fullScreenCover(isPresented: $showEditingFSC) {
             ZStack(alignment: .topTrailing) {
                 if currentUser != nil {
-                    EditUserInfoFSC(currentUser: currentUser!, userName: $userName, bio: $bio, imageUrlString: $imageUrlString, showEditingFSC: $showEditingFSC)
+                    EditUserInfoFSC(userName: $userName, bio: $bio, imageUrlString: $imageUrlString, showEditingFSC: $showEditingFSC)
                 }
 
                 
@@ -55,7 +57,8 @@ struct EditUserInfoFSC: View {
     @AppStorage("user_Pic") var currentUserProfilePicData: Data?
     @AppStorage("log_status") var logStatus: Bool = false
     
-    @State var currentUser: UserModel
+//    @State var currentUser: UserModel
+    @Environment(CurrentUser.self) var currentUser
     @Binding var userName: String
     @Binding var bio: String
     @Binding var imageUrlString: String?
@@ -269,6 +272,8 @@ struct EditUserInfoFSC: View {
 struct EditUserInfoFSC_Previews: PreviewProvider {
     static var previews: some View {
         EditUserInfoFSC(currentUser: TestingModels().user1, userName: .constant("user name"), bio: .constant("Green & Blue"), imageUrlString: .constant("meaw"), showEditingFSC: .constant(true))
+            .environment(CurrentUser().self)
+
         
 //        EditUserInfoButton(currentUser: .constant(TestingModels().user1), bio: .constant("Green & Blue"), imageUrlString: .constant(TestingImagesVideos().imageURL))
 //            .preferredColorScheme(.dark)

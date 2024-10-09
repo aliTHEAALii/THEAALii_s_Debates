@@ -100,6 +100,6 @@ struct TabsBar: View {
 struct TabsBar_Previews: PreviewProvider {
     static var previews: some View {
         TabsBar()
-//            .environmentObject(CurrentUser())
+            .environment(CurrentUser().self)
     }
 }

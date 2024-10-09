@@ -17,8 +17,8 @@ struct GoogleLoginButton: View {
     
     @StateObject var vm = LoginScreenViewModel()
     
-    var currentUser = CurrentUser()
-    
+    @Environment(CurrentUser.self) var currentUser
+
     @AppStorage("current_user_uid"  ) var currentUserUID: String = ""
     @AppStorage("user_name" ) var currentUserName: String = ""
     @AppStorage("user_Pic"  ) var currentUserProfilePicData: Data?

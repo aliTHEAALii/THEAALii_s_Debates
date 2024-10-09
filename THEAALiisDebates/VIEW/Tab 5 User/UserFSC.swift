@@ -82,13 +82,13 @@ struct UserFSC: View {
                         
                         if user != nil , currentUser != nil {
                             //Follow
-                            FollowUserButton(user: user!, currentUser: currentUser!)
+                            FollowUserButton(user: user!)
                                 .padding(.bottom)
                             
                             SaveUserButton(user: user!, currentUser: currentUser!)
                             
                             //Expand
-                            //                            FutureFeatureButton()
+                            //FutureFeatureButton()
                             
                         } else { ProgressView() }
                     }

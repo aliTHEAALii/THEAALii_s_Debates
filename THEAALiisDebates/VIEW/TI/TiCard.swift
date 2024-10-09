@@ -142,6 +142,7 @@ struct TiCard: View {
 //    RootView(logStatus: true)
     
     TabsBar()
+        .environment(CurrentUser().self)
 
     //    TiCard2(ti: TestingModels().testTI0)
 }

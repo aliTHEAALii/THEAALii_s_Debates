@@ -32,7 +32,7 @@ struct RootView: View {
     @AppStorage("current_user_uid") var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
     @AppStorage("log_status") var logStatus: Bool = true
 
-    var currentUser =  CurrentUser()
+    @State var currentUser =  CurrentUser()
     
     @State private var showLoginScreen = false
 
@@ -43,11 +43,11 @@ struct RootView: View {
             
             if logStatus {
                 TabsBar()
-//                    .environmentObject(currentUserO)
+                    .environment(currentUser)
 
             } else {
                 LoginScreen()
-//                    .environmentObject(currentUserO)
+                    .environment(currentUser)
 
             }
             
@@ -56,11 +56,11 @@ struct RootView: View {
             let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
             self.showLoginScreen = authUser == nil ? true : false
             Task {
-                if authUser != nil {
+//                if authUser != nil {
                     await currentUser.fetchCurrentUser(currentUserUID: authUser?.uid)
-                } else {
-                    await currentUser.fetchCurrentUser(currentUserUID: currentUserUID)
-                }
+//                } else {
+//                    await currentUser.fetchCurrentUser(currentUserUID: currentUserUID)
+//                }
 
             }
         }

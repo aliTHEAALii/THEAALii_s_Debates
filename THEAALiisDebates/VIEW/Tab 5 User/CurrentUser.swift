@@ -126,7 +126,9 @@ import Observation
 
 @Observable class CurrentUser {
     
-    var currentUserUID: String? = ""
+    var UID: String? = ""
+    var email      : String     = "No Email"
+    var dateJoined: Date      = Date()
     var displayName: String     = "No Display Name"
     var bio        : String     = "No Bio"
     var profileImageURLString: String? = nil
@@ -143,7 +145,9 @@ import Observation
         guard let currentUser else { return }
         print("❣️ currentUser 11 ❣️")
 
-        currentUserUID = currentUser.userUID
+        UID = currentUser.userUID
+        email = currentUser.email
+        dateJoined = currentUser.dataJoined
         displayName = currentUser.displayName
         bio = currentUser.bio
         profileImageURLString = currentUser.profileImageURLString
@@ -157,7 +161,7 @@ import Observation
         //
         savedUsersUIDs = currentUser.savedUsersUIDs
         observingTIsIDs = currentUser.observingTIsIDs
-        print("❣️ currentUser \(currentUserUID ?? "no UID" + displayName)❣️")
+        print("❣️ currentUser \(UID ?? "no UID" + displayName)❣️")
         print("❣️ currentUser \(displayName)❣️")
         print("❣️ currentUser \(savedUsersUIDs)❣️")
 
@@ -166,9 +170,9 @@ import Observation
     }
 
     init() {
-        #if DEBUG
-        Task { await fetchCurrentUser(currentUserUID: "BXnHfiEaIQZiTcpvWs0bATdAdJo1") }
-        #endif
+//        #if DEBUG
+//        Task { await fetchCurrentUser(currentUserUID: "BXnHfiEaIQZiTcpvWs0bATdAdJo1") }
+//        #endif
     }
     
     
@@ -178,7 +182,9 @@ import Observation
         print("❣️ currentUser 11 ❣️")
         
         DispatchQueue.main.async {  // Ensuring UI updates happen on the main thread
-            self.currentUserUID = currentUser.userUID
+            self.UID = currentUser.userUID
+            self.email = currentUser.email
+            self.dateJoined = currentUser.dataJoined
             self.displayName = currentUser.displayName
             self.bio = currentUser.bio
             self.profileImageURLString = currentUser.profileImageURLString
@@ -193,7 +199,7 @@ import Observation
             self.savedUsersUIDs = currentUser.savedUsersUIDs
             self.observingTIsIDs = currentUser.observingTIsIDs
             
-            print("❣️ currentUser \(self.currentUserUID ?? "no UID" + self.displayName)❣️")
+            print("❣️ currentUser \(self.UID ?? "no UID" + self.displayName)❣️")
             print("❣️ currentUser \(self.displayName)❣️")
             print("❣️ currentUser \(self.savedUsersUIDs)❣️")
             
@@ -209,5 +215,14 @@ import Observation
         } catch {
             
         }
+    }
+    
+    func returnCurrentUser() -> UserModel {
+        return UserModel(userUID: UID ?? "no UID",
+                         email: email, dateJoined: dateJoined,
+                         displayName: displayName, bio: bio, profileImageURLString: profileImageURLString, userLabel: userLabel,
+                         createdTIsIDs: createdTIsIDs, participatedTIsIDs: participatedTIsIDs,
+                         followingUIDs: followingUIDs, followersUIDs: followersUIDs,
+                         savedUsersUIDs: savedUsersUIDs, observingTIs: observingTIsIDs)
     }
 }

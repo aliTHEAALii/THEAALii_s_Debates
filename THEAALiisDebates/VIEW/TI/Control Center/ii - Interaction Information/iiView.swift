@@ -11,8 +11,9 @@ struct iiView: View {
     
     @AppStorage("current_user_uid") var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
     
-    @Binding var currentUser: UserModel?
-    
+//    @Binding var currentUser: UserModel?
+    @Environment(CurrentUser.self) var currentUser
+
     @Binding var ti: TI?
     
     @State private var notFollowingTi: Bool = false
@@ -102,7 +103,7 @@ struct iiView: View {
                         
                         Spacer()
                         
-                        FollowTiButton(currentUser: $currentUser, ti: $ti, notFollowingTi: $notFollowingTi)
+                        FollowTiButton(ti: $ti, notFollowingTi: $notFollowingTi)
                             .padding(.trailing, width * 0.001)
                     }
                     
@@ -112,7 +113,7 @@ struct iiView: View {
                 }
                 .preferredColorScheme(.dark)
                 .onAppear{
-                    notFollowingTi = ControlCenterViewModel().notFollowingTiFunc(currentUserUID: currentUserUID, ti: ti, currentUser: currentUser) }
+                    notFollowingTi = ControlCenterViewModel().notFollowingTiFunc(currentUserUID: currentUserUID, ti: ti, currentUser: currentUser.returnCurrentUser()) }
             }
             .frame(width: width)
             

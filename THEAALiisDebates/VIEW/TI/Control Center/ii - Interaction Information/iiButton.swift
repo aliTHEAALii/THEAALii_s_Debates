@@ -9,7 +9,8 @@ import SwiftUI
 
 struct iiButton: View {
     
-    @Binding var currentUser : UserModel?
+//    @Binding var currentUser : UserModel?
+    @Environment(CurrentUser.self) var currentUser
     @Binding var ti : TI?
     
     @State private var iiShowFSC = false
@@ -44,7 +45,7 @@ struct iiButton: View {
         .fullScreenCover(isPresented: $iiShowFSC) {
             VStack(spacing: 0) {
                 FSCHeaderSV(showFSC: $iiShowFSC, text: "Interaction Information")
-                iiView(currentUser: $currentUser, ti: $ti)
+                iiView(ti: $ti)
             }
         }
         

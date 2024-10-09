@@ -107,6 +107,7 @@ struct VerticalListControlBar: View {
 
 #Preview {
     TiView(ti: nil, showTiView: .constant(true))
+        .environment(CurrentUser().self)
 
 //    VerticalListControlBar()
 }
