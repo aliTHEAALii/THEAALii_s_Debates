@@ -85,7 +85,12 @@ struct UserFSC: View {
                             FollowUserButton(user: user!)
                                 .padding(.bottom)
                             
-                            SaveUserButton(user: user!, currentUser: currentUser!)
+//                            if currentUser!.userUID != user!.userUID {
+                                if currentUserUID != user!.userUID {
+                                    
+                                SaveUserButton(user: user!)
+
+                            }
                             
                             //Expand
                             //FutureFeatureButton()

@@ -11,7 +11,9 @@ struct TabsBar: View {
     
     let icons = ["triangle", "magnifyingglass", "plus", "line.3.horizontal", "person"]
     
-    @State private var selectedIndex = 0
+    @Environment(CurrentUser.self) var currentUser
+
+    @State var selectedIndex = 0
     
     @State var presentedAddDebateView = false
     @State var isMiniPlayer = false

@@ -100,7 +100,12 @@ final class TestingModels {
     
     var userArray : [UserModel] { [user1, user2, user3, user4nil] }
     
-    let userMeUID: String = "kJchOu2tJCenXU4ZpXoAxgCYfJN2"
+    let userAppleUID: String = "kJchOu2tJCenXU4ZpXoAxgCYfJN2"
+    let userTHEAALiiUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
+    let userAbraham7UID: String = "V7PM9BXAcwetP8ZeoV70619zpcF2"
+    let userAli1995UID: String = "lQcThsXMSBcYf9c67goQ1VApfWy2"
+    
+    var usersUIDsArray: [String] { [userAppleUID, userTHEAALiiUID, userAbraham7UID, userAli1995UID] }
     
     //MARK: - TI
     let testTI0 = TI(ID: "id", title: "testing TI title", description: "testing ti Description", thumbnailURL: "https://images.ctfassets.net/ooa29xqb8tix/J6KiaOqQyBtSa84hx6fuI/2cd1d475743a2a42c8643b2a69e88547/Advanced_React_Hooks_800x600_cover.png?w=400&q=50", creatorUID: "uid", tiAdminsUIDs: ["sdf", "asda"], rsLevel1UsersUIDs: ["asd", "sdfdas"], rsLevel2UsersUIDs: [], rsLevel3UsersUIDs: [], rsVerticalListAccess: .open)

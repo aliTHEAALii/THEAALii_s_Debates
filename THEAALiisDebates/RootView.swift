@@ -56,11 +56,11 @@ struct RootView: View {
             let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
             self.showLoginScreen = authUser == nil ? true : false
             Task {
-//                if authUser != nil {
+                if authUser != nil {
                     await currentUser.fetchCurrentUser(currentUserUID: authUser?.uid)
-//                } else {
-//                    await currentUser.fetchCurrentUser(currentUserUID: currentUserUID)
-//                }
+                } else {
+                    await currentUser.fetchCurrentUser(currentUserUID: currentUserUID)
+                }
 
             }
         }

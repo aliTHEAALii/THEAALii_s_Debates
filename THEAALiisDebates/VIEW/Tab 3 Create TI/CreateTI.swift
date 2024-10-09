@@ -14,6 +14,7 @@ struct CreateTI: View {
     //        return UserVM().getUser(userUID: currentUserUID)
     //    }
     @State var currentUser: UserModel? = nil
+    @Environment(CurrentUser.self) var currentUserO
     
     // - //
     var vm = CreateTiVM()
@@ -164,7 +165,11 @@ struct CreateTI: View {
             .padding(.vertical, width * 0.1)
         }
         .overlay { if isLoading { LoadingView() } }
-        .onAppear{ Task { currentUser = try await UserManager.shared.getUser(userId: currentUserUID) } }
+        .onAppear{ Task {
+//            currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
+            currentUser = currentUserO.userModel()
+        } }
+        
     }
     
     //MARK: - Functions

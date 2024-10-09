@@ -32,7 +32,7 @@ struct AppleLoginButton: View {
 //                    logStatus = true
                     
                     //MARK: - Current User O
-                    currentUser.setCurrentUser(currentUser: vm.currentUser)
+                    currentUser.setCurrentUser(fromUserModel: vm.currentUser)
                     
                     currentUserUID = vm.currentUserId ?? "no User ID"
                     currentUserName = vm.currentUser?.displayName ?? "No Name"
@@ -84,6 +84,7 @@ struct AppleLoginButton: View {
 struct AppleLoginButton_Previews: PreviewProvider {
     static var previews: some View {
         LoginScreen()
+            .environment(CurrentUser().self)
         
         AppleLoginButton(isLoading: .constant(false))
     }

@@ -107,8 +107,8 @@ struct FeedTabView: View {
         ScrollView(showsIndicators: false) {
             
             
-            Text("\(currentUser.displayName) -" + (currentUser.bio))
-            Text(currentUser.UID ?? "no uid")
+//            Text("\(currentUser.displayName) -" + (currentUser.bio))
+//            Text(currentUser.UID)
             
             Divider()
             

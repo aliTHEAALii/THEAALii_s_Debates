@@ -11,6 +11,8 @@ struct UserLibraryTab: View {
     
     @AppStorage("current_user_uid") var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
     @State var currentUser: UserModel? = nil
+    @Environment(CurrentUser.self) var currentUserO
+    
     @State private var observingTIsIDs: [String] = []
     @State private var savedUsersUIDs: [String?] = []
     
@@ -154,13 +156,14 @@ struct UserLibraryTab: View {
                 }
                 Spacer()
             }
-            .task {
-                if currentUser == nil {
-                    do {
-                        currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
-                    } catch { print("❌ Error Couldn't get user for Library Tab❌") }
-                }
-            }
+//            .task {
+//                if currentUser == nil {
+//                    do {
+//                        currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
+//                    } catch { print("❌ Error Couldn't get user for Library Tab❌") }
+//                }
+//            }
+            .onAppear{ currentUser = currentUserO.userModel() }
             .onChange(of: currentUser) { _, _ in
                 guard let currentUser else { return }
                 observingTIsIDs = currentUser.observingTIsIDs
@@ -180,6 +183,8 @@ struct UserLibraryTab: View {
             do {
                 isLoading = true
                 try await UserManager.shared.updateObservingTIs(tiUID: tiID, currentUserUID: currentUserUID, addOrRemove: .remove)
+                
+                currentUserO.observingTIsIDs.remove(object: tiID)
                 observingTIsIDs.remove(object: tiID)
                 isLoading = false
             } catch {
@@ -197,7 +202,9 @@ struct UserLibraryTab: View {
             do {
                 isLoading = true
                 try await UserManager.shared.updateSavedUsers(currentUserUID: currentUserUID, userIdForArray: userUID, addOrRemove: .remove)
+                
                 savedUsersUIDs.remove(object: userUID)
+                currentUserO.savedUsersUIDs.remove(object: userUID)
                 isLoading = false
             } catch {
                 print("❌ Error Couldn't delete Ti from current User Saved TIs❌")

@@ -74,7 +74,7 @@ struct CCBottomBar: View {
         }
         .frame(width: width, height: width * 0.25)
         .onAppear{
-            notFollowingTi = ControlCenterViewModel().notFollowingTiFunc(currentUserUID: currentUserUID, ti: ti, currentUser: currentUser.returnCurrentUser()) }
+            notFollowingTi = ControlCenterViewModel().notFollowingTiFunc(currentUserUID: currentUserUID, ti: ti, currentUser: currentUser.userModel()) }
     }
     
     

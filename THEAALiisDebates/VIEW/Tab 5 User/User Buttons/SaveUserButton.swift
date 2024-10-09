@@ -11,7 +11,8 @@ import SwiftUI
 struct SaveUserButton: View {
     
     let user: UserModel
-    @State var currentUser: UserModel
+//    @State var currentUser: UserModel
+    @Environment(CurrentUser.self) var currentUser
     @AppStorage("current_user_uid"  ) var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
     @State private var showSavedUsersSheet = false
     @State private var userSaved = false
@@ -75,7 +76,7 @@ struct SaveUserButton: View {
         if userSaved {
             print("🍌 🫒 2 🫒 🍌")
             isLoading = true
-            try await UserManager.shared.updateSavedUsers(currentUserUID: currentUser.userUID ,userIdForArray: user.userUID, addOrRemove: (.remove))
+            try await UserManager.shared.updateSavedUsers(currentUserUID: currentUser.UID ,userIdForArray: user.userUID, addOrRemove: (.remove))
             
             print("🍌 🫒 saved user remove! 🫒 🍌")
             
@@ -86,7 +87,7 @@ struct SaveUserButton: View {
         } else {
             print("🍌 🫒 3 🫒 🍌")
             isLoading = true
-            try await UserManager.shared.updateSavedUsers(currentUserUID: currentUser.userUID ,userIdForArray: user.userUID ,addOrRemove: (!userSaved ? .add : .remove))
+            try await UserManager.shared.updateSavedUsers(currentUserUID: currentUser.UID ,userIdForArray: user.userUID ,addOrRemove: (!userSaved ? .add : .remove))
             print("🍌 🫒 saved user add! 🫒 🍌")
             
             currentUser.savedUsersUIDs.append(user.userUID)
@@ -109,6 +110,7 @@ struct SaveUserButton_Previews: PreviewProvider {
             userUID: "wow"
             //            imageURL: TestingImagesVideos().imageURLStringDesignnCode
         )
+        .environment(CurrentUser().self)
         //        UserFSC(user: <#UserModel?#>)
     }
 }

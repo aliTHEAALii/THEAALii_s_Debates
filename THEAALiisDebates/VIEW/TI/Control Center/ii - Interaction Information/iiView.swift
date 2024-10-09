@@ -113,7 +113,7 @@ struct iiView: View {
                 }
                 .preferredColorScheme(.dark)
                 .onAppear{
-                    notFollowingTi = ControlCenterViewModel().notFollowingTiFunc(currentUserUID: currentUserUID, ti: ti, currentUser: currentUser.returnCurrentUser()) }
+                    notFollowingTi = ControlCenterViewModel().notFollowingTiFunc(currentUserUID: currentUserUID, ti: ti, currentUser: currentUser.userModel()) }
             }
             .frame(width: width)
             

@@ -50,7 +50,7 @@ struct GoogleLoginButton: View {
 //            print("⚽️🦠 signed In")
 
             //MARK: - Current User O
-            currentUser.setCurrentUser(currentUser: vm.currentUser)
+            currentUser.setCurrentUser(fromUserModel: vm.currentUser)
             
             currentUserUID = vm.currentUserId ?? "no User ID"
             currentUserName = vm.currentUser?.displayName ?? "No Name"

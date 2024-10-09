@@ -180,6 +180,14 @@ struct TeamsSV: View {
                 
                 Divider()
                 
+                
+                //Current User
+                AddRemoveTeamMemberCell(ti: $ti,
+                                        leftTeam: $leftTeam,
+                                        rightTeam: $rightTeam,
+                                        savedUserUID: currentUser.UID, leftOrRight: leftOrRight!)
+                .padding(.top)
+                
                 //MARK: - Your saved users
                 Text("Your Saved Users")
                     .foregroundStyle(.white)
@@ -187,9 +195,10 @@ struct TeamsSV: View {
                 
                 //AddOrRemove Saved Users
 //                if currentUser != nil {
-                    Text(currentUser.UID ?? "no user yet")
+//                    Text(currentUser.UID)
 //                }
                 if !currentUser.savedUsersUIDs.isEmpty {
+
                     
                     ForEach(currentUser.savedUsersUIDs, id: \.self) { savedUserUID in
                         HStack {
@@ -328,7 +337,7 @@ struct AddRemoveTeamMemberCell: View {
     func editTeamMember(tiID: String, userUID: String, leftOrRight: LeftOrRight, addOrRemove: AddOrRemove) {
 
         guard  ti != nil else { return }
-        guard TiViewModel().isAdmin(ti: ti!, currentUserUID: currentUser.UID ?? "no user") else { print("🟠NOT Admin🟠"); return }
+        guard TiViewModel().isAdmin(ti: ti!, currentUserUID: currentUser.UID) else { print("🟠NOT Admin🟠"); return }
         
         if leftOrRight == .left {
             print("🟣 1")

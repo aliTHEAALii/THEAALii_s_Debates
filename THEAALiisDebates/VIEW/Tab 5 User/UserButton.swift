@@ -11,7 +11,9 @@ struct UserButton: View {
     
     @State var user: UserModel? = nil
     var userUID: String? = nil
+    var profilePicData: Data? = nil
     
+    //view layout
     var horizontalName = false
     var leftOrRightName: LeftOrRight? = nil
     var scale: CGFloat = 1

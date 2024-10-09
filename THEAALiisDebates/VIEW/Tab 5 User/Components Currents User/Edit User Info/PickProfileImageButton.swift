@@ -16,6 +16,7 @@ struct PickProfileImageButton: View {
     @AppStorage("current_user_uid") var currentUserUID: String = ""
     @AppStorage("user_Pic") var currentUserProfilePicData: Data?
     
+    @Environment(CurrentUser.self) var currentUserO
     @Binding var currentUser: UserModel
     @Binding var imageUrlString: String?
     //    @State var userName = ""
@@ -126,6 +127,9 @@ struct PickProfileImageButton: View {
                             self.imageUrlString = imageUrlString
                             isLoading = false
                         }
+                        
+                        currentUserO.profilePicData = imageData
+//                        currentUserProfilePicData = imageData
                         isLoading = false
                         
                     } catch {

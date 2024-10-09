@@ -9,10 +9,10 @@ import SwiftUI
 
 struct UserBioAndButtons: View {
     
-//    @Binding var currentUser: UserModel?
-    @Environment(CurrentUser.self) var currentUser
+    @Environment(CurrentUser.self) var currentUserO
+    @Binding var currentUser: UserModel?
     @Binding var userName: String
-    @State var bio: String
+    @Binding var bio: String
     @Binding var imageUrlString: String?
     
     var body: some View {
@@ -40,7 +40,6 @@ struct UserBioAndButtons_Previews: PreviewProvider {
     static var previews: some View {
         UserTabView()
             .environment(CurrentUser().self)
-
 
 //        UserBioAndButtons()
 //            .previewLayout(.sizeThatFits)

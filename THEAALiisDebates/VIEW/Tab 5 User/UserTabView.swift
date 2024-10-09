@@ -10,54 +10,41 @@ import SwiftUI
 //MARK: - User Tab View
 struct UserTabView: View {
     
-    @AppStorage("current_user_uid"  ) var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
+    @AppStorage("current_user_uid") var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
     @AppStorage("user_name" ) var currentUserName: String = ""
     @AppStorage("user_Pic"  ) var currentUserProfilePicData: Data?
     @AppStorage("log_status") var logStatus: Bool = false
     
-    @Environment(CurrentUser.self) var currentUser
+    @Environment(CurrentUser.self) var currentUserO
     
     @State private var userName: String = ""
-//    @State var currentUser: UserModel? = nil
+    @State var bio: String = ""
+
+    @State var currentUser: UserModel? = nil
     @State private var imageUrlString: String? = nil
     
-//    @Environment(\.dismiss) var dismiss
-//    @State var showImagePicker = false
-//    @State var photoItem: PhotosPickerItem?
     
     var body: some View {
         
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
                 
-                // - Pick Your Profile Pic
-//                PickProfileImageButton()
-//                .padding()
 
-//                if let currentUserProfilePicData, let image = UIImage(data: currentUserProfilePicData) {
-//                    
-//                    ImageView()
-//                    ZStack {
-//                        
-//                        Image(uiImage: image)
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fill)
-//                            .frame(width: width * 0.6, height: width * 0.6)
-//                            .clipShape(Circle())
-//                        
-//                        Circle()
-//                            .stroke()
-//                            .foregroundColor(.white)
-//                            .frame(width: width * 0.6, height: width * 0.6)
-//                    }
-//                    
-//                } else { PersonIcon() }
+                // - Your Profile Pic
                 ZStack {
-                    if imageUrlString != nil {
+                    if currentUserO.profilePicData != nil {
+                        Image(uiImage: UIImage(data: currentUserO.profilePicData!)!)
+                            .resizable()
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: width * 0.6, height: width * 0.6)
+                            .clipShape(Circle())
                         
+                    } else if imageUrlString != nil {
                         AsyncImage(url: URL(string: imageUrlString!)) { image in
                             
-                            image.resizable()
+                            image
+                                .resizable()
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: width * 0.6, height: width * 0.6)
@@ -73,8 +60,6 @@ struct UserTabView: View {
                         .frame(width: width * 0.6, height: width * 0.6)
                 }
                 .padding()
-//                .background(Color.gray.opacity(0.15))
-//                .frame(width: width * scale, height: width * 0.5625 * scale)
                 
                 
                 // - Name & Bio
@@ -100,7 +85,7 @@ struct UserTabView: View {
                 
                 // -Bio & Buttons
                 if currentUser != nil {
-                    UserBioAndButtons(currentUser: $currentUser, userName: $userName, bio: currentUser!.bio, imageUrlString: $imageUrlString)
+                    UserBioAndButtons(currentUser: $currentUser, userName: $userName, bio: $bio, imageUrlString: $imageUrlString)
                 }
                 
                 Divider()
@@ -115,14 +100,16 @@ struct UserTabView: View {
                         ForEach(0 ..< currentUser!.createdTIsIDs.count, id: \.self) { i in
                             
                             ZStack(alignment: .topLeading) {
-                                Text("\(i + 1)")
-                                    .font(.title)
                                 
                                 TiCard(ti: nil, tiID: currentUser!.createdTIsIDs[i])
+                                
+                                Text("\(i + 1)")
+                                    .font(.title)
                             }
                         }
                     }
                     
+                    //Bottom Space for scrollView()
                     Rectangle()
                         .frame(height: 50)
                         .foregroundStyle(.clear)
@@ -132,25 +119,43 @@ struct UserTabView: View {
                 Spacer()
             }
         }
-//        .task {
-//            do {
-//                currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
-//                userName = currentUser?.displayName ?? "No Name"
-//                imageUrlString = currentUser?.profileImageURLString
-//            } catch {
-//                print("❌ Error Couldn't get user for Library Tab❌")
-//                // Handle error gracefully, e.g., show an error message to the user
-//            }
-//        }
-
+        .onAppear {
+            currentUser = currentUserO.userModel()
+            
+            userName = currentUser?.displayName ?? "No Name"
+            bio = currentUser?.bio ?? "No Bio"
+            imageUrlString = currentUserO.profileImageURLString
+        }
+        .onChange(of: currentUserO.displayName) { oldValue, newValue in
+            currentUser = currentUserO.userModel()
+            
+            userName = currentUser?.displayName ?? "No Name"
+            bio = currentUser?.bio ?? "No Bio"
+            imageUrlString = currentUserO.profileImageURLString
+        }
+        .onChange(of: currentUser) { _, _ in
+            currentUserO.setCurrentUser(fromUserModel: currentUser)
+        }
+        .onChange(of: userName) { _, _ in
+            currentUserO.displayName = userName
+        }
+        .onChange(of: bio) { _, _ in
+            currentUserO.bio = bio
+        }
+        .onChange(of: imageUrlString) { _, _ in
+            currentUserO.profileImageURLString = imageUrlString
+        }
     }
 }
 
 struct UserTabView_Previews: PreviewProvider {
     static var previews: some View {
-        UserTabView()
+//        UserTabView()
+//            .environment(CurrentUser().self)
+//            .preferredColorScheme(.dark)
+        
+        TabsBar(selectedIndex: 4)
             .environment(CurrentUser().self)
-            .preferredColorScheme(.dark)
 
     }
 }
