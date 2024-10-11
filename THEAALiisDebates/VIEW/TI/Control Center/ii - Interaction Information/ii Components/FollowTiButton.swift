@@ -144,6 +144,7 @@ struct FollowTiButton: View {
 
 #Preview {
     TiView(ti: TestingModels().testTI1nil, showTiView: .constant(true))
+        .environment(CurrentUser().self)
 
 //    FollowTiButton()
 }

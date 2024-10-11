@@ -124,5 +124,6 @@ struct CCBottomBar: View {
 //    CCBottomBar()
     
     TiView(ti: TestingModels().testTI1nil, showTiView: .constant(true))
+        .environment(CurrentUser().self)
 
 }

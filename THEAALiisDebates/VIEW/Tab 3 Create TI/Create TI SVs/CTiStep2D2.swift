@@ -135,6 +135,7 @@ struct CTiStep2D2: View {
     //        rightUser: <#Binding<UserModel?>#>)
     
     CreateTI(showFSC: .constant(true), selectedTabIndex: .constant(2), indexStep: 1)
+        .environment(CurrentUser().self)
     
 }
 
@@ -329,8 +330,11 @@ struct CTiAddRemoveTeamMemberCell: View {
             
             Spacer()
             
-            
-            UserButton(userUID: savedUserUID, horizontalName: true)
+            if savedUserUID == currentUser?.userUID {
+                UserButton(user: currentUser, horizontalName: true)
+            } else {
+                UserButton(userUID: savedUserUID, horizontalName: true)
+            }
         }
     }
     

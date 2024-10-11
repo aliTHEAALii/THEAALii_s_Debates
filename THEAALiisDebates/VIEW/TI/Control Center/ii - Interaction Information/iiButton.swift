@@ -45,6 +45,7 @@ struct iiButton: View {
         .fullScreenCover(isPresented: $iiShowFSC) {
             VStack(spacing: 0) {
                 FSCHeaderSV(showFSC: $iiShowFSC, text: "Interaction Information")
+                
                 iiView(ti: $ti)
             }
         }

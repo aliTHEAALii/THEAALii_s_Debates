@@ -35,6 +35,7 @@ struct TiPostInfo: View {
                             
                             //Post Creator
                             UserButton(userUID: tiPost!.creatorUID)
+                                .frame(height: width * 0.15)
                             
                             //Comments
 //                            CommentsButton()
@@ -56,8 +57,8 @@ struct TiPostInfo: View {
                     }
                     
                     // - Side Sheet (Don't Delete)
-                    //                SideOptionsSheet(showSideSheet: $showSideOptions)
-                    //                    .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
+                    // SideOptionsSheet(showSideSheet: $showSideOptions)
+                    //     .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
                     SideSheet()
                 }
             } else {
@@ -72,11 +73,12 @@ struct TiPostInfo: View {
         }
     }
     
-    //Funcs
+    //Functions
 }
 
 #Preview {
     //    TiPostInfo()
     
     TiView(ti: TestingModels().testTI0, showTiView: .constant(true))
+        .environment(CurrentUser().self)
 }

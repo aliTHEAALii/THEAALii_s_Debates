@@ -122,9 +122,11 @@ struct iiView: View {
 }
 
 #Preview {
-    //    iiView(ti: .constant(TiViewModel().ti))
+        iiView(ti: .constant(TiViewModel().ti))
+        .environment(CurrentUser().self)
+
     
-    TiView(ti: nil, showTiView: .constant(true))
+//    TiView(ti: nil, showTiView: .constant(true))
 }
 
 

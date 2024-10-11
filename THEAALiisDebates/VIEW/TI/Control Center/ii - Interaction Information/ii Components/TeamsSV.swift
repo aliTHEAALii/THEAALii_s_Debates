@@ -81,9 +81,10 @@ struct TeamsSV: View {
                         }
                     }
                 }
-                .frame(width: width * 0.5)
+                .frame(width: width * 0.5, alignment: .top)//
                 
-                Divider()
+
+                
                 
                 //MARK: - Right Team
                 VStack {
@@ -137,11 +138,11 @@ struct TeamsSV: View {
                         }
                     }
                 }
-                .frame(width: width * 0.5)
+                .frame(width: width * 0.5, alignment: .top)
             }
             .padding(.vertical)
             .frame(height: viewHeight, alignment: .top)
-            //MARK: - FSC
+            
             .fullScreenCover(isPresented: $showEditTeamsFSC) {
                 FSCHeaderSV(showFSC: $showEditTeamsFSC, text: "Edit \(leftOrRight == .left ? "Left" : "Right") Team")
                 
@@ -279,8 +280,12 @@ struct TeamsSV: View {
     
 
 #Preview {
-    TiView(ti: nil, showTiView: .constant(true))
-        .environment(CurrentUser().self)
+    
+    iiView(ti: .constant(TiViewModel().ti))
+    .environment(CurrentUser().self)
+    
+//    TiView(ti: nil, showTiView: .constant(true))
+//        .environment(CurrentUser().self)
 }
 
 
@@ -328,8 +333,12 @@ struct AddRemoveTeamMemberCell: View {
             
             Spacer()
             
-            
-            UserButton(userUID: savedUserUID, horizontalName: true)
+            //User Button
+            if savedUserUID == currentUser.UID {
+                UserButton(user: currentUser.userModel(), horizontalName: true)
+            } else {
+                UserButton(userUID: savedUserUID, horizontalName: true)
+            }
         }
     }
     

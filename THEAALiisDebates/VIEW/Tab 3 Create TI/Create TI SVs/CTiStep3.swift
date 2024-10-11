@@ -46,6 +46,7 @@ struct CTiStep3: View {
     //    CTiStep3()
     
     CreateTI(showFSC: .constant(true), selectedTabIndex: .constant(2), indexStep: 2)
+        .environment(CurrentUser().self)
     
 }
 
