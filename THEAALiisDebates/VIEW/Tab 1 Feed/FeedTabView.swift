@@ -95,6 +95,7 @@ import FirebaseFirestoreSwift
 struct FeedTabView: View {
     
     @State var interactionsFeed: [TI] = []
+    @Bindable var feedVM: FeedViewModel
     
     @Environment(CurrentUser.self) var currentUser
     
@@ -113,15 +114,26 @@ struct FeedTabView: View {
             Divider()
             
             // Interactions Feed
-            ForEach(interactionsFeed, id: \.id) { ti in
-                TiCard(ti: ti)
-                    .onAppear {
-                        if ti == interactionsFeed.last {
-                            Task {
-                                await onAppearFetch()
+//            ForEach(interactionsFeed, id: \.id) { ti in
+            LazyVStack {
+                ForEach(feedVM.feed, id: \.id) { ti in
+                    
+                    TiCard(ti: ti)
+                    //                    .onAppear {
+                    //                        if ti == interactionsFeed.last {
+                    //                            Task {
+                    //                                await onAppearFetch()
+                    //                            }
+                    //                        }
+                    //                    }
+                        .onAppear {
+                            if ti == feedVM.feed.last {
+                                Task {
+                                    await feedVM.onAppearFetch()
+                                }
                             }
                         }
-                    }
+                }
             }
             
             // Bottom space for the scroll view
@@ -130,55 +142,66 @@ struct FeedTabView: View {
                 .frame(width: width, height: width * 0.5)
         }
         .preferredColorScheme(.dark)
-        .onAppear{ Task { await onAppearFetch() } }
+//        .onAppear{ Task { await onAppearFetch() } }
         .refreshable {
-            resetPagination()
-            Task { await onAppearFetch() }
+//            resetPagination()
+//            interactionsFeed.removeAll()
+//            Task { await onAppearFetch() }
+            //
+            feedVM.resetPagination()
+            feedVM.feed.removeAll()
+            Task { await feedVM.onAppearFetch() }
         }
+        .overlay { if isFetching { LoadingView() } }
     }
     
     //MARK: - Function
-    func onAppearFetch() async {
-        print("✅🟧🚪Entered Fetch: \(String(describing: lastDocument))🚪🟧✅")
-        guard !isFetching else { return }
-        isFetching = true
-        
-        do {
-            var query = Firestore.firestore()
-                .collection("THEAALii_Interactions")
-                .order(by: "ti_absolute_votes", descending: true)
-                .limit(to: pageSize)
-            
-            // If there is a last document, start the next fetch after that document
-            if let lastDoc = lastDocument {
-                query = query.start(afterDocument: lastDoc)
-            }
-            
-            let querySnapshot = try await query.getDocuments()
-            
-            let fetchedInteractions = querySnapshot.documents.compactMap { document in
-                try? document.data(as: TI.self)
-            }
-            
-            // Append new data to the existing feed
-            interactionsFeed.append(contentsOf: fetchedInteractions)
-            
-            // Update the lastDocument to the last fetched document
-            if let lastFetchedDocument = querySnapshot.documents.last {
-                lastDocument = lastFetchedDocument
-            }
-            
-        } catch {
-            print("Error fetching interactions: \(error)")
-        }
-        
-        isFetching = false
-    }
+//    func onAppearFetch() async {
+//        print("✅🟧🚪Entered Fetch: \(String(describing: lastDocument))🚪🟧✅")
+//        guard !isFetching else { return }
+//        isFetching = true
+//        
+//        do {
+//            var query = Firestore.firestore()
+//                .collection("THEAALii_Interactions")
+//                .order(by: "ti_absolute_votes", descending: true)
+//                .limit(to: pageSize)
+//            
+//            // If there is a last document, start the next fetch after that document
+//            if let lastDoc = lastDocument {
+//                query = query.start(afterDocument: lastDoc)
+//            }
+//            
+//            let querySnapshot = try await query.getDocuments()
+//            
+//            let fetchedInteractions = querySnapshot.documents.compactMap { document in
+//                try? document.data(as: TI.self)
+//            }
+//            
+//            // Append new data to the existing feed
+//            interactionsFeed.append(contentsOf: fetchedInteractions)
+//            
+//            isFetching = false
+//            
+//            // Update the lastDocument to the last fetched document
+//            if let lastFetchedDocument = querySnapshot.documents.last {
+//                lastDocument = lastFetchedDocument
+//            }
+//            
+//            isFetching = false
+//            
+//        } catch {
+//            print("Error fetching interactions: \(error)")
+//            isFetching = false
+//        }
+//        
+//        isFetching = false
+//    }
     
-    func resetPagination() {
-        lastDocument = nil
-        interactionsFeed.removeAll()
-    }
+//    func resetPagination() {
+//        lastDocument = nil
+//        interactionsFeed.removeAll()
+//    }
 }
 
 struct FeedTabView_Previews: PreviewProvider {

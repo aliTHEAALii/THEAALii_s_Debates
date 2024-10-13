@@ -6,71 +6,127 @@
 //
 
 import Foundation
+import Observation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-@MainActor
-final class FeedViewModel: ObservableObject {
+@Observable
+final class FeedViewModel {
     
-    @Published var TITs: [TIModel] = []
-    @Published var loading: Bool = false
+    var feed: [TI] = []
+    
+    //Pagination Properties
+    var lastDocument: DocumentSnapshot? = nil
+    var isFetching = false
+    let pageSize = 3 // Number of documents per page
+    
+    
+    
+    func onAppearFetch() async {
+        print("✅🌞1🚪Entered Feed Fetch . Last Document: \(String(describing: lastDocument))🚪1🌞✅")
+        print("🌞 FEED COUNT: -[ \(feed.count) ]-, Last Ti TITLE: \(feed.last?.title ?? "NIL Title") 🌞")
+        guard !isFetching else { return }
+        isFetching = true
+        print("✅🌞2🔽Fetching Feed . Last Document: \(String(describing: lastDocument))🔽2🌞✅")
+        
+        do {
+            var query = Firestore.firestore()
+                .collection("THEAALii_Interactions")
+                .order(by: "ti_absolute_votes", descending: true)
+                .limit(to: pageSize)
+            
+            // If there is a last document, start the next fetch after that document
+            if let lastDoc = lastDocument {
+                query = query.start(afterDocument: lastDoc)
+            }
+            
+            let querySnapshot = try await query.getDocuments()
+            
+            let fetchedTHEAALii_sInteractions = querySnapshot.documents.compactMap { document in
+                try? document.data(as: TI.self)
+            }
+            
+            // Append new data to the existing feed
+            feed.append( contentsOf: fetchedTHEAALii_sInteractions )
+            
+            isFetching = false
+            
+            // Update the lastDocument to the last fetched document
+            if let lastFetchedDocument = querySnapshot.documents.last {
+                lastDocument = lastFetchedDocument
+            }
+            
+            isFetching = false
+            
+        } catch {
+            print("Error fetching interactions: \(error)")
+            isFetching = false
+        }
+        
+        isFetching = false
+    }
+    
+    func resetPagination() {
+        lastDocument = nil
+        feed.removeAll()
+    }
     
     
 //    init() { Task { try await fetchTITs() } }
     
     
-    func fetchTITs() async throws {
-        
-        TITs.removeAll()
-        loading = true
-        
-        let TITsRef: CollectionReference = Firestore.firestore().collection("Interactions")
-        
-        let snapshot = try await TITsRef.getDocuments()
-        
-        for document in snapshot.documents {
-            let TIT = try document.data(as: TIModel.self)
-            TITs.append(TIT)
-        }
-        
-        loading = false
-    }
+//    func fetchTITs() async throws {
+//        
+//        interactionsFeed.removeAll()
+//        loading = true
+//        
+//        let TITsRef: CollectionReference = Firestore.firestore().collection("Interactions")
+//        
+//        let snapshot = try await TITsRef.getDocuments()
+//        
+//        for document in snapshot.documents {
+//            let ti = try document.data(as: TI.self)
+//            interactionsFeed.append(ti)
+//        }
+//        
+//        loading = false
+//    }
     
-    func fetchTIs(completion: @escaping (_ tiFeed: [TI] ) -> Void ) async throws {
-        
-        var tiArray: [TI] = []
-        
-        let tiRef: CollectionReference = Firestore.firestore().collection("THEAALii_Interactions")
-        
-        do {
-            let snapshot = try await tiRef.getDocuments()
-            print("snapshot count = \(snapshot.count)" + " ✅✅🚪🔥🐤🦁")
-//            print(snapshot)
-            
-            for document in snapshot.documents {
-                print("snapshot count = \(111)" + " ✅✅🚪🔥🐤🦁")
-                
-//                print(document)
-//                let tipartial = try document.data(as: TIPartial.self)
-//                print(tipartial)
-                print("snapshot count = \(222)" + " ✅✅🚪🔥🐤🦁")
-
-                let ti = try document.data(as: TI.self)
-
+//    func fetchTIs(completion: @escaping (_ tiFeed: [TI] ) -> Void ) async throws {
+//        
+//        var tiArray: [TI] = []
+//        
+//        let tiRef: CollectionReference = Firestore.firestore().collection("THEAALii_Interactions")
+//        
+//        do {
+//            let snapshot = try await tiRef.getDocuments()
+//            print("snapshot count = \(snapshot.count)" + " ✅✅🚪🔥🐤🦁")
+////            print(snapshot)
+//            
+//            for document in snapshot.documents {
+//                print("snapshot count = \(111)" + " ✅✅🚪🔥🐤🦁")
+//                
+////                print(document)
+////                let tipartial = try document.data(as: TIPartial.self)
+////                print(tipartial)
 //                print("snapshot count = \(222)" + " ✅✅🚪🔥🐤🦁")
-                
-                tiArray.append(ti)
-                print("snapshot count = \(333)" + " ✅✅🚪🔥🐤🦁")
-                
-            }
-        } catch {
-            completion(tiArray)
-            print(error)
-        }
-        
-        completion(tiArray)
-        
-    }
+//
+//                let ti = try document.data(as: TI.self)
+//
+////                print("snapshot count = \(222)" + " ✅✅🚪🔥🐤🦁")
+//                
+//                tiArray.append(ti)
+//                print("snapshot count = \(333)" + " ✅✅🚪🔥🐤🦁")
+//                
+//            }
+//        } catch {
+//            completion(tiArray)
+//            print(error)
+//        }
+//        
+//        completion(tiArray)
+//        
+//    }
 }
 
 //

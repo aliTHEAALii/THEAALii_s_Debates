@@ -141,6 +141,13 @@ import Observation
     var savedUsersUIDs:     [String] = []
     var observingTIsIDs  :     [String]  = []
     
+    //fetched
+    
+    var createdTIs: [TI] = []
+    
+    var savedUsers: [UserModel] = []
+    var observingTIs: [TI] = []
+    
     init(currentUser: UserModel?) {
         setCurrentUser(fromUserModel: currentUser)
     }
@@ -158,13 +165,12 @@ import Observation
 
         #endif
     }
-
     
     func fetchCurrentUser(currentUserUID: String?) async  {
-        guard currentUserUID != nil else { return }
+        guard let currentUserUID else { return }
         Task {
             do {
-                let user = try await UserManager.shared.getUser(userId: currentUserUID!)
+                let user = try await UserManager.shared.getUser(userId: currentUserUID)
                 setCurrentUser(fromUserModel: user)
 //                await updateProfilePicData(imageData: nil, urlString: user?.profileImageURLString)
                 await setProfilePicData()

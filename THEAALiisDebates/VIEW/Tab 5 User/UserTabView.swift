@@ -97,14 +97,19 @@ struct UserTabView: View {
                 ScrollView(showsIndicators: false) {
                     if currentUser != nil {
                         
-                        ForEach(0 ..< currentUser!.createdTIsIDs.count, id: \.self) { i in
-                            
-                            ZStack(alignment: .topLeading) {
+                        
+                        
+                        //Current User's Created TI's
+                        LazyVStack {
+                            ForEach(0 ..< currentUser!.createdTIsIDs.count, id: \.self) { i in
                                 
-                                TiCard(ti: nil, tiID: currentUser!.createdTIsIDs[i])
-                                
-                                Text("\(i + 1)")
-                                    .font(.title)
+                                ZStack(alignment: .topLeading) {
+                                    
+                                    TiCard(ti: nil, tiID: currentUser!.createdTIsIDs[i])
+                                    
+                                    Text("\(i + 1)")
+                                        .font(.title)
+                                }
                             }
                         }
                     }

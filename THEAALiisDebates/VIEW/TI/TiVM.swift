@@ -9,7 +9,8 @@ import Foundation
 
 final class TiViewModel: ObservableObject {
     
-    @Published var ti: TI = TestingModels().testTId2
+    @Published var ti: TI? = nil
+    @Published var post: Post? = nil
     
     init() {
 //        fetchTestTi { ti in

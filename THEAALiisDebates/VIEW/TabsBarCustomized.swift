@@ -35,7 +35,8 @@ struct TabsBarCustomized: View {
                 switch selectedIndex {
                 case 0 :
 //                    FeedTabView(showTITView: $showDebateView)
-                    FeedTab()
+//                    FeedTab()
+                    Text("feed old")
                     
                 case 1 :
 //                    TITView(showDebateView: $showDebateView, isMiniPlayer: $isMiniPlayer)
@@ -54,7 +55,8 @@ struct TabsBarCustomized: View {
                     UserTabView()
                     
                 default :
-                    FeedTabView()
+//                    FeedTabView()
+                    Text("Default View")
                 }
                 
                 //MARK: - Debate View (& mini Player)

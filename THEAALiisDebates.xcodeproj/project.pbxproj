@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F059F212CB9C49E00EA74DF /* TiViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F059F202CB9C49E00EA74DF /* TiViewViewModel.swift */; };
 		2F12323B2C075045009481D8 /* TiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F12323A2C075045009481D8 /* TiView.swift */; };
 		2F12323D2C0A61E4009481D8 /* ChainLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F12323C2C0A61E4009481D8 /* ChainLink.swift */; };
 		2F1232412C10D773009481D8 /* TiPostInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1232402C10D773009481D8 /* TiPostInfo.swift */; };
@@ -58,7 +59,6 @@
 		2F690C692BC0BD7E00A31760 /* TITChainLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C682BC0BD7E00A31760 /* TITChainLink.swift */; };
 		2F690C6B2BC0BD9900A31760 /* TI Model & Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C6A2BC0BD9900A31760 /* TI Model & Manager.swift */; };
 		2F690C6D2BC0BDAF00A31760 /* DebateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C6C2BC0BDAF00A31760 /* DebateModel.swift */; };
-		2F690C702BC0BE4300A31760 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C6F2BC0BE4300A31760 /* UserViewModel.swift */; };
 		2F690C722BC0BE5E00A31760 /* TITViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C712BC0BE5E00A31760 /* TITViewModel.swift */; };
 		2F690C742BC1775000A31760 /* TestingComponentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C732BC1775000A31760 /* TestingComponentsManager.swift */; };
 		2F690C772BC177C600A31760 /* TI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C762BC177C600A31760 /* TI.swift */; };
@@ -115,7 +115,6 @@
 		2F690D112BC1D9EA00A31760 /* CreateTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D102BC1D9EA00A31760 /* CreateTI.swift */; };
 		2F690D182BC6738E00A31760 /* D1Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D172BC6738E00A31760 /* D1Icon.swift */; };
 		2F690D202BCAD57700A31760 /* Pick User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D1F2BCAD57700A31760 /* Pick User.swift */; };
-		2F690D232BCB000200A31760 /* NewUserButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D222BCB000200A31760 /* NewUserButton.swift */; };
 		2F690D252BCCC3D400A31760 /* FSCHeaderSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D242BCCC3D400A31760 /* FSCHeaderSV.swift */; };
 		2F690D292BD47E0E00A31760 /* EditTIAdminsSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D282BD47E0E00A31760 /* EditTIAdminsSV.swift */; };
 		2F6CA3DD2C1E36BE003EF603 /* CCAddToChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6CA3DC2C1E36BE003EF603 /* CCAddToChain.swift */; };
@@ -154,6 +153,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F059F202CB9C49E00EA74DF /* TiViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiViewViewModel.swift; sourceTree = "<group>"; };
 		2F12323A2C075045009481D8 /* TiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiView.swift; sourceTree = "<group>"; };
 		2F12323C2C0A61E4009481D8 /* ChainLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainLink.swift; sourceTree = "<group>"; };
 		2F1232402C10D773009481D8 /* TiPostInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiPostInfo.swift; sourceTree = "<group>"; };
@@ -201,7 +201,6 @@
 		2F690C682BC0BD7E00A31760 /* TITChainLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TITChainLink.swift; sourceTree = "<group>"; };
 		2F690C6A2BC0BD9900A31760 /* TI Model & Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TI Model & Manager.swift"; sourceTree = "<group>"; };
 		2F690C6C2BC0BDAF00A31760 /* DebateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateModel.swift; sourceTree = "<group>"; };
-		2F690C6F2BC0BE4300A31760 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		2F690C712BC0BE5E00A31760 /* TITViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TITViewModel.swift; sourceTree = "<group>"; };
 		2F690C732BC1775000A31760 /* TestingComponentsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingComponentsManager.swift; sourceTree = "<group>"; };
 		2F690C762BC177C600A31760 /* TI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TI.swift; sourceTree = "<group>"; };
@@ -258,7 +257,6 @@
 		2F690D102BC1D9EA00A31760 /* CreateTI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTI.swift; sourceTree = "<group>"; };
 		2F690D172BC6738E00A31760 /* D1Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D1Icon.swift; sourceTree = "<group>"; };
 		2F690D1F2BCAD57700A31760 /* Pick User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pick User.swift"; sourceTree = "<group>"; };
-		2F690D222BCB000200A31760 /* NewUserButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserButton.swift; sourceTree = "<group>"; };
 		2F690D242BCCC3D400A31760 /* FSCHeaderSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCHeaderSV.swift; sourceTree = "<group>"; };
 		2F690D282BD47E0E00A31760 /* EditTIAdminsSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTIAdminsSV.swift; sourceTree = "<group>"; };
 		2F6CA3DC2C1E36BE003EF603 /* CCAddToChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCAddToChain.swift; sourceTree = "<group>"; };
@@ -471,7 +469,6 @@
 		2F690C6E2BC0BE0900A31760 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
-				2F690C6F2BC0BE4300A31760 /* UserViewModel.swift */,
 				2F690C712BC0BE5E00A31760 /* TITViewModel.swift */,
 			);
 			path = "View Model";
@@ -521,13 +518,12 @@
 			isa = PBXGroup;
 			children = (
 				2F690C8B2BC17CF200A31760 /* UserTabView.swift */,
+				2F2F8BEA2CB43D6100D1D91B /* CurrentUser.swift */,
 				2F690C9B2BC17E6700A31760 /* UserButton.swift */,
 				2FD05ECE2C9A88EF0082C277 /* UserFunctions.swift */,
 				2F690C9D2BC17E7C00A31760 /* UserFSC.swift */,
 				2F690C8D2BC17D1000A31760 /* Components Currents User */,
-				2F690D212BCAFFCB00A31760 /* New User View */,
 				2FD05ED02C9A96070082C277 /* User Buttons */,
-				2F2F8BEA2CB43D6100D1D91B /* CurrentUser.swift */,
 			);
 			path = "Tab 5 User";
 			sourceTree = "<group>";
@@ -569,6 +565,7 @@
 				2F690CCE2BC1906E00A31760 /* AddVideoFSC.swift */,
 				2F690CB12BC1883100A31760 /* Response List */,
 				2F4F87902C3AE4B50018D2A5 /* TiCard.swift */,
+				2F059F202CB9C49E00EA74DF /* TiViewViewModel.swift */,
 			);
 			path = TI;
 			sourceTree = "<group>";
@@ -662,14 +659,6 @@
 				2F3534112BE0877800DE5E7A /* Create TI Components */,
 			);
 			path = "Create TI SVs";
-			sourceTree = "<group>";
-		};
-		2F690D212BCAFFCB00A31760 /* New User View */ = {
-			isa = PBXGroup;
-			children = (
-				2F690D222BCB000200A31760 /* NewUserButton.swift */,
-			);
-			path = "New User View";
 			sourceTree = "<group>";
 		};
 		2F6CA3D62C1A9ABF003EF603 /* Control Center */ = {
@@ -833,7 +822,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F690C592BC09D3A00A31760 /* Image Manager.swift in Sources */,
-				2F690C702BC0BE4300A31760 /* UserViewModel.swift in Sources */,
 				2F3534022BD8AEC800DE5E7A /* CreateTIViewModel.swift in Sources */,
 				2F690D252BCCC3D400A31760 /* FSCHeaderSV.swift in Sources */,
 				2F690CCF2BC1906E00A31760 /* AddVideoFSC.swift in Sources */,
@@ -874,7 +862,6 @@
 				2F6CA3EC2C22BA5D003EF603 /* iiButton.swift in Sources */,
 				2FA063552C5430FF00DCE5CC /* VerticalListControlBar.swift in Sources */,
 				2F690CF02BC1937300A31760 /* TabsBarCustomized.swift in Sources */,
-				2F690D232BCB000200A31760 /* NewUserButton.swift in Sources */,
 				2F6CA3E52C227B99003EF603 /* EnterDescriptionButton.swift in Sources */,
 				2F690C5B2BC09D7500A31760 /* Globals.swift in Sources */,
 				2FD05EC92C8B8B560082C277 /* PostVotesModel.swift in Sources */,
@@ -960,6 +947,7 @@
 				2F690CBD2BC18EA200A31760 /* TIViewOld.swift in Sources */,
 				2F690C9E2BC17E7C00A31760 /* UserFSC.swift in Sources */,
 				2F690C9C2BC17E6700A31760 /* UserButton.swift in Sources */,
+				2F059F212CB9C49E00EA74DF /* TiViewViewModel.swift in Sources */,
 				2F6CA3E92C22B885003EF603 /* ControlCenter.swift in Sources */,
 				2FA063572C54957600DCE5CC /* TiPostContentView.swift in Sources */,
 				2F690C862BC1799D00A31760 /* CommentsButton.swift in Sources */,

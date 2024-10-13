@@ -14,6 +14,7 @@ struct TiView: View {
     @Environment(CurrentUser.self) var currentUser
 
     @State var ti: TI?
+    @State var tiVM = TiViewModel()
     @State private var tiChain: [String] = []
     @State private var selectedChainLinkIndex: Int = 0
     @State private var tiChainLink: ChainLink? = nil
@@ -30,7 +31,9 @@ struct TiView: View {
         
         VStack(spacing: 0) {
             
-            FSCHeaderSV(showFSC: $showTiView, text: ti?.title ?? "Couldn't get Ti")
+//            FSCHeaderSV(showFSC: $showTiView, text: ti?.title ?? "Couldn't get Ti")
+            FSCHeaderSV(showFSC: $showTiView, text: vmTi.ti?.title ?? "Couldn't get Ti")
+
             
             // - Video
             if tiPost != nil {
@@ -62,7 +65,9 @@ struct TiView: View {
                     ControlCenter(ti: $ti, tiChain: $tiChain, selectedChainLink: $selectedChainLinkIndex)
                     
                     //Add Intro Video Button
-                    if ti != nil, tiPost != nil {
+//                    if ti != nil, tiPost != nil {
+                    if vmTi.ti != nil, tiPost != nil {
+
                         if showPickIntroPostVideoButton {
                             PickIntroVideoButton(tiID: ti!.id, introPost: $tiPost)
                                 .padding()
@@ -85,27 +90,34 @@ struct TiView: View {
     //MARK: - Functions
     private func onAppearFetch() {
         
+        vmTi.ti = ti
+        tiVM.ti = ti
+        
         tiChain = vmCC.tiChain(ti: ti)
         selectedChainLinkIndex = vmCC.introPostIndex(ti: ti)
         getChainLink()
         fetchTiPost()
         
-#if DEBUG
-        TIManager.shared.getTi(tiID: TestingModels().tiFromDBID2) { result in
-            switch result {
-            case .success(let gottenTi):
-                ti = gottenTi
-                tiChain = vmCC.tiChain(ti: ti)
-                selectedChainLinkIndex = vmCC.introPostIndex(ti: ti)
-                getChainLink()
-                fetchTiPost()
-                
-            case .failure(_):
-                ti = nil
-                tiPost = nil
-            }
-        }
-#endif
+//#if DEBUG
+//        TIManager.shared.getTi(tiID: TestingModels().tiFromDBID2) { result in
+//            switch result {
+//            case .success(let gottenTi):
+//                ti = gottenTi
+//                vmTi.ti = gottenTi
+//                tiO.ti = gottenTi
+//                tiChain = vmCC.tiChain(ti: ti)
+//                selectedChainLinkIndex = vmCC.introPostIndex(ti: ti)
+//                getChainLink()
+//                fetchTiPost()
+//                
+//            case .failure(_):
+//                ti = nil
+//                vmTi.ti = nil
+//                tiO.ti = nil
+//                tiPost = nil
+//            }
+//        }
+//#endif
         
         
     }

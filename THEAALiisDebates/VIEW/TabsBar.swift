@@ -12,6 +12,9 @@ struct TabsBar: View {
     let icons = ["triangle", "magnifyingglass", "plus", "line.3.horizontal", "person"]
     
     @Environment(CurrentUser.self) var currentUser
+    
+    @State var feedVM = FeedViewModel()
+
 
     @State var selectedIndex = 0
     
@@ -26,7 +29,7 @@ struct TabsBar: View {
             
             case 0 :
                 
-                FeedTabView()
+                FeedTabView(feedVM: feedVM)
                 
             case 1 :
                 
@@ -44,7 +47,7 @@ struct TabsBar: View {
                 
                 
             default :
-                FeedTabView()
+                FeedTabView(feedVM: feedVM)
             }
             
             //Debate View (& mini Player)
@@ -96,6 +99,8 @@ struct TabsBar: View {
         }
         //        .frame(width: width, height: height, alignment: .bottom)
         .preferredColorScheme(.dark)
+        .onAppear{ Task { await feedVM.onAppearFetch() } }
+
     }
 }
 

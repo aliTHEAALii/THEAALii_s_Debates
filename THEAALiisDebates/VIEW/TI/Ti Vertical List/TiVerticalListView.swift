@@ -54,7 +54,8 @@ struct TiVerticalListView: View {
                 // MARK: - Vertical List
                 if !verticalListPosts.isEmpty {
                     ScrollView {
-//                        LazyVStack {
+                        
+                        LazyVStack {
                             ForEach(Array(zip(verticalListPosts.indices, verticalListPosts)), id: \.1.id) { index, post in
                                 VotingPostCard(
                                     postID: post.id,
@@ -71,7 +72,7 @@ struct TiVerticalListView: View {
                                     }
                                 }
                             }
-//                        }
+                        }
                     }
                 }
             } else { ProgressView() }

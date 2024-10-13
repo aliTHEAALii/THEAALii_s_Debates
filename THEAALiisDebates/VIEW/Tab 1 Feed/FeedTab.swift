@@ -8,33 +8,33 @@
 import SwiftUI
 
 //MARK: Feed Tab
-struct FeedTab: View {
-    
-    @StateObject var feedVM: FeedViewModel = FeedViewModel()
-    
-    var body: some View {
-        
-        ScrollView(showsIndicators: true) {
-            
-            //TODO: Add Intro Video
-            LazyVStack {
-                ForEach(feedVM.TITs, id: \.id) { tit in
-                    
-                    FeedCard(tit: tit)
-                }
-            }
-        }
-        .refreshable { Task { try await feedVM.fetchTITs() } } //fetching
-        .overlay { if feedVM.loading { LoadingView()   } } //loading
-    }
-}
+//struct FeedTab: View {
+//    
+//    @StateObject var feedVM: FeedViewModel = FeedViewModel()
+//    
+//    var body: some View {
+//        
+//        ScrollView(showsIndicators: true) {
+//            
+//            //TODO: Add Intro Video
+//            LazyVStack {
+//                ForEach(feedVM.TITs, id: \.id) { tit in
+//                    
+//                    FeedCard(tit: tit)
+//                }
+//            }
+//        }
+//        .refreshable { Task { try await feedVM.fetchTITs() } } //fetching
+//        .overlay { if feedVM.loading { LoadingView()   } } //loading
+//    }
+//}
 
-struct FeedTab_Previews: PreviewProvider {
-    static var previews: some View {
-        FeedTab()
-            .preferredColorScheme(.dark)
-    }
-}
+//struct FeedTab_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FeedTab()
+//            .preferredColorScheme(.dark)
+//    }
+//}
 
 //MARK: - Feed Card
 struct FeedCard: View {
