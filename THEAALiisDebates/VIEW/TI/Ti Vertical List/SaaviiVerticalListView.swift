@@ -8,7 +8,7 @@
 import SwiftUI
 import FirebaseFirestore
 
-struct TiVerticalListView: View {
+struct SaaviiVerticalListView: View {
     
     @AppStorage("current_user_uid") var currentUserUID: String = "ooo"
 
